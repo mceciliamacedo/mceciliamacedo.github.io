@@ -1,0 +1,7 @@
+---
+title: "projetos"
+listing:
+  contents: posts
+  type: default
+  categories: true
+---

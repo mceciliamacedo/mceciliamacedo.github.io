@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "maria cecilia macedo"
+  navbar:
+    left:
+      - href: index.qmd
+        text: início
+      - href: projetos.qmd
+        text: projetos
+      - href: coisas_legais.qmd
+        text: algumas coisas
+  
+  favicon: tubarao_dentuco.jpg
+
+format:
+  html:
+    theme: solar
+    css: styles.css
+    toc: true
+    lang: pt
+
+editor: source
