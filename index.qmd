@@ -14,6 +14,10 @@ about:
     href: mailto:mariacecilia.macedo22@gmail.com
 ---
 
-## um pouco sobre mim 
+## sobre mim 
 
-olá! me chamo maria cecília e curso estatística na universidade federal de uberlândia desde 2021. 
+olá! me chamo maria cecília e curso estatística na universidade federal de uberlândia. ao longo dos períodos comecei a ter bastante interesse nas áreas de machine learning e data science.
+
+uso principalpente a liguagem r, mas tenho interesse de aprender outras linguagens.
+
+eu não sei mais o que escreveeer
