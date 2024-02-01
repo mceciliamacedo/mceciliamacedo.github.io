@@ -10,8 +10,7 @@ website:
         text: início
       - href: projetos.qmd
         text: projetos
-      - href: coisas_legais.qmd
-        text: algumas coisas
+      
   
   favicon: tubarao_dentuco.jpg
 

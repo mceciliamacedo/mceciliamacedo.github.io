@@ -16,10 +16,11 @@ about:
 
 ## sobre mim 
 
-olá! me chamo maria cecília e curso estatística na universidade federal de uberlândia. ao longo dos períodos comecei a ter bastante interesse nas áreas de machine learning e data science.
+olá! me chamo maria cecília, atualmente estou cursando estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.
 
-uso principalpente a liguagem r, mas tenho interesse de aprender outras linguagens.
+minha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância na área que escolhi para atuar.
 
-eu não sei mais o que escreveeer
+meu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento
 
-AAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHH
+sinta-se à vontade para explorar e entrar em contato comigo!
+
