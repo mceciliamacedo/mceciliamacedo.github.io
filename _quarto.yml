@@ -18,7 +18,7 @@ website:
 
 format:
   html:
-    theme: solar
+    theme: superhero
     css: styles.css
     toc: true
     lang: pt
