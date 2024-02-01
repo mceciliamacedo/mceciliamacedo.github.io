@@ -1,0 +1,9 @@
+---
+title: "web scraping - stardew valley"
+image: stardewvalley_logo.jpg
+categories: ["r", "web scraping", "em andamento"]
+description: raspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los.
+date: "2025"
+date-format: YYYY
+---
+

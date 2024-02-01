@@ -8,7 +8,7 @@ website:
     left:
       - href: index.qmd
         text: início
-      - href: formacao.qmd
+      - href: experiencia.qmd
         text: experiência
       - href: projetos.qmd
         text: projetos

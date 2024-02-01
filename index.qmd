@@ -1,10 +1,10 @@
 ---
 title: "maria cecília"
 about:
-  image: foto_teste.jpg
+  image: eu.jpg
   template: jolla
   image-shape: rounded
-  image-width: 15em 
+  image-width: 22em 
   links:
   - icon: github
     text: github
