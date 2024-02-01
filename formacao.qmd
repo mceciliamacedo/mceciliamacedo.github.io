@@ -1,10 +1,10 @@
 ---
-title: "formacao"
+title: ""
 ---
 
 ## experiência acadêmica
 
-*Universidade Federal de Uberlândia*
+#### Universidade Federal de Uberlândia
 
-Bacharelado em Estatística | Novembro 2021 - presente
+*Bacharelado em Estatística | Novembro 2021 - presente*
 
