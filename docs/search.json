@@ -25,14 +25,14 @@
     "href": "projetos.html",
     "title": "projetos",
     "section": "",
-    "text": "cogumelos\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
+    "text": "cogumelos\n\n\n\n\n\n\n\nr\n\n\nmachine learning\n\n\nconcluído\n\n\n\n\ntrabalho final da matéria optativa \"métodos matemáticos\" com enfoque em aprendizado de máquina realizado em grupo\n\n\n\n\n\n\n1 de nov. de 2023\n\n\nElisa Kaori, Giulia Gonzaga, Maria Cecília Macedo\n\n\n\n\n\n\n  \n\n\n\n\nweb scraping - stardew valley\n\n\n\n\n\n\n\nr\n\n\nweb scraping\n\n\nem andamento\n\n\n\n\nraspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los.\n\n\n\n\n \n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "posts/projeto1.html",
     "href": "posts/projeto1.html",
-    "title": "projeto1",
+    "title": "web scraping - stardew valley",
     "section": "",
-    "text": "teste"
+    "text": "raspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los."
   },
   {
     "objectID": "index.html#sobre-mim",
@@ -54,5 +54,12 @@
     "title": "maria cecilia macedo",
     "section": "",
     "text": "Bacharelado em Estatística | Novembro 2021 - presente"
+  },
+  {
+    "objectID": "posts/projeto2.html",
+    "href": "posts/projeto2.html",
+    "title": "cogumelos",
+    "section": "",
+    "text": "trabalho final da matéria optativa “métodos matemáticos” com enfoque em aprendizado de máquina realizado em grupo"
   }
 ]

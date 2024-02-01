@@ -1,0 +1,10 @@
+---
+title: "cogumelos"
+image: cogumelo.jpeg
+categories: ["r", "machine learning", "concluído"]
+description: trabalho final da matéria optativa \"métodos matemáticos\" com enfoque em aprendizado de máquina realizado em grupo
+author: "Elisa Kaori, Giulia Gonzaga, Maria Cecília Macedo"
+date: "Novembro de 2023"
+date-format: MM/YYYY
+---
+
