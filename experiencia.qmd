@@ -8,3 +8,19 @@ title: ""
 
 *Bacharelado em Estatística | Novembro 2021 - presente*
 
+### projetos e atividades:
+
+#### PET Estatística
+
+No Programa de Educação Tutorial (PET), realizamos atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
+
+Algumas habilidades que aprendi e desenvolvi dentro do programa: 
+
+* ***palestras e apresentações*** - ministrei minicursos e realizei apresentações de temas variados.
+
+* ***web scraping*** - aprendi a coletar dados da internet e hoje aplico essa técnica em diversos projetos.
+
+* ***análise de dados*** - aprendi a utilizar diversas ferramentas para análise de dados, como R e criação de dashboards.
+
+#### Iniciação Científica
+Participei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: *"Urnas de Pólya - uma visão introdutória"*. E apresentei o projeto na *II Reunião Mineira de Matemática* da UFMG.

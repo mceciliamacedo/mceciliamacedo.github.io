@@ -3,7 +3,12 @@
     "listing": "/projetos.html",
     "items": [
       "/posts/cogumelos.html",
+      "/posts/dashboard_pinguim.html",
       "/posts/stardew_valley.html"
     ]
+  },
+  {
+    "listing": "/aba_teste.html",
+    "items": []
   }
 ]

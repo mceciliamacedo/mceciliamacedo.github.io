@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "maria cecília",
     "section": "",
-    "text": "olá! me chamo maria cecília, atualmente estou cursando estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.\nminha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância na área que escolhi para atuar.\nmeu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento\nsinta-se à vontade para explorar e entrar em contato comigo!"
+    "text": "olá! me chamo maria cecília, atualmente curso estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.\nminha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância no mercado de trabalho e nas áreas que me interessei.\nmeu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento.\nsinta-se à vontade para explorar e entrar em contato comigo!"
   },
   {
     "objectID": "index.html#um-pouco-sobre-mim",
@@ -25,7 +25,7 @@
     "href": "projetos.html",
     "title": "projetos",
     "section": "",
-    "text": "cogumelos\n\n\n\n\n\n\n\nr\n\n\nmachine learning\n\n\nconcluído\n\n\n\n\ntrabalho final da matéria optativa \"métodos matemáticos\" com enfoque em aprendizado de máquina realizado em grupo\n\n\n\n\n\n\n1 de nov. de 2023\n\n\nElisa Kaori, Giulia Gonzaga, Maria Cecília Macedo\n\n\n\n\n\n\n  \n\n\n\n\nweb scraping - stardew valley\n\n\n\n\n\n\n\nr\n\n\nweb scraping\n\n\nem andamento\n\n\n\n\nraspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los.\n\n\n\n\n\n\n31 de dez. de 2024\n\n\n\n\n\n\nNenhum item correspondente"
+    "text": "cogumelos\n\n\n\n\n\n\nr\n\n\nmachine learning\n\n\nconcluído\n\n\n\ntrabalho final da matéria optativa \"métodos matemáticos\" com enfoque em aprendizado de máquina realizado em grupo\n\n\n\n\n\n1 de nov. de 2023\n\n\nElisa Kaori, Giulia Gonzaga, Maria Cecília Macedo\n\n\n\n\n\n\n\n\n\n\n\n\ncriação de dashboards\n\n\n\n\n\n\nr\n\n\ndashboard\n\n\nconcluído\n\n\n\ninicialização a crianção de dashboards usando quarto\n\n\n\n\n\n1 de jan. de 2024\n\n\nMaria Cecília Macedo\n\n\n\n\n\n\n\n\n\n\n\n\nweb scraping - stardew valley\n\n\n\n\n\n\nr\n\n\nweb scraping\n\n\nem andamento\n\n\n\nraspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los.\n\n\n\n\n\n31 de dez. de 2024\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "posts/projeto1.html",
@@ -39,7 +39,7 @@
     "href": "index.html#sobre-mim",
     "title": "maria cecília",
     "section": "",
-    "text": "olá! me chamo maria cecília, atualmente estou cursando estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.\nminha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância na área que escolhi para atuar.\nmeu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento\nsinta-se à vontade para explorar e entrar em contato comigo!"
+    "text": "olá! me chamo maria cecília, atualmente curso estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.\nminha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância no mercado de trabalho e nas áreas que me interessei.\nmeu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento.\nsinta-se à vontade para explorar e entrar em contato comigo!"
   },
   {
     "objectID": "formacao.html",
@@ -67,13 +67,34 @@
     "href": "experiencia.html",
     "title": "maria cecilia macedo",
     "section": "",
-    "text": "Bacharelado em Estatística | Novembro 2021 - presente"
+    "text": "Bacharelado em Estatística | Novembro 2021 - presente\n\n\n\n\n\nNo Programa de Educação Tutorial (PET), realizamos atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.\nAlgumas habilidades que aprendi e desenvolvi dentro do programa:\n\npalestras e apresentações - ministrei minicursos e realizei apresentações de temas variados.\nweb scraping - aprendi a coletar dados da internet e hoje aplico essa técnica em diversos projetos.\nanálise de dados - aprendi a utilizar diversas ferramentas para análise de dados, como R e criação de dashboards.\n\n\n\n\nParticipei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: “Urnas de Pólya - uma visão introdutória”. E apresentei o projeto na II Reunião Mineira de Matemática da UFMG."
   },
   {
     "objectID": "experiencia.html#experiência-acadêmica",
     "href": "experiencia.html#experiência-acadêmica",
     "title": "maria cecilia macedo",
     "section": "",
-    "text": "Bacharelado em Estatística | Novembro 2021 - presente"
+    "text": "Bacharelado em Estatística | Novembro 2021 - presente\n\n\n\n\n\nNo Programa de Educação Tutorial (PET), realizamos atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.\nAlgumas habilidades que aprendi e desenvolvi dentro do programa:\n\npalestras e apresentações - ministrei minicursos e realizei apresentações de temas variados.\nweb scraping - aprendi a coletar dados da internet e hoje aplico essa técnica em diversos projetos.\nanálise de dados - aprendi a utilizar diversas ferramentas para análise de dados, como R e criação de dashboards.\n\n\n\n\nParticipei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: “Urnas de Pólya - uma visão introdutória”. E apresentei o projeto na II Reunião Mineira de Matemática da UFMG."
+  },
+  {
+    "objectID": "teste/post_teste.html",
+    "href": "teste/post_teste.html",
+    "title": "post teste",
+    "section": "",
+    "text": "oie, tudo bem?"
+  },
+  {
+    "objectID": "teste/post_teste2.html",
+    "href": "teste/post_teste2.html",
+    "title": "post teste 2",
+    "section": "",
+    "text": "helloo"
+  },
+  {
+    "objectID": "aba_teste.html",
+    "href": "aba_teste.html",
+    "title": "aba teste",
+    "section": "",
+    "text": "Nenhum item correspondente"
   }
 ]

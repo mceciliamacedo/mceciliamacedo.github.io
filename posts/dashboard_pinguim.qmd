@@ -1,0 +1,10 @@
+---
+title: "criação de dashboards"
+image: pinguins.jpg
+categories: ["r", "dashboard", "concluído"]
+description: inicialização a crianção de dashboards usando quarto
+author: "Maria Cecília Macedo"
+date: "Maio de 2024"
+date-format: MM/YYYY
+---
+
