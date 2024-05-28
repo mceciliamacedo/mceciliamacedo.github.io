@@ -1,6 +1,7 @@
 ---
 title: "maria cecília"
 about:
+  image: eu.jpg
   template: jolla
   image-shape: rounded
   image-width: 22em 

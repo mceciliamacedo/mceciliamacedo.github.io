@@ -2,6 +2,6 @@
 title: "projetos"
 listing:
   contents: posts
-  type: default
+  type: grid
   categories: true
 ---

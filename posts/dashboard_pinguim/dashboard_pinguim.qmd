@@ -1,0 +1,132 @@
+---
+title: "criação de dashboards"
+image: pinguins.jpg
+categories: ["r", "dashboard", "concluído"]
+description: projeto realizado dentro do PET Estatística para aprendermos a criar dashboards. aqui utilizei o quarto para a criação do dashboard e um conjunto de dados sobre pinguins.
+date: "Maio de 2024"
+date-format: 05/2024
+format: dashboard
+---
+
+```{r}
+
+#| include: false
+
+library(ggplot2)
+library(rpart)
+library(rpart.plot)
+
+pinguim <- read.csv("pinguim.csv", header = TRUE)
+
+pinguim$species <- as.factor(pinguim$species)
+pinguim$island <- as.factor(pinguim$island)
+```
+
+# informações gerais
+
+## Row {height="25%"}
+
+```{r}
+#| content: valuebox
+
+list(
+  title = "total de pinguins",
+  icon = "archive",
+  value = print(length(pinguim$species))
+)
+```
+
+```{r}
+#| content: valuebox
+
+list(
+  title = "quantidade de ilhas",
+  icon = "globe-americas",
+  value = length(unique(pinguim$island))
+)
+```
+
+```{r}
+#| content: valuebox
+#| font-size: 1.5em
+
+list(
+  title = "quantidade de espécies",
+  icon = "snow3",
+  value = length(unique(pinguim$species))
+)
+
+```
+
+## Row
+
+```{r}
+#| title: "quantidade de pinguins por espécie"
+
+ggplot(data = pinguim, mapping = aes(x = species))+ 
+  geom_bar(fill = "#172c3d")+
+  labs(x = "espécies", y = "quantidade")+
+  theme_minimal()
+
+```
+
+```{r}
+#| title: "quantidade de pinguins por ilha e espécie"
+
+ggplot(data = pinguim, mapping = aes(x = species, fill = island))+ 
+  geom_bar()+
+  scale_fill_manual(values = c("#264863", "#985053", "#da6931"))+
+  labs(x = "espécies", y = "quantidade", fill = "ilhas")+
+  theme_minimal()
+```
+
+# árvore de decisão
+
+##  {.sidebar}
+
+modelo de árvore de decisão para classificar as espécies dos pinguins de acordo com o tamanho do bico e tamanho da asa deles.
+
+## row
+
+::: card
+no gráfico de pontos a seguir, podemos ver que quando usamos as variáveis `culmen_length_mm` e `flipper_length_mm` as espécies de pinguins se comportam de tal modo que são criados grupos.
+
+```{r}
+
+ggplot(data = pinguim, mapping = aes(x = culmen_length_mm, y = flipper_length_mm, col = species))+
+  scale_color_manual(values = c("#da6931", "#264863", "#e6b33d"))+
+  labs(col = "espécies")+
+  geom_point()+
+  theme_minimal()
+```
+
+iremos agora criar um modelo de classificação utilizando árvore de decisão.
+:::
+
+## column
+
+```{r}
+#| title: "arvóre de decisão"
+
+dados_modelo <- pinguim[sample(nrow(pinguim)),]
+n <- round(nrow(dados_modelo))*0.8
+treino <- dados_modelo[1:n,]
+teste <- dados_modelo[-(1:n),]
+
+
+arvore.pinguim <- rpart(formula = species ~ culmen_length_mm + flipper_length_mm, data = treino, method = "class")
+
+rpart.plot(arvore.pinguim, extra = 101)
+
+```
+
+```{r}
+#| content: valuebox
+#| title: "acurácia do modelo"
+
+previsao <- predict(arvore.pinguim, type = "class", newdata = teste)
+
+paste0(round(mean(previsao == teste$species, na.rm = TRUE)*100, 2),"%")
+
+
+```
