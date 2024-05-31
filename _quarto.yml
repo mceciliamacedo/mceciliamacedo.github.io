@@ -3,11 +3,9 @@ project:
   output-dir: docs
 
 website:
-  title: "maria cecilia macedo"
+  title: "maria cecília macedo"
   navbar:
     left:
-      - href: index.qmd
-        text: início
       - href: experiencia.qmd
         text: experiência
       - href: projetos.qmd

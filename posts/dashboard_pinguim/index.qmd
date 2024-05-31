@@ -3,8 +3,8 @@ title: "criação de dashboards"
 image: pinguins.jpg
 categories: ["r", "dashboard", "quarto", "concluído"]
 description: projeto realizado dentro do PET Estatística para aprendermos a criar dashboards. aqui utilizei o quarto para a criação do dashboard e um conjunto de dados sobre pinguins.
-date: "Maio de 2024"
-date-format: 05/2024
+date: "2024-05-20"
+date-format: medium
 format: dashboard
 ---
 

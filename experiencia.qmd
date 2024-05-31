@@ -1,14 +1,17 @@
 ---
 title: ""
+toc-title: "nesta página"
 ---
 
-## experiência acadêmica
+# experiência acadêmica
+
+## formação
 
 #### Universidade Federal de Uberlândia
 
 *Bacharelado em Estatística | Novembro 2021 - presente*
 
-### projetos e atividades:
+### projetos e atividades
 
 #### PET Estatística
 

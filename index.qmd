@@ -4,7 +4,7 @@ about:
   image: eu.jpg
   template: jolla
   image-shape: rounded
-  image-width: 22em 
+  image-width: 20em 
   links:
   - icon: envelope-at
     text: email
@@ -15,6 +15,7 @@ about:
   - icon: linkedin
     text: linkedin
     href: https://www.linkedin.com/in/maria-cec%C3%ADlia-macedo-722190262/
+toc-title: "nesta página"
 ---
 
 ## sobre mim 
