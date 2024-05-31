@@ -16,6 +16,11 @@ website:
 
 format:
   html:
+    #theme: superhero (original - fundo azul)
+    #theme: cosmo (branco)
+    #theme: flatly
+    #theme: minty
+    #theme: simplex
     theme: superhero
     css: styles.css
     toc: true

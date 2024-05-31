@@ -1,9 +1,10 @@
 ---
 title: "stardew valley"
 image: stardewvalley_logo.jpg
-categories: ["r", "web scraping", "em andamento"]
-description: web scraping da wiki de stardew valley com intuito de criar um arquivo contendo os aldeões que o jogador pode casar e quais itens que cada um gosta, ou não, de serem presenteados.
-date: "2024-05-24"
+categories: ["r", "web scraping", "stardew valley"]
+description: web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.
+author: "Maria Cecília Macedo"
+date: "2024-05-30"
 date-format: medium
 toc-title: "nesta página"
 ---
@@ -14,15 +15,15 @@ toc-title: "nesta página"
 
 Stardew Valley (ou jogo da fazendinha, como gosto de chamar), é um jogo em que somos fazendeiros em uma pacata vila. 
 
-É possível fazer diversas coisas no jogo, sendo a grande parte atrelada a vida no campo, mas algo muito importante é fazer amizade com os moradores da Vila Pelicanos, já que assim os aldeões podem te enviar receitas novas e presentes, por exemplo. Além de ser possível fazer amizade com todos os NPC's da vila, existe um grupo de solteirões que podemos casar!
+É possível fazer diversas coisas no jogo, sendo a grande parte atrelada a vida no campo, porém algo muito importante é fazer amizade com os moradores da Vila Pelicanos, já que assim os aldeões podem te enviar receitas novas e presentes, por exemplo. Além de ser possível fazer amizade com todos os NPC's da vila, existe um grupo de solteirões que podemos casar!
 
-Assim como qualquer pessoa, cada aldeão tem seus próprios gostos e desgostos, e muitas vezes queremos presentear na maior boa vontade o personagem que nos afeiçoamos mais e recebemos um comentário como *"Este presente é horrível, não é?"* ou até mesmo *"Que nojo!"* :(
+Assim como qualquer pessoa, cada aldeão tem seus próprios gostos e desgostos, e muitas vezes queremos presentear na maior boa vontade o personagem que mais nos afeiçoamos e recebemos um comentário como *"Este presente é horrível, não é?"* ou até mesmo *"Que nojo!"* :(
 
 Por isso, decidi coletar as informações de quais itens cada aldeão candidato a casamento ama, gosta, acha neutro, não gosta e odeia, para poder dar presentes que agradem e assim você possa conquistar seu futuro cônjuge! 
 
 ## Objetivo
 
-Esse projeteto, então, tem como objetivo fazer a raspagem de dados da página de *Aldeões* da *[Stardew Valley Wiki](https://pt.stardewvalleywiki.com/Alde%C3%B5es)*, coletar os links da páginas de cada um dos aldeões candidatos a casamento, acessar cada uma delas, coletar as informações sobre os presente e ao final criar um data frame para que possa consultar quando estiver jogando.
+Esse projeto, então, tem como objetivo explicar como foi feita a raspagem de dados (web scraping) utilizando R da página de *Aldeões* da *[Stardew Valley Wiki](https://pt.stardewvalleywiki.com/Alde%C3%B5es)*. Para isso, foi preciso coletar os links da páginas de cada um dos aldeões candidatos a casamento, acessar cada uma deles, coletar as informações sobre os presentes e ao final criar um data frame para que possa consultar quais os melhores e piores quando estiver jogando.
 
 ## Pacotes
 
@@ -48,7 +49,7 @@ Com os pacotes instalados e carregados, podemos, finalmente dar início a raspag
 
 ## Coletando os links dos aldeões
 
-Inicialmente, coleto os nomes de todos os aldeões do jogo e depois filtro apenas os casáveis que é o nosso interesse.
+Inicialmente, coleto os nomes de todos os aldeões do jogo e depois filtro apenas os casáveis, que são o nosso interesse.
 
 ```{r}
 #| label: links
@@ -64,7 +65,7 @@ aldeoes_casaveis <- aldeoes[1:12]
 
 ``` 
 
-A seguir coletarei os link de cada um dos aldeões e selecionarei apenas os que são canditados a casamento. 
+A seguir coletarei os links de cada um dos aldeões e selecionarei apenas os que são canditados a casamento. 
 
 ```{r}
 #| label: links-2
@@ -82,7 +83,7 @@ links_casaveis <- paste0("https://pt.stardewvalleywiki.com", paginas[1:12])
 
 Quando acessei as páginas de cada aldeão, me deparei com um problema: nenhuma tabela da página havia id. Isso dificultou bastante a coleta de dados, então tive que raspar todas as tabelas da página de cada aldeão e depois filtrar manualmente o conteúdo que queria. Irei mostrar um pedacinho dessa tabela gigantesca que obtive. 
 
-Devido ao tamanho do código, mostrarei o que fiz apenas para um aldeão (a Leah, minha personagem favorita, que no código ficou nomeada como casável 10), mas repliquei o processo para todos os 12 personagens candidatos a casamento.
+**Observação**: Devido ao tamanho do código, mostrarei o que fiz apenas para um aldeão (a Leah, minha personagem favorita, que no código ficou nomeada como casável 10), mas repliquei o processo para todos os 12 personagens candidatos a casamento.
 
 ```{r}
 #| label: presentes-leah
@@ -100,7 +101,7 @@ tabelas_casavel10 <- html_casavel10|>
 head(tabelas_casavel10, 20)
 ```
 
-Para obter cada classificação de presente (amado, gostado, neutro, não gostado e odiado), segui um padrão que foi: filtrar a lista de itens, exluir o que não era nome de cada item e por fim guardar todos os nomes obtidos em uma varíavel.
+Para obter cada classificação de presente (amado, gostado, neutro, não gostado e odiado), segui um padrão que foi: filtrar a lista de itens, excluir o que não era nome de item e por fim guardar todos os nomes obtidos em uma varíavel.
 
 Podemos ver esse processo a seguir, e também duas excessões (`presentes_gostados_casavel10` e `presentes_naogostados_casavel10`), em que tive precisei filtrar também alguns "lixinhos" que apareceram.
 
@@ -137,7 +138,7 @@ presentes_odiados_casavel10 <- c(presentes_odiados_casavel10[1],
                                  presentes_odiados_casavel10[indices_odiados_c10])
 ```
 
-Por fim, criei uma lista com todos os presentes separados pela sua classificação para cada aldeão. 
+Por fim, criei uma lista com todos os presentes separados pela sua classificação para cada aldeão, e colocados em ordem alfabética. 
 
 ```{r}
 #| label: presentes-leah3
@@ -851,9 +852,9 @@ presentes_casavel12
 
 ## Mais um problema
 
-"Agora, depois de toda essa trabalheira, finalmente estou com os dados que que queria em mãos", foi o que eu pensei após terminar a raspagem de dados, mas estava completamente iludida. 
+"Agora, depois de toda essa trabalheira, finalmente estou com os dados que queria em mãos", foi o que eu pensei após terminar a raspagem de dados, mas estava completamente iludida. 
 
-Como as listas que criei para cada personagem casável possuia tamanhos diferentes, não iria conseguir criar um data frame com elas D:
+Como as listas que criei para cada personagem casável possuiam tamanhos diferentes, não iria conseguir criar um data frame com elas D:
 
 A solução que encontrei, foi identificar todos os itens que coletei e mostrar quais personagens gostavam ou não dele. 
 
@@ -861,7 +862,7 @@ A solução que encontrei, foi identificar todos os itens que coletei e mostrar 
 
 Com a ideia clara do que precisava fazer, foi necessário criar algumas funções para padronizar os dados e facilitar a manipulação deles para a crição do data frame.
 
-As primeiras funções que senti a necessidade de serem criadas foram para tirar acentos e algumas pontuações que apareciam (como hífen, vírgulas e dois pontos). 
+As primeiras funções que senti necessidade de serem criadas foram para tirar acentos e algumas pontuações que apareciam (como hífen, vírgulas e dois pontos). 
 
 ```{r}
 #| label: funcoes-1
@@ -895,7 +896,7 @@ limpa_exceto <- function(lista_presentes){
 }
 ```
 
-Por fim, criei duas funções para padronizar os presentes que coletei colocando todas as palavras em minúsculo e tirando acentos e pontuações. Futuramente explicarei por que foi necessário criar duas funções diferentes para "fazerem a mesma coisa".
+Por fim, criei duas funções para padronizar o modo de escrita dos nomes dos presentes que coletei colocando todas as palavras em minúsculo e tirando acentos e pontuações. Futuramente explicarei por que foi necessário criar duas funções diferentes para "fazerem a mesma coisa".
 
 ```{r}
 #| label: funcoes-3
@@ -917,7 +918,7 @@ padroniza <- function(lista_presentes){
 
 Com as funções necessárias criadas, começo a fazer a listagem de todos os itens que apareceram na raspagem, ou melhor, a criação de um vetor que contenha todos os itens obtidos. Faço isso para que esse vetor seja, futuramente, a primeira coluna do nosso data frame. 
 
-Note que aqui utilizarei a função `padroniza_presentes()` para padronizar os presentes. Mas por que? Como listei os itens de cada personagem casável, preciso desfazer essa lista para conseguir obter um vetor. Faço isso para todos os personagens e a cada personagem de padronizo seu presentes faço a adição deles no vetor `itens`.
+Note que aqui utilizarei a função `padroniza_presentes()` para padronizar os presentes. Mas por que? Como listei os itens de cada personagem casável, preciso desfazer essa lista para conseguir obter um vetor. Faço isso para todos os personagens e a cada personagem de padronizo seus presentes faço a adição deles no vetor `itens`.
 
 Por fim, como alguns itens apareceram mais de uma vez, utilizei a função `unique()` para que não haja repetição de itens. Aproveitei e deixei o vetor ordenado em ordem alfabética para obtermos um data frame mais organizado.
 
@@ -965,6 +966,7 @@ presentes_df <- data.frame(itens = itens,
                            casavel12 = rep(NA, length(itens)))
 
 ```
+E assim fica o "esqueleto": 
 
 ```{r}
 #| label: esqueleto-data_frame-2
@@ -978,11 +980,11 @@ kable(head(presentes_df))
 
 ## Preenchendo o data frame
 
-Com o "esqueleto" criado, irei preenchê-lo com as informações que coletei de cada personagem. Para fazer isso, precirarei verificar se os itens de cada categoria de presentes de cada aldeão aparecem vetor `itens`, se isso ocorrer, preencho a célula correspondente no data frame. 
+Com o "esqueleto" criado, irei preenchê-lo com as informações que coletei de cada personagem. Para fazer isso, precisarei verificar se os itens de cada categoria de presentes de cada aldeão aparecem no vetor `itens`, se isso ocorrer, preencho a célula correspondente no data frame. 
 
 Agora sim, irei usar a função `padroniza()` para padronizar os presentes de cada categoria dos personagens. 
 
-Novamente, como repliquei o processo para todos os doze aldeões, optei por mostrar apenas de um personagem, dessa vez o Harvey. 
+Novamente, como repliquei o processo para todos os doze aldeões, mas optei por mostrar apenas de um personagem, dessa vez o Harvey. 
 
 ```{r}
 #| label: preenchendo-data_frame-harvey
@@ -1004,7 +1006,7 @@ presentes_df$casavel3[odiados_c3] <- "O"
 ```
 
 
-Note que, ao preencher o data frame, optei por utlizar apenas as iniciais de cada categoria de presentes para que ele fique mais sucinto. Portanto:
+Note que, para preencher o data frame, preferi utlizar apenas as iniciais de cada categoria de presentes para que ele fique mais sucinto. Portanto:
 
 * **A**: presente amado
 * **G**: presente gostado
@@ -1212,11 +1214,11 @@ presentes_df$casavel12[odiados_c12] <- "O"
 
 ```
 
-Nosso data frame está praticamente pronto, falta apenas alguns toque finais. 
+Nosso data frame está praticamente pronto, faltam apenas alguns toques finais. 
 
-Como tinha falado anteriormente, optei por omitir informações que apareciam no formato *"Todos os itens do tipo X (exceto Y)"*, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de *Todas as frutas*, por exemplo, e remover essas excessões. Por isso, irei retirar todas as linhas que sejam desse tipo (*"Todos os itens do tipo X"*). 
+Como tinha falado anteriormente, optei por omitir informações que apareciam no formato *"Todos os itens do tipo X (exceto Y)"*, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de *Todas as frutas*, por exemplo, e remover essas excessões. Por isso, retirei todas as linhas que sejam desse tipo (*"Todos os itens do tipo X"*). 
 
-Além disso, farei mais três alterações na estruturação feita no data frame: nomearei as linhas com os nomes dos itens presenteáveis, consequentemente retirarei a coluna `itens`, também nomearei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, irei retirar os `Na`'s. Você pode acompanhar como fiz essas mudanças no código abaixo.
+Além disso, fiz mais três alterações na estruturação feita no data frame: nomeei as linhas com os nomes dos itens presenteáveis, consequentemente retirei a coluna `itens`, também nomeei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, retirei onde estava escrito `NA`. Você pode acompanhar como fiz essas mudanças no código comentado abaixo.
 
 ```{r}
 #| label: data_frame-toques_finais
@@ -1253,12 +1255,12 @@ Finalmente, posso falar que o data frame está pronto!
 kable(presentes_df)
 ```
 
-Caso vc queira baixar o data frame *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)* vc encontra dois aquivos `.csv`: um com sem a retirada dos `NA`'s e outra com a versão que apresentei acima. 
+Caso vc queira baixar o data frame *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)*  vc encontra dois aquivos `.csv`: um sem a retirada dos `NA`'s e outra com a versão que apresentei acima. 
 
 # Considerações Finais e Próximos Passos
 
-Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas coisas que posso trabalhar em um futuro próximo.
+Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas abordagens que posso trabalhar em um futuro próximo.
 
-Tenho vários projetos futuros para esse conjunto de dados que obti, com a visualização de e também a sua expansão. Logo, trarei esses projetos para cá.
+Tenho vários projetos futuros para realizar com o conjunto de dados que obti, como a visualização deles e também a sua expansão. Logo, trarei esses projetos para o meu portifólio.
 
-Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)* e fique ligado para projetos futuros de Stardew Valley e muitas outras coisas. 
+Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)* e fique ligado para projetos futuros de Stardew Valley e muitos outros. 

@@ -6,7 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="web scraping da wiki de stardew valley com intuito de criar um arquivo contendo os aldeões que o jogador pode casar e quais itens que cada um gosta, ou não, de serem presenteados.">
+<meta name="author" content="Maria Cecília Macedo">
+<meta name="description" content="web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.">
 
 <title>maria cecília macedo - stardew valley</title>
 <style>
@@ -181,24 +182,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">r</div>
     <div class="quarto-category">web scraping</div>
-    <div class="quarto-category">em andamento</div>
+    <div class="quarto-category">stardew valley</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    web scraping da wiki de stardew valley com intuito de criar um arquivo contendo os aldeões que o jogador pode casar e quais itens que cada um gosta, ou não, de serem presenteados.
+    web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.
   </div>
 </div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Maria Cecília Macedo </p>
+          </div>
+  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">24 de mai. de 2024</p>
+      <p class="date">30 de mai. de 2024</p>
     </div>
   </div>
   
@@ -215,13 +222,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="motivação" class="level2">
 <h2 class="anchored" data-anchor-id="motivação">Motivação</h2>
 <p>Stardew Valley (ou jogo da fazendinha, como gosto de chamar), é um jogo em que somos fazendeiros em uma pacata vila.</p>
-<p>É possível fazer diversas coisas no jogo, sendo a grande parte atrelada a vida no campo, mas algo muito importante é fazer amizade com os moradores da Vila Pelicanos, já que assim os aldeões podem te enviar receitas novas e presentes, por exemplo. Além de ser possível fazer amizade com todos os NPC’s da vila, existe um grupo de solteirões que podemos casar!</p>
-<p>Assim como qualquer pessoa, cada aldeão tem seus próprios gostos e desgostos, e muitas vezes queremos presentear na maior boa vontade o personagem que nos afeiçoamos mais e recebemos um comentário como <em>“Este presente é horrível, não é?”</em> ou até mesmo <em>“Que nojo!”</em> :(</p>
+<p>É possível fazer diversas coisas no jogo, sendo a grande parte atrelada a vida no campo, porém algo muito importante é fazer amizade com os moradores da Vila Pelicanos, já que assim os aldeões podem te enviar receitas novas e presentes, por exemplo. Além de ser possível fazer amizade com todos os NPC’s da vila, existe um grupo de solteirões que podemos casar!</p>
+<p>Assim como qualquer pessoa, cada aldeão tem seus próprios gostos e desgostos, e muitas vezes queremos presentear na maior boa vontade o personagem que mais nos afeiçoamos e recebemos um comentário como <em>“Este presente é horrível, não é?”</em> ou até mesmo <em>“Que nojo!”</em> :(</p>
 <p>Por isso, decidi coletar as informações de quais itens cada aldeão candidato a casamento ama, gosta, acha neutro, não gosta e odeia, para poder dar presentes que agradem e assim você possa conquistar seu futuro cônjuge!</p>
 </section>
 <section id="objetivo" class="level2">
 <h2 class="anchored" data-anchor-id="objetivo">Objetivo</h2>
-<p>Esse projeteto, então, tem como objetivo fazer a raspagem de dados da página de <em>Aldeões</em> da <em><a href="https://pt.stardewvalleywiki.com/Alde%C3%B5es">Stardew Valley Wiki</a></em>, coletar os links da páginas de cada um dos aldeões candidatos a casamento, acessar cada uma delas, coletar as informações sobre os presente e ao final criar um data frame para que possa consultar quando estiver jogando.</p>
+<p>Esse projeto, então, tem como objetivo explicar como foi feita a raspagem de dados (web scraping) utilizando R da página de <em>Aldeões</em> da <em><a href="https://pt.stardewvalleywiki.com/Alde%C3%B5es">Stardew Valley Wiki</a></em>. Para isso, foi preciso coletar os links da páginas de cada um dos aldeões candidatos a casamento, acessar cada uma deles, coletar as informações sobre os presentes e ao final criar um data frame para que possa consultar quais os melhores e piores quando estiver jogando.</p>
 </section>
 <section id="pacotes" class="level2">
 <h2 class="anchored" data-anchor-id="pacotes">Pacotes</h2>
@@ -243,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Com os pacotes instalados e carregados, podemos, finalmente dar início a raspagem de dados.</p>
 <section id="coletando-os-links-dos-aldeões" class="level2">
 <h2 class="anchored" data-anchor-id="coletando-os-links-dos-aldeões">Coletando os links dos aldeões</h2>
-<p>Inicialmente, coleto os nomes de todos os aldeões do jogo e depois filtro apenas os casáveis que é o nosso interesse.</p>
+<p>Inicialmente, coleto os nomes de todos os aldeões do jogo e depois filtro apenas os casáveis, que são o nosso interesse.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://pt.stardewvalleywiki.com/Alde%C3%B5es"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
@@ -254,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text2</span>()</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>aldeoes_casaveis <span class="ot">&lt;-</span> aldeoes[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A seguir coletarei os link de cada um dos aldeões e selecionarei apenas os que são canditados a casamento.</p>
+<p>A seguir coletarei os links de cada um dos aldeões e selecionarei apenas os que são canditados a casamento.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>paginas <span class="ot">&lt;-</span> html<span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"ul.villagergallery"</span>)<span class="sc">|&gt;</span></span>
@@ -268,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="coletando-os-presentes" class="level2">
 <h2 class="anchored" data-anchor-id="coletando-os-presentes">Coletando os presentes</h2>
 <p>Quando acessei as páginas de cada aldeão, me deparei com um problema: nenhuma tabela da página havia id. Isso dificultou bastante a coleta de dados, então tive que raspar todas as tabelas da página de cada aldeão e depois filtrar manualmente o conteúdo que queria. Irei mostrar um pedacinho dessa tabela gigantesca que obtive.</p>
-<p>Devido ao tamanho do código, mostrarei o que fiz apenas para um aldeão (a Leah, minha personagem favorita, que no código ficou nomeada como casável 10), mas repliquei o processo para todos os 12 personagens candidatos a casamento.</p>
+<p><strong>Observação</strong>: Devido ao tamanho do código, mostrarei o que fiz apenas para um aldeão (a Leah, minha personagem favorita, que no código ficou nomeada como casável 10), mas repliquei o processo para todos os 12 personagens candidatos a casamento.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#acessando a página</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>url_casavel10 <span class="ot">&lt;-</span> links_casaveis[<span class="dv">10</span>]</span>
@@ -654,7 +661,7 @@ $odiados
 </ul>
 <p>Nosso data frame está praticamente pronto, falta apenas alguns toque finais.</p>
 <p>Como tinha falado anteriormente, optei por omitir informações que apareciam no formato <em>“Todos os itens do tipo X (exceto Y)”</em>, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de <em>Todas as frutas</em>, por exemplo, e remover essas excessões. Por isso, irei retirar todas as linhas que sejam desse tipo (<em>“Todos os itens do tipo X”</em>).</p>
-<p>Além disso, farei mais três alterações na estruturação feita no data frame: nomearei as linhas com os nomes dos itens presenteáveis, consequentemente retirarei a coluna <code>itens</code>, também nomearei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, irei retirar os <code>Na</code>’s. Você pode acompanhar como fiz essas mudanças no código abaixo.</p>
+<p>Além disso, farei mais três alterações na estruturação feita no data frame: nomearei as linhas com os nomes dos itens presenteáveis, consequentemente retirarei a coluna <code>itens</code>, também nomearei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, irei retirar os <code>NA</code>’s. Você pode acompanhar como fiz essas mudanças no código abaixo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#retirando linhas "desnecessárias"</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>presentes_df <span class="ot">&lt;-</span> presentes_df[<span class="sc">-</span>(<span class="dv">139</span><span class="sc">:</span><span class="dv">154</span>),] </span>

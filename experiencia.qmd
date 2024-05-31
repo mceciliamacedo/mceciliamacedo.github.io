@@ -14,6 +14,7 @@ toc-title: "nesta página"
 ### projetos e atividades
 
 #### PET Estatística
+*outubro 2022 - presente*
 
 No Programa de Educação Tutorial (PET), realizamos atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
 
@@ -26,4 +27,6 @@ Algumas habilidades que aprendi e desenvolvi dentro do programa:
 * ***análise de dados*** - aprendi a utilizar diversas ferramentas para análise de dados, como R e criação de dashboards.
 
 #### Iniciação Científica
+*Concluída*
+
 Participei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: *"Urnas de Pólya - uma visão introdutória"*. E apresentei o projeto na *II Reunião Mineira de Matemática* da UFMG.

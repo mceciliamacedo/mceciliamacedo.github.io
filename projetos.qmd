@@ -3,5 +3,9 @@ title: "projetos"
 listing:
   contents: posts
   type: grid
-  categories: true
+  categories: unnumbered
+  sort: "date desc"
+  fields: [image, title, date, categories, description, reading-time]
+  filter-ui: true
+date-format: "MMM, YYYY"
 ---

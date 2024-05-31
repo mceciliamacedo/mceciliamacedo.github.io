@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-date','listing-categories','listing-description','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
@@ -170,7 +170,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Tudo <span class="quarto-category-count">(3)</span></div><div class="category" data-category="concluído">concluído <span class="quarto-category-count">(2)</span></div><div class="category" data-category="dashboard">dashboard <span class="quarto-category-count">(1)</span></div><div class="category" data-category="em andamento">em andamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="machine learning">machine learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="quarto">quarto <span class="quarto-category-count">(1)</span></div><div class="category" data-category="r">r <span class="quarto-category-count">(3)</span></div><div class="category" data-category="web scraping">web scraping <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-unnumbered"><div class="category" data-category="dashboard">dashboard</div><div class="category" data-category="machine learning">machine learning</div><div class="category" data-category="quarto">quarto</div><div class="category" data-category="r">r</div><div class="category" data-category="stardew valley">stardew valley</div><div class="category" data-category="web scraping">web scraping</div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -198,44 +198,50 @@ window.Quarto = {
 
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="r,machine learning,concluído" data-listing-date-sort="1698807600000" data-listing-file-modified-sort="1706760492653" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<a href="./posts/cogumelos.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-categories="r,web scraping,stardew valley" data-listing-date-sort="1717038000000" data-listing-file-modified-sort="1717125582888" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6930">
+<a href="./posts/stardew_valley.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img src="./posts/cogumelo.jpeg" class="thumbnail-image card-img" style="height: 150px;">
+<img src="./posts/stardewvalley_logo.jpg" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-cogumelos
+stardew valley
 </h5>
+<div class="listing-reading-time card-text text-muted">
+35 minutos
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
 r
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('machine learning'); return false;">
-machine learning
+<div class="listing-category" onclick="window.quartoListingCategory('web scraping'); return false;">
+web scraping
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('concluído'); return false;">
-concluído
+<div class="listing-category" onclick="window.quartoListingCategory('stardew valley'); return false;">
+stardew valley
 </div>
 </div>
 <div class="card-text listing-description">
-trabalho final da matéria optativa "métodos matemáticos" com enfoque em aprendizado de máquina realizado em grupo
+web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.
 </div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Elisa Kaori, Giulia Gonzaga, Maria Cecília Macedo
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
-1 de nov. de 2023
+mai, 2024
 </div>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="r,dashboard,quarto,concluído" data-listing-date-sort="1716174000000" data-listing-file-modified-sort="1716947518788" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="275">
+<div class="g-col-1" data-index="1" data-categories="r,dashboard,quarto" data-listing-date-sort="1716174000000" data-listing-file-modified-sort="1717121462595" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="275">
 <a href="./posts/dashboard_pinguim/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -245,6 +251,9 @@ Elisa Kaori, Giulia Gonzaga, Maria Cecília Macedo
 <h5 class="no-anchor card-title listing-title">
 criação de dashboards
 </h5>
+<div class="listing-reading-time card-text text-muted">
+2 minutos
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
 r
@@ -255,55 +264,46 @@ dashboard
 <div class="listing-category" onclick="window.quartoListingCategory('quarto'); return false;">
 quarto
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('concluído'); return false;">
-concluído
-</div>
 </div>
 <div class="card-text listing-description">
 projeto realizado dentro do PET Estatística para aprendermos a criar dashboards. aqui utilizei o quarto para a criação do dashboard e um conjunto de dados sobre pinguins.
 </div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
-20 de mai. de 2024
+mai, 2024
 </div>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="r,web scraping,em andamento" data-listing-date-sort="1716519600000" data-listing-file-modified-sort="1717114570589" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6913">
-<a href="./posts/stardew_valley.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="2" data-categories="r,machine learning" data-listing-date-sort="1701226800000" data-listing-file-modified-sort="1717121457626" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./posts/cogumelos.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img src="./posts/stardewvalley_logo.jpg" class="thumbnail-image card-img" style="height: 150px;">
+<img src="./posts/cogumelo.jpeg" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-stardew valley
+cogumelos
 </h5>
+<div class="listing-reading-time card-text text-muted">
+1 minutos
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('r'); return false;">
 r
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('web scraping'); return false;">
-web scraping
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('em andamento'); return false;">
-em andamento
+<div class="listing-category" onclick="window.quartoListingCategory('machine learning'); return false;">
+machine learning
 </div>
 </div>
 <div class="card-text listing-description">
-web scraping da wiki de stardew valley com intuito de criar um arquivo contendo os aldeões que o jogador pode casar e quais itens que cada um gosta, ou não, de serem…
+trabalho final da matéria optativa "métodos matemáticos" com enfoque em aprendizado de máquina realizado em grupo
 </div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
-24 de mai. de 2024
+nov, 2023
 </div>
 </div>
 </div>
