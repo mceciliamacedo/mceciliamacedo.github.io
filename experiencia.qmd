@@ -24,9 +24,18 @@ Algumas habilidades que aprendi e desenvolvi dentro do programa:
 
 * ***web scraping*** - aprendi a coletar dados da internet e hoje aplico essa técnica em diversos projetos.
 
-* ***análise de dados*** - aprendi a utilizar diversas ferramentas para análise de dados, como R e criação de dashboards.
+* ***análise de dados*** - aprendi a utilizar diversas ferramentas para análise de dados, como R, criação de dashboards e processamento de linguagem natural.
 
 #### Iniciação Científica
 *Concluída*
 
 Participei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: *"Urnas de Pólya - uma visão introdutória"*. E apresentei o projeto na *II Reunião Mineira de Matemática* da UFMG.
+
+# experiência profissional
+
+### Estágio
+
+#### Tribanco - Tesouraria/Renda Fixa
+*julho 2024 - presente*
+
+Realizo atividades de melhoria e automatização de rotinas através de coleta, tratamento, visualização e análise de dados.

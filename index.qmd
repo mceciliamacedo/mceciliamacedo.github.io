@@ -11,7 +11,7 @@ about:
     href: mailto:mariacecilia.macedo22@gmail.com
   - icon: linkedin
     text: linkedin
-    href: https://www.linkedin.com/in/maria-cec%C3%ADlia-macedo-722190262/
+    href: https://www.linkedin.com/in/maria-cec%C3%ADlia-macedo-997b1a317/
   - icon: github
     text: github
     href: https://github.com/mceciliamacedo
@@ -20,9 +20,9 @@ toc-title: "nesta página"
 
 ## sobre mim 
 
-olá! me chamo maria cecília, atualmente curso estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.
+olá! me chamo maria cecília. atualmente curso estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico muitas áreas me chamaram atenção, principalmente a de ciência de dados. gosto muito de criar projetos que envolvam coleta e análise de dados e processamento de linguagem natural. 
 
-minha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância no mercado de trabalho e nas áreas que me interessei.
+minha principal ferramenta é a liguagem r, busco sempre aprimorar meus conhecimentos nela e também aprender outras linguagens, como python e power bi, pois sei da importância no delas no mercado de trabalho.
 
 meu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento.
 

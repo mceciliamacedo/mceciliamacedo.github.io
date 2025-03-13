@@ -311,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [20] "Deixa o Saloon e volta para casa."                </code></pre>
 </div>
 </div>
-<p>Para obter cada classificação de presente (amado, gostado, neutro, não gostado e odiado), segui um padrão que foi: filtrar a lista de itens, exluir o que não era nome de cada item e por fim guardar todos os nomes obtidos em uma varíavel.</p>
+<p>Para obter cada classificação de presente (amado, gostado, neutro, não gostado e odiado), segui um padrão que foi: filtrar a lista de itens, excluir o que não era nome de item e por fim guardar todos os nomes obtidos em uma varíavel.</p>
 <p>Podemos ver esse processo a seguir, e também duas excessões (<code>presentes_gostados_casavel10</code> e <code>presentes_naogostados_casavel10</code>), em que tive precisei filtrar também alguns “lixinhos” que apareceram.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#presentes</span></span>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>presentes_odiados_casavel10 <span class="ot">&lt;-</span> <span class="fu">c</span>(presentes_odiados_casavel10[<span class="dv">1</span>],                  </span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                                 presentes_odiados_casavel10[indices_odiados_c10])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Por fim, criei uma lista com todos os presentes separados pela sua classificação para cada aldeão.</p>
+<p>Por fim, criei uma lista com todos os presentes separados pela sua classificação para cada aldeão, e colocados em ordem alfabética.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>presentes_casavel10 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">amados =</span> <span class="fu">sort</span>(presentes_amados_casavel10), </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">gostados =</span> <span class="fu">sort</span>(presentes_gostados_casavel10), </span>
@@ -370,7 +370,7 @@ $gostados
  [9] "Dente-de-leão"                                                                                                                                                                                                                                                    
 [10] "Gengibre"                                                                                                                                                                                                                                                         
 [11] "Inhame de neve"                                                                                                                                                                                                                                                   
-[12] "Madeira do mar"                                                                                                                                                                                                                                                   
+[12] "Madeira Flutuante"                                                                                                                                                                                                                                                
 [13] "Morel"                                                                                                                                                                                                                                                            
 [14] "Narciso"                                                                                                                                                                                                                                                          
 [15] "Raiz-forte"                                                                                                                                                                                                                                                       
@@ -384,18 +384,18 @@ $neutros
 [1] "Todos os Neutros Universais (exceto Ovo frito, Pão e Trufa)"
 
 $naogostados
- [1] "Algas marinhas"                                                              
- [2] "Biscoitos"                                                                   
- [3] "Bolo rosa"                                                                   
- [4] "Carpa-surpresa"                                                              
- [5] "Hambúrguer de sobreviência"                                                  
- [6] "Ovo frito"                                                                   
- [7] "Pudim de arroz"                                                              
- [8] "Sorvete"                                                                     
- [9] "Todas as Gemas (exceto Diamante e Fragmento prismático)"                     
-[10] "Todos os Desgostos Universais (exceto Cebolinha, Madeira do mar, e Ovo nulo)"
-[11] "Todos os Minerais de coleta (exceto Cristal de terra)"                       
-[12] "Tortilha"                                                                    
+ [1] "Algas marinhas"                                                                 
+ [2] "Biscoitos"                                                                      
+ [3] "Bolo rosa"                                                                      
+ [4] "Carpa-surpresa"                                                                 
+ [5] "Hambúrguer de sobreviência"                                                     
+ [6] "Ovo frito"                                                                      
+ [7] "Pudim de arroz"                                                                 
+ [8] "Sorvete"                                                                        
+ [9] "Todas as Gemas (exceto Diamante e Fragmento prismático)"                        
+[10] "Todos os Desgostos Universais (exceto Cebolinha, Madeira Flutuante, e Ovo nulo)"
+[11] "Todos os Minerais de coleta (exceto Cristal de terra)"                          
+[12] "Tortilha"                                                                       
 
 $odiados
 [1] "Batata-palha"                                     
@@ -412,14 +412,14 @@ $odiados
 <h1>Criação do Data Frame</h1>
 <section id="mais-um-problema" class="level2">
 <h2 class="anchored" data-anchor-id="mais-um-problema">Mais um problema</h2>
-<p>“Agora, depois de toda essa trabalheira, finalmente estou com os dados que que queria em mãos”, foi o que eu pensei após terminar a raspagem de dados, mas estava completamente iludida.</p>
-<p>Como as listas que criei para cada personagem casável possuia tamanhos diferentes, não iria conseguir criar um data frame com elas D:</p>
+<p>“Agora, depois de toda essa trabalheira, finalmente estou com os dados que queria em mãos”, foi o que eu pensei após terminar a raspagem de dados, mas estava completamente iludida.</p>
+<p>Como as listas que criei para cada personagem casável possuiam tamanhos diferentes, não iria conseguir criar um data frame com elas D:</p>
 <p>A solução que encontrei, foi identificar todos os itens que coletei e mostrar quais personagens gostavam ou não dele.</p>
 </section>
 <section id="funções" class="level2">
 <h2 class="anchored" data-anchor-id="funções">Funções</h2>
 <p>Com a ideia clara do que precisava fazer, foi necessário criar algumas funções para padronizar os dados e facilitar a manipulação deles para a crição do data frame.</p>
-<p>As primeiras funções que senti a necessidade de serem criadas foram para tirar acentos e algumas pontuações que apareciam (como hífen, vírgulas e dois pontos).</p>
+<p>As primeiras funções que senti necessidade de serem criadas foram para tirar acentos e algumas pontuações que apareciam (como hífen, vírgulas e dois pontos).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tira_acento <span class="ot">&lt;-</span> <span class="cf">function</span>(palavra){</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  palavra <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"[áãâÁÃÂ]"</span>, <span class="st">"a"</span>, palavra)</span>
@@ -443,7 +443,7 @@ $odiados
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lista_presentes)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Por fim, criei duas funções para padronizar os presentes que coletei colocando todas as palavras em minúsculo e tirando acentos e pontuações. Futuramente explicarei por que foi necessário criar duas funções diferentes para “fazerem a mesma coisa”.</p>
+<p>Por fim, criei duas funções para padronizar o modo de escrita dos nomes dos presentes que coletei colocando todas as palavras em minúsculo e tirando acentos e pontuações. Futuramente explicarei por que foi necessário criar duas funções diferentes para “fazerem a mesma coisa”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>padroniza_presentes <span class="ot">&lt;-</span> <span class="cf">function</span>(lista_presentes){</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  lista_presentes <span class="ot">&lt;-</span> <span class="fu">limpa_exceto</span>(<span class="fu">tolower</span>(<span class="fu">tira_pontuacao</span>(<span class="fu">tira_acento</span>(<span class="fu">unlist</span>(lista_presentes)))))</span>
@@ -461,7 +461,7 @@ $odiados
 <section id="vetorização-dos-itens" class="level2">
 <h2 class="anchored" data-anchor-id="vetorização-dos-itens">Vetorização dos itens</h2>
 <p>Com as funções necessárias criadas, começo a fazer a listagem de todos os itens que apareceram na raspagem, ou melhor, a criação de um vetor que contenha todos os itens obtidos. Faço isso para que esse vetor seja, futuramente, a primeira coluna do nosso data frame.</p>
-<p>Note que aqui utilizarei a função <code>padroniza_presentes()</code> para padronizar os presentes. Mas por que? Como listei os itens de cada personagem casável, preciso desfazer essa lista para conseguir obter um vetor. Faço isso para todos os personagens e a cada personagem de padronizo seu presentes faço a adição deles no vetor <code>itens</code>.</p>
+<p>Note que aqui utilizarei a função <code>padroniza_presentes()</code> para padronizar os presentes. Mas por que? Como listei os itens de cada personagem casável, preciso desfazer essa lista para conseguir obter um vetor. Faço isso para todos os personagens e a cada personagem de padronizo seus presentes faço a adição deles no vetor <code>itens</code>.</p>
 <p>Por fim, como alguns itens apareceram mais de uma vez, utilizei a função <code>unique()</code> para que não haja repetição de itens. Aproveitei e deixei o vetor ordenado em ordem alfabética para obtermos um data frame mais organizado.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>itens <span class="ot">&lt;-</span> <span class="fu">padroniza_presentes</span>(presentes_casavel1)</span>
@@ -499,20 +499,21 @@ $odiados
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                           <span class="at">casavel11 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(itens)),</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">casavel12 =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(itens)))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>E assim fica o “esqueleto”:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
 <col style="width: 7%">
 <col style="width: 7%">
 <col style="width: 7%">
@@ -536,7 +537,7 @@ $odiados
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">abobora</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -551,7 +552,7 @@ $odiados
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">acucar</td>
+<td style="text-align: left;">abobora</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -581,21 +582,6 @@ $odiados
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">alcatrao de pinho</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">algas marinhas</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -610,8 +596,23 @@ $odiados
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">alho poro</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">amaranto</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -632,9 +633,9 @@ $odiados
 </section>
 <section id="preenchendo-o-data-frame" class="level2">
 <h2 class="anchored" data-anchor-id="preenchendo-o-data-frame">Preenchendo o data frame</h2>
-<p>Com o “esqueleto” criado, irei preenchê-lo com as informações que coletei de cada personagem. Para fazer isso, precirarei verificar se os itens de cada categoria de presentes de cada aldeão aparecem vetor <code>itens</code>, se isso ocorrer, preencho a célula correspondente no data frame.</p>
+<p>Com o “esqueleto” criado, irei preenchê-lo com as informações que coletei de cada personagem. Para fazer isso, precisarei verificar se os itens de cada categoria de presentes de cada aldeão aparecem no vetor <code>itens</code>, se isso ocorrer, preencho a célula correspondente no data frame.</p>
 <p>Agora sim, irei usar a função <code>padroniza()</code> para padronizar os presentes de cada categoria dos personagens.</p>
-<p>Novamente, como repliquei o processo para todos os doze aldeões, optei por mostrar apenas de um personagem, dessa vez o Harvey.</p>
+<p>Novamente, como repliquei o processo para todos os doze aldeões, mas optei por mostrar apenas de um personagem, dessa vez o Harvey.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>amados_c3 <span class="ot">&lt;-</span> itens <span class="sc">%in%</span> <span class="fu">padroniza</span>(presentes_casavel3<span class="sc">$</span>amados)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>presentes_df<span class="sc">$</span>casavel3[amados_c3] <span class="ot">&lt;-</span> <span class="st">"A"</span></span>
@@ -651,7 +652,7 @@ $odiados
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>odiados_c3 <span class="ot">&lt;-</span> itens <span class="sc">%in%</span> <span class="fu">padroniza</span>(presentes_casavel3<span class="sc">$</span>odiados)</span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>presentes_df<span class="sc">$</span>casavel3[odiados_c3] <span class="ot">&lt;-</span> <span class="st">"O"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note que, ao preencher o data frame, optei por utlizar apenas as iniciais de cada categoria de presentes para que ele fique mais sucinto. Portanto:</p>
+<p>Note que, para preencher o data frame, preferi utlizar apenas as iniciais de cada categoria de presentes para que ele fique mais sucinto. Portanto:</p>
 <ul>
 <li><strong>A</strong>: presente amado</li>
 <li><strong>G</strong>: presente gostado</li>
@@ -659,9 +660,9 @@ $odiados
 <li><strong>D</strong>: presente desgostado (não gostado)</li>
 <li><strong>O</strong>: presente odiado</li>
 </ul>
-<p>Nosso data frame está praticamente pronto, falta apenas alguns toque finais.</p>
-<p>Como tinha falado anteriormente, optei por omitir informações que apareciam no formato <em>“Todos os itens do tipo X (exceto Y)”</em>, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de <em>Todas as frutas</em>, por exemplo, e remover essas excessões. Por isso, irei retirar todas as linhas que sejam desse tipo (<em>“Todos os itens do tipo X”</em>).</p>
-<p>Além disso, farei mais três alterações na estruturação feita no data frame: nomearei as linhas com os nomes dos itens presenteáveis, consequentemente retirarei a coluna <code>itens</code>, também nomearei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, irei retirar os <code>NA</code>’s. Você pode acompanhar como fiz essas mudanças no código abaixo.</p>
+<p>Nosso data frame está praticamente pronto, faltam apenas alguns toques finais.</p>
+<p>Como tinha falado anteriormente, optei por omitir informações que apareciam no formato <em>“Todos os itens do tipo X (exceto Y)”</em>, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de <em>Todas as frutas</em>, por exemplo, e remover essas excessões. Por isso, retirei todas as linhas que sejam desse tipo (<em>“Todos os itens do tipo X”</em>).</p>
+<p>Além disso, fiz mais três alterações na estruturação feita no data frame: nomeei as linhas com os nomes dos itens presenteáveis, consequentemente retirei a coluna <code>itens</code>, também nomeei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, retirei onde estava escrito <code>NA</code>. Você pode acompanhar como fiz essas mudanças no código comentado abaixo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#retirando linhas "desnecessárias"</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>presentes_df <span class="ot">&lt;-</span> presentes_df[<span class="sc">-</span>(<span class="dv">139</span><span class="sc">:</span><span class="dv">154</span>),] </span>
@@ -691,19 +692,19 @@ $odiados
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 26%">
+<col style="width: 58%">
+<col style="width: 2%">
 <col style="width: 4%">
-<col style="width: 7%">
-<col style="width: 6%">
 <col style="width: 3%">
-<col style="width: 9%">
+<col style="width: 2%">
 <col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 5%">
-<col style="width: 5%">
+<col style="width: 3%">
 <col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -724,6 +725,21 @@ $odiados
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">abobora</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -732,21 +748,6 @@ $odiados
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">acucar</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -769,64 +770,34 @@ $odiados
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">alcatrao de pinho</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">algas marinhas</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">alho poro</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">G</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">almoco de fazendeiro</td>
+<td style="text-align: left;">alho poro</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
+<td style="text-align: left;">N</td>
 <td style="text-align: left;">-</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">G</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">G</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">amaranto</td>
@@ -859,34 +830,34 @@ $odiados
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">amora</td>
+<td style="text-align: left;">amora silvestre</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">D</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">amora silvestre</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">amuletos</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">areinha</td>
@@ -904,16 +875,16 @@ $odiados
 <td style="text-align: left;">A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">argila</td>
+<td style="text-align: left;">artefatos</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -921,27 +892,27 @@ $odiados
 <tr class="even">
 <td style="text-align: left;">avela</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">azevinho</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">O</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">O</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">G</td>
@@ -975,7 +946,7 @@ $odiados
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
@@ -990,7 +961,7 @@ $odiados
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="odd">
@@ -1149,7 +1120,7 @@ $odiados
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -1191,16 +1162,16 @@ $odiados
 <tr class="even">
 <td style="text-align: left;">cantarelo</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
 </tr>
 <tr class="odd">
@@ -1281,31 +1252,31 @@ $odiados
 <tr class="even">
 <td style="text-align: left;">cogumelo comum</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">N</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cogumelo de magma</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
@@ -1325,17 +1296,17 @@ $odiados
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cogumelo roxo</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">G</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 <td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
+<td style="text-align: left;">-</td>
 <td style="text-align: left;">D</td>
 </tr>
 <tr class="even">
@@ -1354,14 +1325,14 @@ $odiados
 <td style="text-align: left;">D</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">compendio de monstros</td>
+<td style="text-align: left;">coleta a praia</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">D</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -1369,224 +1340,14 @@ $odiados
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">concha arco iris</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">coleta as minas</td>
 <td style="text-align: left;">O</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">concha de nautilo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">conjunto de pilhas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coral</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">couve flor</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">couve flor com queijo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dente de leao</td>
-<td style="text-align: left;">N</td>
 <td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">G</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">diamante</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">enguia frita</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">enguia picante</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">enroladinhos de pimenta</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">esmeralda</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">fragmento prismatico</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">fruta de cristal</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">fruto do cacto</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
 <td style="text-align: left;">-</td>
@@ -1594,1336 +1355,32 @@ $odiados
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">gengibre</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">girassol</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">hamburguer de sobreviencia</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">hidromel</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">inhame de neve</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">N</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">inhames com cobertura</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">jade</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">jantar de salmao</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">joja cola</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">la</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">lagosta</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">lagrima congelada</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">leite</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">leite de cabra</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">leite grande</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">leite grande de cabra</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">linguado</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">lula</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">lupulo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">madeira do mar</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">maionese</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">maionese de ovo de pato</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">mel</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">melao</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">mexido de amoras</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">mexido de legumes</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">minerio de iridio</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">minerio de ouro</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">minerio radioativo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">molho de oxicoco</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">morango</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">morel</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">narciso</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">obsidiana</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">oleo de trufas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">olho de tigre</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">omelete</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ovo de pata</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ovo frito</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ovo nulo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pale ale</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">panquecas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pao</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pao de acer</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">papoula</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pe de coelho</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pena de pato</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pepino do mar</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">picles</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pimenta quente</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">piña colada</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pizza</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">polvo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">prato de raizes</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">prato vermelho</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pudim de arroz</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">pudim de banana</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quartzo</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quartzo refinado</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">queijo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">queijo de cabra</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">raiz de inverno</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">raiz forte</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">N</td>
-<td style="text-align: left;">N</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">refeicao de mineiro</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">refogado</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">resina de carvalho</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">G</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">rolinhos de arroz</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">roma</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">rubi</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">salada</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">salada de frutas</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">sashimi</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">sopa de abobora</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">sopa de alga</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">sopa tom kha</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">sorvete</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">superprato</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">taco de peixe</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">tecido</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tinta de lula</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">topazio</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">torta de mirtilo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">torta de ruibarbo</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tortilha</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">trufa</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">O</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">uva</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">vinho</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">A</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">O</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">xarope de acer</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">D</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">coleta as minas caverna da caveira</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
+<p>a caverna (se escolheu cogumelos) caverna de cogumelos da ilha gengibre |- |D |- |- |- |- |- |- |- |- |- |- | |coleta caverna do vulcao |- |D |- |- |- |- |- |- |- |- |- |- | |coleta ilha gengibre |- |D |- |- |- |- |- |- |O |- |- |- | |coleta inverno |- |O |- |- |O |- |O |- |O |- |- |- | |coleta outono |- |D |- |- |- |- |- |- |- |- |- |- | |coleta outono a caverna (se escolheu cogumelos) caverna de cogumelos da ilha gengibre |- |D |- |- |- |- |- |- |- |- |- |- | |coleta primavera |D |D |- |- |- |- |D |- |- |- |- |- | |coleta primavera a caverna (se escolheu cogumelos) |- |D |- |- |- |- |- |- |- |- |- |- | |compendio de monstros |- |- |- |- |- |- |A |- |- |- |- |- | |concha arco iris |- |D |O |- |- |- |- |- |- |- |- |- | |concha de nautilo |- |- |O |- |- |- |- |- |- |- |- |- | |conjunto de pilhas |- |- |- |- |- |- |- |- |- |- |A |- | |coral |- |- |O |- |- |- |- |- |- |- |- |- | |couve flor |- |- |- |- |- |- |- |- |- |- |A |- | |couve flor com queijo |- |- |- |- |- |- |- |- |- |- |A |- | |culinaria |N |- |- |- |O |D |- |O |- |- |G |- | |culinaria saloon fruta estrelar |- |D |- |- |- |- |- |- |- |- |- |- | |dente de leao |N |- |G |D |- |- |N |- |D |G |- |G | |diamante |- |- |- |- |- |- |- |- |- |- |A |A | |dispositivo de anao |- |- |- |- |- |- |- |- |- |- |A |- | |ele vive no fundo entao os dois olhos estao no topo da cabeca. |- |- |- |- |D |- |- |- |- |- |- |- | |enguia frita |- |- |- |- |- |- |- |D |- |- |- |- | |enguia picante |- |- |- |- |- |- |A |O |- |- |- |- | |enroladinhos de pimenta |- |- |- |- |- |A |- |- |- |- |A |- | |escavacao nos de argila |- |- |- |- |O |- |- |- |- |- |- |- | |esmeralda |- |- |- |- |- |- |- |A |- |- |- |A | |espada antiga |- |- |- |- |- |- |N |- |- |- |- |- | |fragmento de brasa |- |- |- |O |- |- |- |- |- |- |- |- | |fragmento de osso |- |- |- |O |- |- |- |- |- |- |- |- | |fruto do cacto |- |- |- |A |- |- |- |- |- |- |- |- | |gengibre |- |- |G |D |- |- |- |- |- |G |- |- | |girassol |- |- |- |- |- |- |- |- |A |- |- |- | |hamburguer de sobreviencia |- |- |- |- |- |- |- |A |- |D |- |- | |hidromel |- |- |- |- |- |- |- |- |- |- |- |O | |inhame de neve |O |- |G |D |- |- |- |- |D |G |O |N | |inhames com cobertura |- |- |D |- |- |- |- |- |- |- |- |- | |jack seja agil jack seja parrudo |A |- |- |- |- |- |- |- |- |- |- |- | |jade |- |- |- |- |- |- |- |A |- |- |- |- | |jantar de salmao |G |- |- |- |- |- |- |O |- |- |- |- | |joja cola |- |- |- |G |- |- |- |- |- |- |- |- | |la |- |- |- |- |- |- |- |A |- |- |- |D | |lagosta |- |A |- |- |- |- |- |- |- |- |- |- | |lagrima congelada |- |- |- |- |A |- |- |- |- |- |- |- | |leite |- |- |N |- |- |- |- |- |- |- |- |- | |leite de cabra |- |- |G |- |- |- |- |- |- |- |- |- | |leite grande |- |- |N |- |- |- |- |- |- |- |- |- | |leite grande de cabra |- |- |G |- |- |- |- |- |- |- |- |- | |livros |- |- |- |- |- |- |N |- |- |- |- |- | |lula |- |G |- |- |- |- |- |- |- |- |- |- | |lupulo |- |- |- |- |- |- |- |- |- |- |- |O | |madeira flutuante |- |- |- |- |- |- |- |- |- |G |- |- | |maionese |- |- |- |O |- |- |- |- |- |- |- |- | |maionese de ovo de pato |- |- |- |O |- |- |- |- |- |- |- |- | |mel |- |- |- |- |- |- |- |- |- |- |O |- | |melao |- |- |- |- |- |- |- |- |- |- |- |A | |mexido de legumes |- |- |- |- |- |- |- |- |- |A |- |- | |minerio de iridio |- |- |- |O |- |- |- |- |- |- |- |- | |minerio de ouro |- |- |- |O |- |- |- |- |- |- |- |- | |molho de oxicoco |- |- |D |- |- |- |- |- |- |- |- |- | |morango |- |- |- |- |- |- |- |- |- |- |A |- | |morel |- |- |G |D |- |- |D |- |D |G |- |N | |narciso |N |- |G |D |- |- |N |- |G |G |- |N | |obsidiana |- |- |- |- |A |- |- |- |- |- |- |- | |oleo de trufas |- |- |A |- |- |- |- |- |- |- |- |- | |olho de tigre |- |- |- |A |- |- |- |- |- |- |- |- | |ovo de dinossauro |N |- |- |- |- |- |- |- |- |- |- |- | |ovo de papagaio |- |- |- |- |- |- |- |G |- |- |- |- | |ovo de pata |- |- |G |- |- |- |- |- |- |- |- |- | |ovo de sapo |- |- |- |- |A |- |- |- |- |- |- |- | |ovo frito |- |- |- |- |- |- |- |- |- |D |- |- | |ovo nulo |- |- |- |- |A |- |- |- |- |O |- |- | |pale ale |- |- |- |- |- |- |- |- |- |- |- |O | |panquecas |- |- |D |- |- |- |- |- |- |O |- |- | |pao |- |- |D |- |- |- |- |- |- |O |- |- | |pao de acer |- |- |- |A |- |- |- |- |- |- |- |- | |pao estranho |- |- |- |- |- |D |- |- |- |- |- |- | |papoula |- |- |- |- |- |- |- |- |- |- |- |A | |pe de coelho |- |- |- |- |- |- |- |- |- |- |- |O | |pena de pato |- |A |G |- |- |- |- |- |- |- |- |D | |picles |- |- |A |- |- |O |- |- |- |- |O |- | |pimenta quente |- |- |- |- |- |A |- |- |- |- |- |- | |piña colada |- |- |- |- |- |- |- |- |- |- |- |O | |pizza |- |- |D |A |- |A |- |- |- |O |- |- | |polvo |- |G |- |- |- |- |- |- |- |- |- |- | |prato de raizes |- |- |- |- |- |- |- |- |- |- |- |A | |prato vermelho |- |- |- |- |- |- |- |- |- |- |- |A | |pudim de arroz |- |- |D |- |- |- |- |D |- |D |- |- | |pudim de banana |- |- |- |- |- |- |A |- |- |- |- |- | |quartzo |- |- |G |D |- |- |G |- |D |- |- |D | |queijo |- |- |D |- |- |- |- |- |- |- |- |- | |queijo de cabra |- |- |D |- |- |- |- |- |- |A |- |- | |raiz de inverno |O |- |G |D |- |- |O |- |O |G |- |N | |raiz forte |- |- |G |D |- |- |- |- |- |G |- |N | |refeicao de mineiro |- |- |- |- |- |- |- |- |- |- |A |- | |refogado |- |- |- |- |- |- |- |- |- |A |- |- | |rolinhos de arroz |- |- |- |- |- |- |- |O |- |- |- |- | |todos os amores universais todos os livros |- |- |- |- |- |- |- |- |- |- |- |- | |todos os artefatos |- |- |- |- |- |- |- |- |- |- |- |G | |todos os desgostos universais |- |- |- |- |- |- |- |- |- |- |- |- | |todos os desgostos universais todos os ovos todas as frutas todos os vegetais |- |- |- |- |- |- |- |- |- |- |- |- | |todos os gostos universais |- |- |- |- |- |- |- |- |- |- |- |- | |todos os leites |- |- |- |N |- |N |- |- |D |G |- |G | |todos os livros |- |G |- |- |- |- |- |- |- |- |- |- | |todos os minerais de coleta |- |- |- |- |- |- |- |- |- |- |- |- | |todos os neutros universais |- |- |- |N |- |N |- |- |- |- |- |- | |todos os odios universais |- |- |O |- |- |- |- |- |- |- |- |- | |todos os ovos |- |- |- |- |- |- |- |- |D |- |- |- | |todos os peixes |- |- |- |- |- |- |- |- |- |- |- |- | |todos os vegetais |- |- |- |- |- |- |- |- |- |- |- |- | |topazio |- |- |- |- |- |- |- |A |- |- |- |- | |torneirinha |- |- |- |- |- |- |- |- |O |- |- |- | |torta de amoras |- |- |- |- |- |- |A |- |- |- |- |- | |torta de mirtilo |- |- |D |- |- |- |- |- |- |- |- |- | |torta de ruibarbo |- |- |D |- |- |- |- |- |- |- |G |- | |tortilha |- |- |- |- |- |- |- |- |- |D |- |- | |trufa |- |- |- |- |- |- |- |- |- |A |- |- | |um cristal transparente encontrado em cavernas e minas. |- |- |- |- |- |- |- |N |- |- |- |- | |um lanchinho rapido para o coletor faminto. |N |- |- |- |- |- |- |- |- |- |- |- | |um tuberculo rico em amido. |- |- |- |- |- |- |- |D |- |- |- |- | |um xarope doce com um sabor unico. |- |- |- |- |- |- |- |- |- |- |O |- | |uma raiz picante encontrada na primavera. |- |- |- |- |- |O |- |- |- |- |D |- | |uma resina pegajosa e perfumada extraida de seiva de carvalho. |- |- |- |- |- |- |- |- |- |- |N |- | |uma tradicional flor da primavera. da um otimo presente. |- |- |- |- |O |- |- |- |- |- |- |- | |uva |- |- |- |- |- |- |- |- |- |- |- |O | |vinho |- |- |A |- |- |- |- |- |- |A |- |O |</p>
 </div>
 </div>
-<p>Caso vc queira baixar o data frame <em><a href="https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing">neste link</a></em> vc encontra dois aquivos <code>.csv</code>: um com sem a retirada dos <code>NA</code>’s e outra com a versão que apresentei acima.</p>
+<p>Caso vc queira baixar o data frame <em><a href="https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing">neste link</a></em> vc encontra dois aquivos <code>.csv</code>: um sem a retirada dos <code>NA</code>’s e outra com a versão que apresentei acima.</p>
 </section>
 <section id="considerações-finais-e-próximos-passos" class="level1">
 <h1>Considerações Finais e Próximos Passos</h1>
-<p>Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas coisas que posso trabalhar em um futuro próximo.</p>
-<p>Tenho vários projetos futuros para esse conjunto de dados que obti, com a visualização de e também a sua expansão. Logo, trarei esses projetos para cá.</p>
-<p>Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive <em><a href="https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing">neste link</a></em> e fique ligado para projetos futuros de Stardew Valley e muitas outras coisas.</p>
+<p>Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas abordagens que posso trabalhar em um futuro próximo.</p>
+<p>Tenho vários projetos futuros para realizar com o conjunto de dados que obti, como a visualização deles e também a sua expansão. Logo, trarei esses projetos para o meu portifólio.</p>
+<p>Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive <em><a href="https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing">neste link</a></em> e fique ligado para projetos futuros de Stardew Valley e muitos outros.</p>
 
 
 </section>

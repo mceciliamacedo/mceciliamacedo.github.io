@@ -1,0 +1,232 @@
+---
+title: "Análise de Sentimentos em Letras de Músicas"
+subtitle: "utilizando técnicas de NLP no R"
+image: phoebe.png
+categories: ["r", "npl", "música"]
+description: trabalho desenvolvido a partir de técnicas aprendidas no grupo de estudos do PET Estatística e apresentado na XIV Semana da Estatística da Universidade Federal de Uberlândia (UFU).
+author: 
+  - "Maria Cecília Macedo"
+  - "Elisa Kaori"
+  
+date: "2024-09-04"
+date-format: medium
+toc-title: "nesta página"
+---
+
+```{r}
+#| label: setup
+#| echo: false
+#| output: false
+
+library(rvest)
+library(dplyr)
+library(stringr)
+
+library(tidytext) 
+library(SnowballC)
+library(textdata)
+library(tidyr)
+library(wordcloud)
+library(ggplot2)
+library(reshape2)
+
+library(knitr)
+
+stranger_alps <- read.csv("stranger_alps.csv", header = TRUE)
+stranger_alps$faixa <- 1:10
+
+```
+
+
+## Introdução
+
+O *Processamento de Linguagem Natural (PLN)* é um campo interdisciplinar dentro da Ciência da Computação que auxilia no processamento e entendimento da linguagem natural humana. O PLN tem como principal objetivo  utilizar técnicas computacionais para transformar textos em um formato que seja compreensível e interpretável para o computador.
+
+Dentro do Processamento de Linguagem Natural (PLN), a Análise de Sentimentos é uma subárea que se concentra em processar e classificar textos com base nas emoções que eles expressam. Essa análise é amplamente utilizada para avaliar diferentes tipos de texto, como letras de músicas, livros, artigos e opiniões de usuários nas redes sociais sobre uma variedade de temas. Para realizar essa avaliação, são empregados dicionários de sentimentos, que atribuem valores positivos ou negativos às palavras, permitindo assim a identificação do tom emocional presente no texto.
+
+Este trabalho usa técnicas de raspagem de dados e processamento de linguagem para coletar, interpretar e analisar as letras de todas as músicas do álbum *Stranger in the Alps (2017)*, da cantora Phoebe Bridgers. Seu objetivo é utilizar técnicas computacionais e estatísticas para verificar se a percepção inicial do ouvinte sobre o álbum corresponde àquilo que se obtém após o processo de análise de sentimentos, uma vez que o álbum é reconhecido por seus ouvintes por possuir mais sentimentos negativos do que positivos.
+
+## Metodologia
+
+### Coleta de Dados
+
+As letras das músicas contidas no álbum foram coletadas do site [Letras](https://www.letras.mus.br/phoebe-bridgers/discografia/stranger-in-the-alps-2017/), com auxílio de técnicas de Web Scraping que consistem em raspar e extrair dados de uma página na web. Para isso, utilizou-se o R, um software para computação estatística, com auxílio das bibliotecas `rvest`, para a raspagem de dados, e `dplyr`, para auxiliar a manipulação dos dados.
+
+```{r}
+#| label: raspagem
+#| include: false
+#| output: false
+#| warning: false
+
+url <- "https://www.letras.mus.br/phoebe-bridgers/discografia/stranger-in-the-alps-2017/"
+html <- read_html(url)
+
+musicas <- html|>
+  html_elements("li.songList-table-row")|>
+  html_text2()
+musicas <- musicas[-c(1, 12)]
+musicas[7] <- "Georgia"
+
+links_musicas <- html|>
+  html_elements("a.songList-table-playButton")|>
+  html_attr("href")
+links_musicas <- links_musicas[-11]
+
+url_musicas <- paste0("https://www.letras.mus.br", links_musicas)
+
+letras <- c()
+for (i in 1:length(url_musicas)){
+  html <- read_html(url_musicas[i])
+  
+  letras[i] <- html|>
+    html_elements("div.lyric-original")|>
+    html_text2()|>
+    str_replace_all(pattern = "\n", replacement = " ")
+}
+letras
+
+stranger_alps <- data.frame(musicas, letras)
+
+```
+
+Assim obtendo o seguinte conjunto de dados:
+
+```{r}
+#| label: dados
+#| warning: false
+#| echo: false
+
+kable(stranger_alps)
+
+```
+
+### Processamento e Manipulação dos Dados
+
+Para estudar as letras das músicas, inicialmente foi feito um processo chamado *tokenização*, utilizando as bibliotecas `tidytext` e `tidyr`. Esse processo faz parte do processamento de linguagem e consiste na quebra do texto em partes menores (“tokens”), que podem ser parágrafos, frases, palavras. 
+
+Após a *tokenização*, foi feita a contagem de cada palavra para observar as que se repetiam mais ao longo das músicas e então entender quais são os sentimentos prevalentes no álbum. Para ajudar a visualizar este comportamento, foi criada uma *nuvem de palavras*, isto é, uma representação visual em que os tamanhos das palavras estão diretamente relacionadas com a sua frequência dentro do conjunto observado. A nuvem de palavras foi feita utilizando a biblioteca `wordcloud`.
+
+A Fig. 1 representa a nuvem de palavras gerada a partir do álbum.
+
+```{r}
+#| label: tokenizacao
+#| warning: false
+#| echo: false
+#| output: false
+
+
+#tokenização
+stranger_alps|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  count(word)|>
+  head(20)
+
+#stemização
+stranger_alps|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  mutate(word = wordStem(word))|>
+  count(word, sort = TRUE)
+```
+
+```{r}
+#| label: nuvem_palavras
+#| warning: false
+#| echo: false
+#| fig-cap: "Figura 1: Nuvem de palavras"
+
+dados <- stranger_alps|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  mutate(word = wordStem(word))|>
+  count(word, sort = TRUE)
+
+#nuvem de palavras
+wordcloud(dados$word, dados$n, colors = brewer.pal(6, "Dark2"))
+```
+
+
+### Análise de Sentimentos
+
+Para fazer a análise de sentimentos das músicas, foi necessário encontrar uma forma objetiva de classificar as palavras de acordo com as emoções que elas representam, podendo ser uma categorização binária entre positivo e negativo, ou uma classificação mais abrangente. Para isso, foram utilizados três dicionários diferentes de análise de sentimentos, extraídos através da função `get_sentiments()` (nativa da biblioteca `tidytext`) e definidos a seguir. 
+
+* ***Bing***: Categoriza as palavras de forma binária, como positivas ou negativas.
+* ***Afinn***: Atribui às palavras um valor inteiro (entre - 5 e 5) de acordo com o quão positiva ou negativa é a conotação da palavra.  
+* ***NRC***: Categoriza as palavras entre dois sentimentos (positivo ou negativo) ou entre oito emoções básicas (raiva, antecipação, nojo, medo, alegria, tristeza, surpresa e confiança). 
+
+Em primeiro momento, foi realizada uma análise geral para verificar o quão negativas ou positivas são as músicas do álbum. Para isso, foram utilizados os dicionários Bing e Afinn, com o intuito de compará-los. Essa comparação foi feita através de um gráfico de barras gerado com a biblioteca `ggplot2`, representado pela Fig. 2.
+
+
+```{r}
+#| label: bing_afinn
+#| warning: false
+#| echo: false
+#| fig-cap: "Figura 2: Gráfico de barras comparando os dicionários"
+#| fig-cap-align: center 
+
+stranger_alps$track <- 1:10
+
+bing <- stranger_alps|>
+  mutate(musicas = reorder(musicas, -track))|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  inner_join(get_sentiments("bing"))|>
+  count(musicas, sentiment)|>
+  spread(key = sentiment, value = n, fill = 0)|>
+  mutate(sentimento = positive - negative)
+
+afinn <- stranger_alps|>
+  mutate(musicas = reorder(musicas, -track))|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  inner_join(get_sentiments("afinn"))|>
+  group_by(musicas)|>
+  summarise(sentimento = sum(value))
+
+bing_afinn <- bind_rows(bing, afinn)
+bing_afinn$dicionario <- rep(c("Bing", "Afinn"), each = 10)
+
+bing_afinn|>
+  ggplot(aes(x = sentimento, y = musicas))+
+  geom_col(fill = "steelblue")+
+  facet_wrap(~ dicionario, scales = "free_x")+
+  labs(x = "", y = "")+
+  theme_minimal()
+```
+
+A partir dos gráficos, foi observado um comportamento bastante semelhante entre os dois dicionários. Para o dicionário Affin, apenas a música *‘Georgia’* foi considerada positiva, já para o dicionário Bing, todas as músicas sem exceção foram consideradas negativas. Esse resultado reforça a suposição de que este é de fato um álbum com letras negativas.
+
+Uma vez que o álbum foi analisado de forma integral, utilizou-se o dicionário NRC para aprofundar a análise e verificar quais sentimentos estavam presentes em cada música individualmente. A Fig. 3 representa o gráfico de barras obtido a partir da música *‘Killer’*, mas esse processo foi repetido para todas as músicas do álbum.
+
+```{r}
+#| label: killer
+#| warning: false
+#| echo: false
+#| fig-cap: "Figura 3: Gráfico de barras com os sentimentos da música ‘Killer’"
+
+#killer
+sentimentos_nrc <- c("Raiva", "Antecipação", "Nojo", "Medo", "Alegria", "Negativo",
+                     "Positivo", "Tristeza", "Surpresa", "Confiança")
+
+stranger_alps[6,]|>
+  unnest_tokens(output = word, input = letras, token = "words")|>
+  anti_join(stop_words)|>
+  inner_join(get_sentiments("nrc"), relationship = "many-to-many")|>
+  count(musicas, sentiment, sort = TRUE)|>
+  ggplot(aes(x = sentiment, y = n))+
+  geom_col(fill = "steelblue")+
+  labs(x = "", y = "")+
+  scale_y_continuous(breaks = c(0, 5, 10))+
+  scale_x_discrete(labels = sentimentos_nrc)+
+  theme_minimal()
+
+```
+
+Com o uso desse dicionário, é possível observar de forma mais completa a gama de sentimentos presente em cada música, auxiliando na compreensão do álbum por inteiro. Na música *‘Killer’*, nota-se a presença de todos os sentimentos listados no dicionário usado (NRC), o que traz para a análise uma maior subjetividade, uma vez que é notável na música a presença de sentimentos opostos. Apesar disso, ainda pode-se notar a prevalência dos sentimentos negativos sobre os positivos.
+
+### Conclusão
+
+Com o auxílio de ferramentas computacionais de *Processamento de Linguagem Natural*, foi possível fazer uma análise mais aprofundada sobre o teor emocional das letras das músicas. Os gráficos gerados a partir dos dicionários Bing e Afinn mostraram que o álbum se mantém completamente negativo, com exceção de uma única música pelo Afinn. Com o dicionário NRC, por sua vez, foi possível detectar não somente a polaridade das emoções, mas rotular emoções mais específicas como medo e tristeza, complementando o que foi observado nos dicionários anteriores.
+
+Por fim, o uso conjunto dessas ferramentas trouxe uma compreensão mais rica e aprofundada das emoções transmitidas nas canções e suas nuances. Dessa forma, os resultados obtidos neste estudo validam a suposição inicial de que no álbum *Stranger in the Alps* de Phoebe Bridgers prevalecem os sentimentos negativos. 
