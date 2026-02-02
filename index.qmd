@@ -1,26 +1,30 @@
 ---
-title: "maria cecília"
 about:
-  image: eu.jpg
+  image: eu2.jpg
   template: jolla
   image-shape: rounded
-  image-width: 22em 
   links:
+  - icon: linkedin
+    text: linkedin
+    href: https://www.linkedin.com/in/mceciliamacedo/
   - icon: github
     text: github
     href: https://github.com/mariacecilia-macedo
   - icon: envelope-at
     text: email
     href: mailto:mariacecilia.macedo22@gmail.com
+format:
+  html:
+    css: styles.css
+toc: false
 ---
 
-## sobre mim 
+### olá! seja muito bem-vindo. 
 
-olá! me chamo maria cecília, atualmente estou cursando estatística na universidade federal de uberlândia. ao longo do meu percurso acadêmico as áreas de machine learning e data science me chamaram bastante atenção.
+Me chamo Maria Cecília e atualmente curso Estatística na Universidade Federal de Uberlândia (UFU) e estou na fase final de minha graduação.
 
-minha principal ferramenta é a liguagem r, busco aprimorar meus conhecimentos nela e também aprender outras linguagens. no momento tenho me interassado e estudado python, pois sei da sua importância na área que escolhi para atuar.
+Tive contato com Ciência de Dados na faculdade e atualmente tenho aprofundado meus estudos em Processamento de Linguagem Natural (PNL ou NLP), processamento de imagens e vizualização de dados. Minha principal ferramenta é a linguagem R, na qual possuo amplo conhecimento e busco aprimoramento constante. Além disso, venho desenvolvendo novos projetos com o objetivo de fortalecer minhas habilidades em outras tecnologias, como Python e Power BI, ampliando meu repertório técnico e minha capacidade de análise.
 
-meu intuito ao criar essa página é para que ela sirva como um portifólio e que eu atualize ela com meus projetos concluídos e em andamento
+O objetivo desta página é servir como um portifólio, onde compartilho alguns projetos concluídos que gostei, refletindo meus interesses e minha trajetória acadêmica. Na seção [projetos](projetos.qmd) você encontrará alguns trabalhos de estatística e ciência de dados que realizei. Em [experiência](experiência.qmd) poderá conferir minha trajetória profissional e acadêmica. Já na aba [atividades](atividades.qmd), compartilho alguns eventos que participei ativamente ao longo da minha formação.
 
-sinta-se à vontade para explorar e entrar em contato comigo!
-
+Sinta-se à vontade para explorar o conteúdo e entrar em contato comigo!

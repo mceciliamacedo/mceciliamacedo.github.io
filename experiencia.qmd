@@ -1,10 +1,50 @@
 ---
 title: ""
+toc-title: "nesta página"
 ---
 
-## experiência acadêmica
+# experiência acadêmica
+
+## formação
 
 #### Universidade Federal de Uberlândia
 
 *Bacharelado em Estatística | Novembro 2021 - presente*
 
+### projetos e atividades
+
+#### PET Estatística
+*outubro 2022 - presente*
+
+No Programa de Educação Tutorial (PET), realizo atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
+
+O PET contribui fortemente no meu desenvolvimento pessoal e profissional. Por isso, destaco algumas atividades que participei e que contribuiram muito no meu aprendizadoa a seguir. 
+
+* ***Minicursos*** - ministrei e participei da criação e estruturação de vários minicursos. Destaco aqui o *Programanas* que introduz conceitos de Ciência de Dados ao público feminino e o *Era uma vez um algoritmo*, minicurso de PLN que ocorreu durante a XV Semana da Estatística na UFU. 
+
+* ***Grupos de estudo*** - nele estudei  modelos de aprendizado de máquina, como *KNN*. Aprendi várias técnicas como *webscraping*, manipulaçao e análise descritiva de dados, e também foi onde tive meu primeiro contato com PNL. 
+
+#### Iniciação Científica 
+
+*Urnas de Pólya: uma visão introdutória*
+
+*Concluída*
+
+Participei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: *"Urnas de Pólya - uma visão introdutória"*. E apresentei o projeto na *II Reunião Mineira de Matemática* da UFMG.
+
+#### Iniciação Científica - Império em dados: revisitando a história brasileira através de técnicas modernas
+
+*Em andamento*
+
+O objetivo dessa IC é utilizar técnicas computacionais para extrair os dados do primeiro censo do Brasil, realizado em 1872.
+
+# experiência profissional
+
+### Estágio
+
+#### Tribanco - Tesouraria/Renda Fixa
+*julho 2024 - presente*
+
+Atuo na melhoria e automação de rotinas na área de Tesouraria e Renda Fixa, envolvendo coleta, tratamento e visualização de dados. Buscando sempre tornar os processos mais eficientes.
+
+Também realizo análises exploratórias e aplico modelos de previsão, especialmente voltados a séries temporais, utilizando Python. 

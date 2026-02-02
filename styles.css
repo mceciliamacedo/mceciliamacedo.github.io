@@ -1,1 +1,6 @@
 /* css styles */
+
+.quarto-about-jolla p {
+  text-align: justify;
+  hyphens: auto;
+}
