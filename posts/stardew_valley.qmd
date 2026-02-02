@@ -1,9 +1,1266 @@
 ---
-title: "web scraping - stardew valley"
+title: "stardew valley"
 image: stardewvalley_logo.jpg
-categories: ["r", "web scraping", "em andamento"]
-description: raspagem de dados do wiki de stardew valley para criar um arquivo contendo os aldeões e os melhores e piores presentes para dá-los.
-date: "2025"
-date-format: YYYY
+categories: ["r", "web scraping", "stardew valley"]
+description: web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.
+author: "Maria Cecília Macedo"
+date: "2024-05-30"
+date-format: medium
+toc-title: "nesta página"
 ---
 
+# Web scraping dos presentes de Stardew Valley 
+
+## Motivação
+
+Stardew Valley (ou jogo da fazendinha, como gosto de chamar), é um jogo em que somos fazendeiros em uma pacata vila. 
+
+É possível fazer diversas coisas no jogo, sendo a grande parte atrelada a vida no campo, porém algo muito importante é fazer amizade com os moradores da Vila Pelicanos, já que assim os aldeões podem te enviar receitas novas e presentes, por exemplo. Além de ser possível fazer amizade com todos os NPC's da vila, existe um grupo de solteirões que podemos casar!
+
+Assim como qualquer pessoa, cada aldeão tem seus próprios gostos e desgostos, e muitas vezes queremos presentear na maior boa vontade o personagem que mais nos afeiçoamos e recebemos um comentário como *"Este presente é horrível, não é?"* ou até mesmo *"Que nojo!"* :(
+
+Por isso, decidi coletar as informações de quais itens cada aldeão candidato a casamento ama, gosta, acha neutro, não gosta e odeia, para poder dar presentes que agradem e assim você possa conquistar seu futuro cônjuge! 
+
+## Objetivo
+
+Esse projeto, então, tem como objetivo explicar como foi feita a raspagem de dados (web scraping) utilizando R da página de *Aldeões* da *[Stardew Valley Wiki](https://pt.stardewvalleywiki.com/Alde%C3%B5es)*. Para isso, foi preciso coletar os links da páginas de cada um dos aldeões candidatos a casamento, acessar cada uma deles, coletar as informações sobre os presentes e ao final criar um data frame para que possa consultar quais os melhores e piores quando estiver jogando.
+
+## Pacotes
+
+Utilizarei os seguintes pacotes do R:
+
+```{r}
+#| label: pacotes
+#| warning: false
+
+library(rvest)
+library(tidyverse)
+library(stringr)
+
+```
+
+* `rvest` - para fazer a raspagem dos dados
+* `tydiverse` - para manipulação dos dados
+* `stringr` - para manipulação de strings
+
+# Raspagem de Dados
+
+Com os pacotes instalados e carregados, podemos, finalmente dar início a raspagem de dados.
+
+## Coletando os links dos aldeões
+
+Inicialmente, coleto os nomes de todos os aldeões do jogo e depois filtro apenas os casáveis, que são o nosso interesse.
+
+```{r}
+#| label: links
+
+url <- "https://pt.stardewvalleywiki.com/Alde%C3%B5es"
+html <- read_html(url)
+
+aldeoes <- html|>
+  html_elements("ul.villagergallery")|>
+  html_elements("div.gallerytext")|>
+  html_text2()
+aldeoes_casaveis <- aldeoes[1:12]
+
+``` 
+
+A seguir coletarei os links de cada um dos aldeões e selecionarei apenas os que são canditados a casamento. 
+
+```{r}
+#| label: links-2
+
+paginas <- html|> 
+  html_elements("ul.villagergallery")|>
+  html_elements("p")|>
+  html_elements("a")|>
+  html_attr("href")
+
+links_casaveis <- paste0("https://pt.stardewvalleywiki.com", paginas[1:12])
+```
+
+## Coletando os presentes
+
+Quando acessei as páginas de cada aldeão, me deparei com um problema: nenhuma tabela da página havia id. Isso dificultou bastante a coleta de dados, então tive que raspar todas as tabelas da página de cada aldeão e depois filtrar manualmente o conteúdo que queria. Irei mostrar um pedacinho dessa tabela gigantesca que obtive. 
+
+**Observação**: Devido ao tamanho do código, mostrarei o que fiz apenas para um aldeão (a Leah, minha personagem favorita, que no código ficou nomeada como casável 10), mas repliquei o processo para todos os 12 personagens candidatos a casamento.
+
+```{r}
+#| label: presentes-leah
+
+#acessando a página
+url_casavel10 <- links_casaveis[10]
+html_casavel10 <- read_html(url_casavel10)
+
+tabelas_casavel10 <- html_casavel10|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+
+head(tabelas_casavel10, 20)
+```
+
+Para obter cada classificação de presente (amado, gostado, neutro, não gostado e odiado), segui um padrão que foi: filtrar a lista de itens, excluir o que não era nome de item e por fim guardar todos os nomes obtidos em uma varíavel.
+
+Podemos ver esse processo a seguir, e também duas excessões (`presentes_gostados_casavel10` e `presentes_naogostados_casavel10`), em que tive precisei filtrar também alguns "lixinhos" que apareceram.
+
+```{r}
+#| label: presentes-leah2
+
+#presentes
+presentes_casavel10 <- tabelas_casavel10[152:329]
+
+presentes_amados_casavel10 <- presentes_casavel10[1:37]
+indices_amados_c10 <- seq(from = 3, to = 37, by = 5)
+presentes_amados_casavel10 <- c(presentes_amados_casavel10[1],
+                                presentes_amados_casavel10[indices_amados_c10])
+
+presentes_gostados_casavel10 <- presentes_casavel10[38:103]
+gostados_c10_indice1 <- str_split_1(presentes_gostados_casavel10[1], pattern = "\\n")
+gostados_c10_indice1 <- str_remove_all(gostados_c10_indice1, pattern = "\\*")
+indices_gostados_c10 <- seq(from = 3, to = 66, by = 4)
+presentes_gostados_casavel10 <- c(gostados_c10_indice1,
+                                  presentes_gostados_casavel10[indices_gostados_c10])
+
+presentes_neutros_casavel10 <- presentes_casavel10[104:105]
+presentes_neutros_casavel10 <- presentes_neutros_casavel10[1]
+
+presentes_naogostados_casavel10 <- presentes_casavel10[106:152]
+naogostados_c10_indice1 <- str_split_1(presentes_naogostados_casavel10[1], pattern = "\\n")
+indices_naogostados_c10 <- seq(from = 3, to = 47, by = 5)
+presentes_naogostados_casavel10 <- c(naogostados_c10_indice1,
+                                     presentes_naogostados_casavel10[indices_naogostados_c10])
+
+presentes_odiados_casavel10 <- presentes_casavel10[153:178]
+indices_odiados_c10 <- seq(from = 3, to = 26, by = 5)
+presentes_odiados_casavel10 <- c(presentes_odiados_casavel10[1],                  
+                                 presentes_odiados_casavel10[indices_odiados_c10])
+```
+
+Por fim, criei uma lista com todos os presentes separados pela sua classificação para cada aldeão, e colocados em ordem alfabética. 
+
+```{r}
+#| label: presentes-leah3
+
+presentes_casavel10 <- list(amados = sort(presentes_amados_casavel10), 
+                            gostados = sort(presentes_gostados_casavel10), 
+                            neutros = sort(presentes_neutros_casavel10), 
+                            naogostados = sort(presentes_naogostados_casavel10), 
+                            odiados = sort(presentes_odiados_casavel10))
+presentes_casavel10
+
+```
+
+```{r}
+#| label: presentes-geral
+#| include: false
+
+
+#CASAVEIS
+#casavel 1 (alex)
+url_casavel1 <- links_casaveis[1]
+html_casavel1 <- read_html(url_casavel1)
+
+tabelas_casavel1 <- html_casavel1|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel1
+
+#presentes
+presentes_casavel1 <- tabelas_casavel1[314:388]
+presentes_casavel1
+
+presentes_amados_casavel1 <- presentes_casavel1[1:12]
+presentes_amados_casavel1
+indices_amados_c1 <- seq(from = 3, to = 12, by = 5)
+presentes_amados_casavel1 <- c(presentes_amados_casavel1[1],
+                               presentes_amados_casavel1[indices_amados_c1])
+presentes_amados_casavel1
+
+presentes_gostados_casavel1 <- presentes_casavel1[13:14]
+presentes_gostados_casavel1
+presentes_gostados_casavel1 <- presentes_gostados_casavel1[1]
+presentes_gostados_casavel1 <- str_split_1(presentes_gostados_casavel1, pattern = "\\n")
+presentes_gostados_casavel1
+
+presentes_neutros_casavel1 <- presentes_casavel1[15:56]
+presentes_neutros_casavel1
+neutros_c1_indice1 <- str_split_1(presentes_neutros_casavel1[1], pattern = "\\n")
+indices_neutros_c1 <- seq(from = 3, to = 42, by = 4)
+presentes_neutros_casavel1 <- c(neutros_c1_indice1,
+                                presentes_neutros_casavel1[indices_neutros_c1])
+presentes_neutros_casavel1
+
+presentes_naogostados_casavel1 <- presentes_casavel1[57:66]
+presentes_naogostados_casavel1
+indices_naogostados_c1 <- seq(from = 3, to = 10, by = 4)
+presentes_naogostados_casavel1 <- c(presentes_naogostados_casavel1[1],
+                                    presentes_naogostados_casavel1[indices_naogostados_c1])
+presentes_naogostados_casavel1
+
+presentes_odiados_casavel1 <- presentes_casavel1[67:74]
+presentes_odiados_casavel1
+indices_odiados_c1 <- seq(from = 3, to = 8, by = 4)
+presentes_odiados_casavel1 <- c(presentes_odiados_casavel1[1],
+                                presentes_odiados_casavel1[indices_odiados_c1])
+presentes_odiados_casavel1
+
+presentes_casavel1 <- list(amados = sort(presentes_amados_casavel1), 
+                           gostados = sort(presentes_gostados_casavel1), 
+                           neutros = sort(presentes_neutros_casavel1), 
+                           naogostados = sort(presentes_naogostados_casavel1), 
+                           odiados = sort(presentes_odiados_casavel1))
+
+#casavel 2 (elliott)
+url_casavel2 <- links_casaveis[2]
+html_casavel2 <- read_html(url_casavel2)
+
+tabelas_casavel2 <- html_casavel2|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel2
+
+#presentes
+presentes_casavel2 <- tabelas_casavel2[284:421]
+presentes_casavel2
+
+presentes_amados_casavel2 <- presentes_casavel2[1:32]
+presentes_amados_casavel2
+indices_amados_c2 <- seq(from = 3, to = 32, by = 5)
+presentes_amados_casavel2 <- c(presentes_amados_casavel2[1],
+                               presentes_amados_casavel2[indices_amados_c2])
+presentes_amados_casavel2
+
+presentes_gostados_casavel2 <- presentes_casavel2[33:42]
+presentes_gostados_casavel2
+gostados_c2_indice1 <- str_split_1(presentes_gostados_casavel2[1], pattern = "\\n")
+indices_gostados_c2 <- seq(from = 3, to = 10, by = 4)
+presentes_gostados_casavel2 <- c(gostados_c2_indice1,
+                                 presentes_gostados_casavel2[indices_gostados_c2])
+presentes_gostados_casavel2
+
+presentes_neutros_casavel2 <- presentes_casavel2[43:44]
+presentes_neutros_casavel2
+presentes_neutros_casavel2 <- str_split_1(presentes_neutros_casavel2[1], pattern = "\\n")
+presentes_neutros_casavel2 <- str_remove_all(presentes_neutros_casavel2, pattern = "\\*")
+presentes_neutros_casavel2
+
+presentes_naogostados_casavel2 <- presentes_casavel2[45:121]
+presentes_naogostados_casavel2
+naogostados_c2_indice1 <- str_split_1(presentes_naogostados_casavel2[1], pattern = "\\n")
+indices_naogostados_c2 <- seq(from = 3, to = 77, by = 5)
+presentes_naogostados_casavel2 <- c(naogostados_c2_indice1,
+                                    presentes_naogostados_casavel2[indices_naogostados_c2])
+presentes_naogostados_casavel2
+
+presentes_odiados_casavel2 <- presentes_casavel2[122:138]
+presentes_odiados_casavel2
+indices_odiados_c2 <- seq(from = 3, to = 17, by = 4)
+presentes_odiados_casavel2 <- c(presentes_odiados_casavel2[1],
+                                presentes_odiados_casavel2[indices_odiados_c2])
+presentes_odiados_casavel2
+
+presentes_casavel2 <- list(amados = sort(presentes_amados_casavel2), 
+                           gostados = sort(presentes_gostados_casavel2), 
+                           neutros = sort(presentes_neutros_casavel2), 
+                           naogostados = sort(presentes_naogostados_casavel2), 
+                           odiados = sort(presentes_odiados_casavel2))
+presentes_casavel2
+
+#casavel 3 (harvey)
+url_casavel3 <- links_casaveis[3]
+html_casavel3 <- read_html(url_casavel3)
+
+tabelas_casavel3 <- html_casavel3|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel3
+
+#presentes
+presentes_casavel3 <- tabelas_casavel3[326:547]
+presentes_casavel3
+
+presentes_amados_casavel3 <- presentes_casavel3[1:27]
+presentes_amados_casavel3
+indices_amados_c3 <- seq(from = 3, to = 27, by = 5)
+presentes_amados_casavel3 <- c(presentes_amados_casavel3[1],
+                               presentes_amados_casavel3[indices_amados_c3])
+presentes_amados_casavel3
+
+presentes_gostados_casavel3 <- presentes_casavel3[28:109]
+presentes_gostados_casavel3
+naogostados_c3_indice1 <- str_split_1(presentes_gostados_casavel3[1], pattern = "\\n")
+indices_gostados_c3 <- seq(from = 3, to = 82, by = 4)
+presentes_gostados_casavel3 <- c(naogostados_c3_indice1,
+                                 presentes_gostados_casavel3[indices_gostados_c3])
+presentes_gostados_casavel3
+
+presentes_neutros_casavel3 <- presentes_casavel3[110:119]
+presentes_neutros_casavel3
+neutro_c3_indice1 <- str_split_1(presentes_neutros_casavel3[1], pattern = "\\n")
+neutro_c3_indice1 <- str_remove_all(neutro_c3_indice1, pattern = "\\*")
+indices_neutros_c3 <- seq(from = 3, to = 10, by = 4)
+presentes_neutros_casavel3 <- c(neutro_c3_indice1,
+                                presentes_neutros_casavel3[indices_neutros_c3])
+presentes_neutros_casavel3
+
+presentes_naogostados_casavel3 <- presentes_casavel3[120:201]
+presentes_naogostados_casavel3
+indices_naogostados_c3 <- seq(from = 3, to = 82, by = 5)
+presentes_naogostados_casavel3 <- c(presentes_naogostados_casavel3[1],
+                                    presentes_naogostados_casavel3[indices_naogostados_c3])
+presentes_naogostados_casavel3
+
+presentes_odiados_casavel3 <- presentes_casavel3[202:222]
+presentes_odiados_casavel3
+indices_odiados_c3 <- seq(from = 3, to = 21, by = 4)
+presentes_odiados_casavel3 <- c(presentes_odiados_casavel3[1],
+                                presentes_odiados_casavel3[indices_odiados_c3])
+presentes_odiados_casavel3
+
+presentes_casavel3 <- list(amados = sort(presentes_amados_casavel3), 
+                           gostados = sort(presentes_gostados_casavel3), 
+                           neutros = sort(presentes_neutros_casavel3), 
+                           naogostados = sort(presentes_naogostados_casavel3), 
+                           odiados = sort(presentes_odiados_casavel3))
+presentes_casavel3
+
+#casavel 4 (sam)
+url_casavel4 <- links_casaveis[4]
+html_casavel4 <- read_html(url_casavel4)
+
+tabelas_casavel4 <- html_casavel4|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel4
+
+#presentes
+presentes_casavel4 <- tabelas_casavel4[264:419]
+presentes_casavel4
+
+presentes_amados_casavel4 <- presentes_casavel4[1:22]
+presentes_amados_casavel4
+indices_amados_c4 <- seq(from = 3, to = 22, by = 5)
+presentes_amados_casavel4 <- c(presentes_amados_casavel4[1],
+                               presentes_amados_casavel4[indices_amados_c4])
+presentes_amados_casavel4
+
+presentes_gostados_casavel4 <- presentes_casavel4[23:28]
+presentes_gostados_casavel4
+gostados_c4_indice1 <- str_split_1(presentes_gostados_casavel4[1], pattern = "\\n")
+gostados_c4_indice1 <- str_remove_all(gostados_c4_indice1, pattern = "\\*")
+presentes_gostados_casavel4 <- c(gostados_c4_indice1, presentes_gostados_casavel4[3])
+presentes_gostados_casavel4
+
+presentes_neutros_casavel4 <- presentes_casavel4[29:30]
+presentes_neutros_casavel4
+presentes_neutros_casavel4 <- str_split_1(presentes_neutros_casavel4[1], pattern = "\\n")
+presentes_neutros_casavel4
+
+presentes_naogostados_casavel4 <- presentes_casavel4[31:100]
+presentes_naogostados_casavel4
+naogostados_c4_indice1 <- str_split_1(presentes_naogostados_casavel4[1], pattern = "\\n")
+indices_naogostados_c4 <- seq(from = 3, to = 70, by = 4)
+presentes_naogostados_casavel4 <- c(naogostados_c4_indice1, presentes_naogostados_casavel4[indices_naogostados_c4])
+presentes_naogostados_casavel4
+
+presentes_odiados_casavel4 <- presentes_casavel4[101:156]
+presentes_odiados_casavel4
+indices_odiados_c4 <- seq(from = 3, to = 56, by = 5)
+presentes_odiados_casavel4 <- c(presentes_odiados_casavel4[1],
+                                presentes_odiados_casavel4[indices_odiados_c4])
+presentes_odiados_casavel4
+
+presentes_casavel4 <- list(amados = sort(presentes_amados_casavel4), 
+                           gostados = sort(presentes_gostados_casavel4), 
+                           neutros = sort(presentes_neutros_casavel4), 
+                           naogostados = sort(presentes_naogostados_casavel4), 
+                           odiados = sort(presentes_odiados_casavel4))
+presentes_casavel4
+
+#casavel 5 (sebastian)
+url_casavel5 <- links_casaveis[5]
+html_casavel5 <- read_html(url_casavel5)
+
+tabelas_casavel5 <- html_casavel5|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel5
+
+#presentes
+presentes_casavel5 <- tabelas_casavel5[506:632]
+presentes_casavel5
+
+presentes_amados_casavel5 <- presentes_casavel5[1:27]
+presentes_amados_casavel5
+indices_amados_c5 <- seq(from = 3, to = 27, by = 5)
+presentes_amados_casavel5 <- c(presentes_amados_casavel5[1], 
+                               presentes_amados_casavel5[indices_amados_c5])
+presentes_amados_casavel5
+
+presentes_gostados_casavel5 <- presentes_casavel5[28:37]
+presentes_gostados_casavel5
+indices_gostados_c5 <- seq(from = 3, to = 10, by = 4)
+presentes_gostados_casavel5 <- c(presentes_gostados_casavel5[1],
+                                 presentes_gostados_casavel5[indices_gostados_c5])
+presentes_gostados_casavel5
+
+presentes_neutros_casavel5 <- presentes_casavel5[38:39]
+presentes_neutros_casavel5
+presentes_neutros_casavel5 <- str_split_1(presentes_neutros_casavel5[1], pattern = "\\n")
+presentes_neutros_casavel5
+
+presentes_naogostados_casavel5 <- presentes_casavel5[40:101]
+presentes_naogostados_casavel5
+naogostados_c5_indice1 <- str_split_1(presentes_naogostados_casavel5[1], pattern = "\\n")
+indices_naogostados_c5 <- seq(from = 3, to = 62, by = 4)
+presentes_naogostados_casavel5 <- c(naogostados_c5_indice1,
+                                    presentes_naogostados_casavel5[indices_naogostados_c5])
+presentes_naogostados_casavel5
+
+presentes_odiados_casavel5 <- presentes_casavel5[102:127]
+presentes_odiados_casavel5
+odiados_c5_indice1 <- str_split_1(presentes_odiados_casavel5[1], pattern = "\\n")
+odiados_c5_indice1 <- str_remove_all(odiados_c5_indice1, pattern = "\\*")
+indices_odiados_c5 <- seq(from = 3, to = 26, by = 5)
+presentes_odiados_casavel5 <- c(odiados_c5_indice1,
+                                presentes_odiados_casavel5[indices_odiados_c5])
+presentes_odiados_casavel5
+
+presentes_casavel5 <- list(amados = sort(presentes_amados_casavel5), 
+                           gostados = sort(presentes_gostados_casavel5), 
+                           neutros = sort(presentes_neutros_casavel5), 
+                           naogostados = sort(presentes_naogostados_casavel5), 
+                           odiados = sort(presentes_odiados_casavel5))
+presentes_casavel5
+
+#casavel 6 (shane)
+url_casavel6 <- links_casaveis[6]
+html_casavel6 <- read_html(url_casavel6)
+
+tabelas_casavel6 <- html_casavel6|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel6
+
+#presentes
+presentes_casavel6 <- tabelas_casavel6[174:272]
+presentes_casavel6
+
+presentes_amados_casavel6 <- presentes_casavel6[1:22]
+presentes_amados_casavel6
+indices_amados_c6 <- seq(from = 3, to = 22, by = 5)
+presentes_amados_casavel6 <- c(presentes_amados_casavel6[1],
+                               presentes_amados_casavel6[indices_amados_c6])
+presentes_amados_casavel6
+
+presentes_gostados_casavel6 <- presentes_casavel6[23:24]
+presentes_gostados_casavel6
+presentes_gostados_casavel6 <- str_split_1(presentes_gostados_casavel6[1], pattern = "\\n")
+presentes_gostados_casavel6 <- str_remove_all(presentes_gostados_casavel6, pattern = "\\*")
+presentes_gostados_casavel6
+
+presentes_neutros_casavel6 <- presentes_casavel6[25:26]
+presentes_neutros_casavel6
+presentes_neutros_casavel6 <- str_split_1(presentes_neutros_casavel6[1], pattern = "\\n")
+presentes_neutros_casavel6
+
+presentes_naogostados_casavel6 <- presentes_casavel6[27:88]
+presentes_naogostados_casavel6
+indices_naogostados_c6 <- seq(from = 3, to = 62, by = 4)
+presentes_naogostados_casavel6 <- c(presentes_naogostados_casavel6[1],
+                                    presentes_naogostados_casavel6[indices_naogostados_c6])
+presentes_naogostados_casavel6
+
+presentes_odiados_casavel6 <- presentes_casavel6[89:99]
+presentes_odiados_casavel6
+indices_odiados_c6 <- seq(from = 3, to = 11, by = 5)
+presentes_odiados_casavel6 <- c(presentes_odiados_casavel6[1],
+                                presentes_odiados_casavel6[indices_odiados_c6])
+presentes_odiados_casavel6
+
+presentes_casavel6 <- list(amados = sort(presentes_amados_casavel6), 
+                           gostados = sort(presentes_gostados_casavel6), 
+                           neutros = sort(presentes_neutros_casavel6), 
+                           naogostados = sort(presentes_naogostados_casavel6), 
+                           odiados = sort(presentes_odiados_casavel6))
+presentes_casavel6
+
+#casavel 7 (abigail)
+url_casavel7 <- links_casaveis[7]
+html_casavel7 <- read_html(url_casavel7)
+
+tabelas_casavel7 <- html_casavel7|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel7
+
+#presentes
+presentes_casavel7 <- tabelas_casavel7[436:544]
+presentes_casavel7
+
+presentes_amados_casavel7 <- presentes_casavel7[1:42]
+presentes_amados_casavel7
+indices_amados_c7 <- seq(from = 3, to = 42, by = 5)
+presentes_amados_casavel7 <- c(presentes_amados_casavel7[1],
+                               presentes_amados_casavel7[indices_amados_c7])
+presentes_amados_casavel7
+
+presentes_gostados_casavel7 <- presentes_casavel7[43:48]
+presentes_gostados_casavel7
+presentes_gostados_casavel7 <- presentes_gostados_casavel7[c(1, 3)]
+presentes_gostados_casavel7
+
+presentes_neutros_casavel7 <- presentes_casavel7[49:90]
+presentes_neutros_casavel7
+neutros_c7_indice1 <- str_split_1(presentes_neutros_casavel7[1], pattern = "\\n")
+indices_neutros_c7 <- seq(from = 3, to = 42, by = 4)
+presentes_neutros_casavel7 <- c(neutros_c7_indice1,
+                                presentes_neutros_casavel7[indices_neutros_c7])
+
+presentes_neutros_casavel7
+
+presentes_naogostados_casavel7 <- presentes_casavel7[91:100]
+presentes_naogostados_casavel7
+naogostados_c7_indice1 <- str_split_1(presentes_naogostados_casavel7[1], pattern = "\\n")
+indices_naogostados_c7 <- seq(from = 3, to = 8, by = 4)
+presentes_naogostados_casavel7 <- c(naogostados_c7_indice1,
+                                    presentes_naogostados_casavel7[indices_naogostados_c7])
+presentes_naogostados_casavel7
+
+presentes_odiados_casavel7 <- presentes_casavel7[101:109]
+presentes_odiados_casavel7
+indices_odiados_c7 <- seq(from = 3, to = 9, by = 4)
+presentes_odiados_casavel7 <- c(presentes_odiados_casavel7[1],
+                                presentes_odiados_casavel7[indices_odiados_c7])
+presentes_odiados_casavel7
+
+presentes_casavel7 <- list(amados = sort(presentes_amados_casavel7), 
+                           gostados = sort(presentes_gostados_casavel7), 
+                           neutros = sort(presentes_neutros_casavel7), 
+                           naogostados = sort(presentes_naogostados_casavel7), 
+                           odiados = sort(presentes_odiados_casavel7))
+presentes_casavel7
+
+#casavel 8 (emily)
+url_casavel8 <- links_casaveis[8]
+html_casavel8 <- read_html(url_casavel8)
+
+tabelas_casavel8 <- html_casavel8|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel8
+
+#presentes
+presentes_casavel8 <- tabelas_casavel8[176:327]
+presentes_casavel8
+
+presentes_amados_casavel8 <- presentes_casavel8[1:47]
+presentes_amados_casavel8
+indices_amados_c8 <- seq(from = 3, to = 47, by = 5)
+presentes_amados_casavel8 <- c(presentes_amados_casavel8[1],
+                               presentes_amados_casavel8[indices_amados_c8])
+presentes_amados_casavel8
+
+presentes_gostrados_casavel8 <- presentes_casavel8[48:57]
+presentes_gostrados_casavel8
+indices_gostados_c8 <- seq(from = 3, to = 10, by = 4)
+presentes_gostrados_casavel8 <- c(presentes_gostrados_casavel8[1],
+                                  presentes_gostrados_casavel8[indices_gostados_c8])
+presentes_gostrados_casavel8
+
+presentes_neutros_casavel8 <- presentes_casavel8[58:99]
+presentes_neutros_casavel8
+neutros_c8_indice1 <- str_split_1(presentes_neutros_casavel8[1], pattern = "\\n")
+indices_neutros_c8 <- seq(from = 3, to = 42, by = 4)
+presentes_neutros_casavel8 <- c(neutros_c8_indice1,
+                                presentes_neutros_casavel8[indices_neutros_c8])
+presentes_neutros_casavel8
+
+presentes_naogostados_casavel8 <- presentes_casavel8[100:126]
+presentes_naogostados_casavel8
+indices_naogostados_c8 <- seq(from = 3, to = 27, by = 5)
+presentes_naogostados_casavel8 <- c(presentes_naogostados_casavel8[1],
+                                    presentes_naogostados_casavel8[indices_naogostados_c8])
+presentes_naogostados_casavel8
+
+presentes_odiados_casavel8 <- presentes_casavel8[127:152]
+presentes_odiados_casavel8
+indices_odiados_c8 <- seq(from = 3, to = 26, by = 5)
+presentes_odiados_casavel8 <- c(presentes_odiados_casavel8[1],
+                                presentes_odiados_casavel8[indices_odiados_c8])
+presentes_odiados_casavel8
+
+presentes_casavel8 <- list(amados = sort(presentes_amados_casavel8), 
+                           gostados = sort(presentes_gostrados_casavel8), 
+                           neutros = sort(presentes_neutros_casavel8), 
+                           naogostados = sort(presentes_naogostados_casavel8), 
+                           odiados = sort(presentes_odiados_casavel8))
+presentes_casavel8
+
+#casavel 9 (haley)
+url_casavel9 <- links_casaveis[9]
+html_casavel9 <- read_html(url_casavel9)
+
+tabelas_casavel9 <- html_casavel9|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel9
+
+#presentes
+presentes_casavel9 <- tabelas_casavel9[410:498]
+presentes_casavel9
+
+presentes_amados_casavel9 <- presentes_casavel9[1:22]
+presentes_amados_casavel9
+indices_amados_c9 <- seq(from = 3, to = 22, by = 5)
+presentes_amados_casavel9 <- c(presentes_amados_casavel9[1],
+                               presentes_amados_casavel9[indices_amados_c9])
+presentes_amados_casavel9
+
+presentes_gostados_casavel9 <- presentes_casavel9[23:28]
+presentes_gostados_casavel9
+presentes_gostados_casavel9 <- presentes_gostados_casavel9[c(1, 3)]
+presentes_gostados_casavel9
+
+presentes_neutros_casavel9 <- presentes_casavel9[29:30]
+presentes_neutros_casavel9
+presentes_neutros_casavel9 <- presentes_neutros_casavel9[1]
+presentes_neutros_casavel9
+
+presentes_naogostados_casavel9 <- presentes_casavel9[31:76]
+presentes_naogostados_casavel9
+naogostados_c9_indice1 <- str_split_1(presentes_naogostados_casavel9[1], pattern = "\\n")
+indices_naogostados_c9 <- seq(from = 3, to = 46, by = 4)
+presentes_naogostados_casavel9 <- c(naogostados_c9_indice1,
+                                    presentes_naogostados_casavel9[indices_naogostados_c9])
+presentes_naogostados_casavel9
+
+presentes_odiados_casavel9 <- presentes_casavel9[77:89]
+presentes_odiados_casavel9
+odiaos_c9_indice1 <- str_split_1(presentes_odiados_casavel9[1], pattern = "\\n")
+indices_odiados_c9 <- seq(from = 3, to = 13, by = 4)
+presentes_odiados_casavel9 <- c(odiaos_c9_indice1,
+                                presentes_odiados_casavel9[indices_odiados_c9])
+presentes_odiados_casavel9
+
+presentes_casavel9 <- list(amados = sort(presentes_amados_casavel9), 
+                           gostados = sort(presentes_gostados_casavel9), 
+                           neutros = sort(presentes_neutros_casavel9), 
+                           naogostados = sort(presentes_naogostados_casavel9), 
+                           odiados = sort(presentes_odiados_casavel9))
+presentes_casavel9
+
+#casavel 10 (leah)
+url_casavel10 <- links_casaveis[10]
+html_casavel10 <- read_html(url_casavel10)
+
+tabelas_casavel10 <- html_casavel10|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel10
+
+#presentes
+presentes_casavel10 <- tabelas_casavel10[152:329]
+presentes_casavel10
+
+presentes_amados_casavel10 <- presentes_casavel10[1:37]
+presentes_amados_casavel10
+indices_amados_c10 <- seq(from = 3, to = 37, by = 5)
+presentes_amados_casavel10 <- c(presentes_amados_casavel10[1],
+                                presentes_amados_casavel10[indices_amados_c10])
+presentes_amados_casavel10
+
+presentes_gostrados_casavel10 <- presentes_casavel10[38:103]
+presentes_gostrados_casavel10
+gostados_c10_indice1 <- str_split_1(presentes_gostrados_casavel10[1], pattern = "\\n")
+gostados_c10_indice1 <- str_remove_all(gostados_c10_indice1, pattern = "\\*")
+indices_gostados_c10 <- seq(from = 3, to = 66, by = 4)
+presentes_gostrados_casavel10 <- c(gostados_c10_indice1,
+                                   presentes_gostrados_casavel10[indices_gostados_c10])
+presentes_gostrados_casavel10
+
+presentes_neutros_casavel10 <- presentes_casavel10[104:105]
+presentes_neutros_casavel10
+presentes_neutros_casavel10 <- presentes_neutros_casavel10[1]
+presentes_neutros_casavel10
+
+presentes_naogostados_casavel10 <- presentes_casavel10[106:152]
+presentes_naogostados_casavel10
+naogostados_c10_indice1 <- str_split_1(presentes_naogostados_casavel10[1], pattern = "\\n")
+indices_naogostados_c10 <- seq(from = 3, to = 47, by = 5)
+presentes_naogostados_casavel10 <- c(naogostados_c10_indice1,
+                                     presentes_naogostados_casavel10[indices_naogostados_c10])
+presentes_naogostados_casavel10
+
+presentes_odiados_casavel10 <- presentes_casavel10[153:178]
+presentes_odiados_casavel10
+indices_odiados_c10 <- seq(from = 3, to = 26, by = 5)
+presentes_odiados_casavel10 <- c(presentes_odiados_casavel10[1],
+                                 presentes_odiados_casavel10[indices_odiados_c10])
+presentes_odiados_casavel10
+
+presentes_casavel10 <- list(amados = sort(presentes_amados_casavel10), 
+                            gostados = sort(presentes_gostrados_casavel10), 
+                            neutros = sort(presentes_neutros_casavel10), 
+                            naogostados = sort(presentes_naogostados_casavel10), 
+                            odiados = sort(presentes_odiados_casavel10))
+presentes_casavel10
+
+#casavel 11 (maru)
+url_casavel11 <- links_casaveis[11]
+html_casavel11 <- read_html(url_casavel11)
+
+tabelas_casavel11 <- html_casavel11|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel11
+
+#presentes
+presentes_casavel11 <- tabelas_casavel11[226:402]
+presentes_casavel11
+
+presentes_amados_casavel11 <- presentes_casavel11[1:57]
+presentes_amados_casavel11
+indices_amados_c11 <- seq(from = 3, to = 57, by = 5)
+presentes_amados_casavel11 <- c(presentes_amados_casavel11[1],
+                                presentes_amados_casavel11[indices_amados_c11])
+presentes_amados_casavel11
+
+presentes_gostados_casavel11 <- presentes_casavel11[58:83]
+presentes_gostados_casavel11
+indices_gostados_c11 <- seq(from = 3, to = 26, by = 4)
+presentes_gostados_casavel11 <- c(presentes_gostados_casavel11[1],
+                                  presentes_gostados_casavel11[indices_gostados_c11])
+presentes_gostados_casavel11
+
+presentes_neutros_casavel11 <- presentes_casavel11[84:129]
+presentes_neutros_casavel11
+neutros_c11_indice1 <- str_split_1(presentes_neutros_casavel11[1], pattern = "\\n")
+neutros_c11_indice1 <- str_remove_all(neutros_c11_indice1, pattern = "\\*")
+indices_neutros_c11 <- seq(from = 3, to = 46, by = 4)
+presentes_neutros_casavel11 <- c(neutros_c11_indice1,
+                                 presentes_neutros_casavel11[indices_neutros_c11])
+presentes_neutros_casavel11
+
+presentes_naogostados_casavel11 <- presentes_casavel11[130:151]
+presentes_naogostados_casavel11
+indices_naogostados_c11 <- seq(from = 3, to = 22, by = 4)
+presentes_naogostados_casavel11 <- c(presentes_naogostados_casavel11[1],
+                                     presentes_naogostados_casavel11[indices_naogostados_c11])
+presentes_naogostados_casavel11
+
+presentes_odiados_casavel11 <- presentes_casavel11[152:177]
+presentes_odiados_casavel11
+indices_odiados_c11 <- seq(from = 3, to = 26, by = 5)
+presentes_odiados_casavel11 <- c(presentes_odiados_casavel11[1],
+                                 presentes_odiados_casavel11[indices_odiados_c11])
+presentes_odiados_casavel11
+
+presentes_casavel11 <- list(amados = sort(presentes_amados_casavel11), 
+                            gostados = sort(presentes_gostados_casavel11), 
+                            neutros = sort(presentes_neutros_casavel11), 
+                            naogostados = sort(presentes_naogostados_casavel11), 
+                            odiados = sort(presentes_odiados_casavel11))
+presentes_casavel11
+
+#casavel 12 (penny)
+url_casavel12 <- links_casaveis[12]
+html_casavel12 <- read_html(url_casavel12)
+
+tabelas_casavel12 <- html_casavel12|> 
+  html_elements("table.wikitable")|>
+  html_elements("tbody")|>
+  html_elements("td")|>
+  html_text2()
+tabelas_casavel12
+
+#presentes
+presentes_casavel12 <- tabelas_casavel12[282:460]
+presentes_casavel12
+
+presentes_amados_casavel12 <- presentes_casavel12[1:47]
+presentes_amados_casavel12
+indices_amados_c12 <- seq(from = 3, to = 47, by = 5)
+presentes_amados_casavel12 <- c(presentes_amados_casavel12[1],
+                                presentes_amados_casavel12[indices_amados_c12])
+presentes_amados_casavel12
+
+presentes_gostados_casavel12 <- presentes_casavel12[48:57]
+presentes_gostados_casavel12
+gostados_c12_indice1 <- str_split_1(presentes_gostados_casavel12[1], pattern = "\\n")
+indices_gostados_c12 <- seq(from = 3, to = 10, by = 4)
+presentes_gostados_casavel12 <- c(gostados_c12_indice1,
+                                  presentes_gostados_casavel12[indices_gostados_c12])
+presentes_gostados_casavel12
+
+presentes_neutros_casavel12 <- presentes_casavel12[58:91]
+presentes_neutros_casavel12
+neutros_c12_indice1 <- str_split_1(presentes_neutros_casavel12[1], pattern = "\\n")
+indices_neutros_c12 <- seq(from = 3, to = 34, by = 4)
+presentes_neutros_casavel12 <- c(neutros_c12_indice1,
+                                 presentes_neutros_casavel12[indices_neutros_c12])
+presentes_neutros_casavel12
+
+presentes_naogostados_casavel12 <- presentes_casavel12[92:133]
+presentes_naogostados_casavel12
+indices_naogostados_c12 <- seq(from = 3, to = 42, by = 5)
+presentes_naogostados_casavel12 <- c(presentes_naogostados_casavel12[1],
+                                     presentes_naogostados_casavel12[indices_naogostados_c12])
+presentes_naogostados_casavel12
+
+presentes_odiados_casavel12 <- presentes_casavel12[134:179]
+presentes_odiados_casavel12
+indices_odiados_c12 <- seq(from = 3, to = 46, by = 5)
+presentes_odiados_casavel12 <- c(presentes_odiados_casavel12[1],
+                                 presentes_odiados_casavel12[indices_odiados_c12])
+presentes_odiados_casavel12
+
+presentes_casavel12 <- list(amados = sort(presentes_amados_casavel12), 
+                            gostados = sort(presentes_gostados_casavel12), 
+                            neutros = sort(presentes_neutros_casavel12), 
+                            naogostados = sort(presentes_naogostados_casavel12), 
+                            odiados = sort(presentes_odiados_casavel12))
+presentes_casavel12
+
+```
+
+# Criação do Data Frame
+
+## Mais um problema
+
+"Agora, depois de toda essa trabalheira, finalmente estou com os dados que queria em mãos", foi o que eu pensei após terminar a raspagem de dados, mas estava completamente iludida. 
+
+Como as listas que criei para cada personagem casável possuiam tamanhos diferentes, não iria conseguir criar um data frame com elas D:
+
+A solução que encontrei, foi identificar todos os itens que coletei e mostrar quais personagens gostavam ou não dele. 
+
+## Funções
+
+Com a ideia clara do que precisava fazer, foi necessário criar algumas funções para padronizar os dados e facilitar a manipulação deles para a crição do data frame.
+
+As primeiras funções que senti necessidade de serem criadas foram para tirar acentos e algumas pontuações que apareciam (como hífen, vírgulas e dois pontos). 
+
+```{r}
+#| label: funcoes-1
+
+tira_acento <- function(palavra){
+  palavra <- gsub("[áãâÁÃÂ]", "a", palavra)
+  palavra <- gsub("[éêÉÊ]", "e", palavra)
+  palavra <- gsub("[íÍ]", "i", palavra)
+  palavra <- gsub("[óõôÓÕÔ]", "o", palavra)
+  palavra <- gsub("[úÚ]", "u", palavra)
+  palavra <- gsub("[çÇ]", "c", palavra)
+  return(palavra)
+}
+
+tira_pontuacao <- function(palavra){
+  palavra <- gsub("[-,:]", " ", palavra)
+}
+```
+
+Em alguns personagens, ao invés de colocar todos os itens que ele realmente gostava, apareciam itens escritos da seguinte forma: *"Todos as frutas (exceto Uva)"*. 
+
+Decidi, então, tirar todas essas exceções e mais na frente do código optei por omitir informações que apareciam nesse formato.
+
+
+```{r}
+#| label: funcoes-2
+
+limpa_exceto <- function(lista_presentes){
+  lista_presentes <- str_remove_all(lista_presentes, pattern = " \\(exceto[\\s[a-z]]+\\)")
+  return(lista_presentes)
+}
+```
+
+Por fim, criei duas funções para padronizar o modo de escrita dos nomes dos presentes que coletei colocando todas as palavras em minúsculo e tirando acentos e pontuações. Futuramente explicarei por que foi necessário criar duas funções diferentes para "fazerem a mesma coisa".
+
+```{r}
+#| label: funcoes-3
+
+padroniza_presentes <- function(lista_presentes){
+  lista_presentes <- limpa_exceto(tolower(tira_pontuacao(tira_acento(unlist(lista_presentes)))))
+  return(lista_presentes)
+}
+
+padroniza <- function(lista_presentes){
+  lista_presentes <- tolower(tira_pontuacao(tira_acento(lista_presentes))) 
+  return(lista_presentes)
+
+ return(palavra)
+}
+```
+
+## Vetorização dos itens
+
+Com as funções necessárias criadas, começo a fazer a listagem de todos os itens que apareceram na raspagem, ou melhor, a criação de um vetor que contenha todos os itens obtidos. Faço isso para que esse vetor seja, futuramente, a primeira coluna do nosso data frame. 
+
+Note que aqui utilizarei a função `padroniza_presentes()` para padronizar os presentes. Mas por que? Como listei os itens de cada personagem casável, preciso desfazer essa lista para conseguir obter um vetor. Faço isso para todos os personagens e a cada personagem de padronizo seus presentes faço a adição deles no vetor `itens`.
+
+Por fim, como alguns itens apareceram mais de uma vez, utilizei a função `unique()` para que não haja repetição de itens. Aproveitei e deixei o vetor ordenado em ordem alfabética para obtermos um data frame mais organizado.
+
+```{r}
+#| label: itens
+
+itens <- padroniza_presentes(presentes_casavel1)
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel2)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel3)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel4)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel5)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel6)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel7)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel8)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel9)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel10)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel11)))
+itens <- unique(append(itens, padroniza_presentes(presentes_casavel12)))
+
+itens <- sort(unique(itens))
+```
+
+Pronto! Agora tenho um vetor com todos os itens que coletei. 
+
+## "Esqueleto" do data frame
+
+Como o vetor de itens do passo anterior posso, então, criar o "esqueleto" do meu data frame. Onde a primeira coluna contém os todos os itens que apareceram na minha raspagem e as seguintes corresponderão a cada personagem que podemos casar no jogo. A princípio, irei preencher todas as células com `NA`.
+
+
+```{r}
+#| label: esqueleto-data_frame
+
+presentes_df <- data.frame(itens = itens, 
+                           casavel1 = rep(NA, length(itens)),
+                           casavel2 = rep(NA, length(itens)),
+                           casavel3 = rep(NA, length(itens)),
+                           casavel4 = rep(NA, length(itens)),
+                           casavel5 = rep(NA, length(itens)),
+                           casavel6 = rep(NA, length(itens)),
+                           casavel7 = rep(NA, length(itens)),
+                           casavel8 = rep(NA, length(itens)),
+                           casavel9 = rep(NA, length(itens)),
+                           casavel10 = rep(NA, length(itens)),
+                           casavel11 = rep(NA, length(itens)),
+                           casavel12 = rep(NA, length(itens)))
+
+```
+E assim fica o "esqueleto": 
+
+```{r}
+#| label: esqueleto-data_frame-2
+#| echo: false
+#| warning: false 
+
+library(knitr)
+kable(head(presentes_df))
+```
+
+
+## Preenchendo o data frame
+
+Com o "esqueleto" criado, irei preenchê-lo com as informações que coletei de cada personagem. Para fazer isso, precisarei verificar se os itens de cada categoria de presentes de cada aldeão aparecem no vetor `itens`, se isso ocorrer, preencho a célula correspondente no data frame. 
+
+Agora sim, irei usar a função `padroniza()` para padronizar os presentes de cada categoria dos personagens. 
+
+Novamente, como repliquei o processo para todos os doze aldeões, mas optei por mostrar apenas de um personagem, dessa vez o Harvey. 
+
+```{r}
+#| label: preenchendo-data_frame-harvey
+
+amados_c3 <- itens %in% padroniza(presentes_casavel3$amados)
+presentes_df$casavel3[amados_c3] <- "A"
+
+gostados_c3 <- itens %in% padroniza(presentes_casavel3$gostados)
+presentes_df$casavel3[gostados_c3] <- "G"
+
+neutros_c3 <- itens %in% padroniza(presentes_casavel3$neutros)
+presentes_df$casavel3[neutros_c3] <- "N"
+
+naogostados_c3 <- itens %in% padroniza(presentes_casavel3$naogostados)
+presentes_df$casavel3[naogostados_c3] <- "D"
+
+odiados_c3 <- itens %in% padroniza(presentes_casavel3$odiados)
+presentes_df$casavel3[odiados_c3] <- "O"
+```
+
+
+Note que, para preencher o data frame, preferi utlizar apenas as iniciais de cada categoria de presentes para que ele fique mais sucinto. Portanto:
+
+* **A**: presente amado
+* **G**: presente gostado
+* **N**: presente neutro
+* **D**: presente desgostado (não gostado)
+* **O**: presente odiado
+
+```{r}
+#| label: preenchendo-data_frame-geral
+#| include: false
+
+#casavel 1 (alex) ---
+amados_c1 <- itens %in% padroniza(presentes_casavel1$amados)
+presentes_df$casavel1[amados_c1] <- "A"
+
+gostados_c1 <- itens %in% padroniza(presentes_casavel1$gostados)
+presentes_df$casavel1[gostados_c1] <- "G"
+
+neutros_c1 <- itens %in% padroniza(presentes_casavel1$neutros)
+presentes_df$casavel1[neutros_c1] <- "N"
+
+naogostados_c1 <- itens %in% padroniza(presentes_casavel1$naogostados)
+presentes_df$casavel1[naogostados_c1] <- "D"
+
+odiados_c1 <- itens %in% padroniza(presentes_casavel1$odiados)
+presentes_df$casavel1[odiados_c1] <- "O"
+
+#casavel 2 (elliott) ---
+amados_c2 <- itens %in% padroniza(presentes_casavel2$amados)
+presentes_df$casavel2[amados_c2] <- "A"
+
+gostados_c2 <- itens %in% padroniza(presentes_casavel2$gostados)
+presentes_df$casavel2[gostados_c2] <- "G"
+
+neutros_c2 <- itens %in% padroniza(presentes_casavel2$neutros)
+presentes_df$casavel2[neutros_c2] <- "N"
+
+naogostados_c2 <- itens %in% padroniza(presentes_casavel2$naogostados)
+presentes_df$casavel2[naogostados_c2] <- "D"
+
+odiados_c2 <- itens %in% padroniza(presentes_casavel2$odiados)
+presentes_df$casavel2[odiados_c2] <- "O"
+
+presentes_casavel2
+
+#casavel 3 (harvey) ---
+amados_c3 <- itens %in% padroniza(presentes_casavel3$amados)
+presentes_df$casavel3[amados_c3] <- "A"
+
+gostados_c3 <- itens %in% padroniza(presentes_casavel3$gostados)
+presentes_df$casavel3[gostados_c3] <- "G"
+
+neutros_c3 <- itens %in% padroniza(presentes_casavel3$neutros)
+presentes_df$casavel3[neutros_c3] <- "N"
+
+naogostados_c3 <- itens %in% padroniza(presentes_casavel3$naogostados)
+presentes_df$casavel3[naogostados_c3] <- "D"
+
+odiados_c3 <- itens %in% padroniza(presentes_casavel3$odiados)
+presentes_df$casavel3[odiados_c3] <- "O"
+
+#casavel 4 (sam) ---
+amados_c4 <- itens %in% padroniza(presentes_casavel4$amados)
+presentes_df$casavel4[amados_c4] <- "A"
+
+gostados_c4 <- itens %in% padroniza(presentes_casavel4$gostados)
+presentes_df$casavel4[gostados_c4] <- "G"
+
+neutros_c4 <- itens %in% padroniza(presentes_casavel4$neutros)
+presentes_df$casavel4[neutros_c4] <- "N"
+
+naogostados_c4 <- itens %in% padroniza(presentes_casavel4$naogostados)
+presentes_df$casavel4[naogostados_c4] <- "D"
+
+odiados_c4 <- itens %in% padroniza(presentes_casavel4$odiados)
+presentes_df$casavel4[odiados_c4] <- "O"
+
+#casavel 5 (sebastian) ---
+amados_c5 <- itens %in% padroniza(presentes_casavel5$amados)
+presentes_df$casavel5[amados_c5] <- "A"
+
+gostados_c5 <- itens %in% padroniza(presentes_casavel5$gostados)
+presentes_df$casavel5[gostados_c5] <- "G"
+
+neutros_c5 <- itens %in% padroniza(presentes_casavel5$neutros)
+presentes_df$casavel5[neutros_c5] <- "N"
+
+naogostados_c5 <- itens %in% padroniza(presentes_casavel5$naogostados)
+presentes_df$casavel5[naogostados_c5] <- "D"
+
+odiados_c5 <- itens %in% padroniza(presentes_casavel5$odiados)
+presentes_df$casavel5[odiados_c5] <- "O"
+
+#casavel 6 (shane) ---
+amados_c6 <- itens %in% padroniza(presentes_casavel6$amados)
+presentes_df$casavel6[amados_c6] <- "A"
+
+gostados_c6 <- itens %in% padroniza(presentes_casavel6$gostados)
+presentes_df$casavel6[gostados_c6] <- "G"
+
+neutros_c6 <- itens %in% padroniza(presentes_casavel6$neutros)
+presentes_df$casavel6[neutros_c6] <- "N"
+
+naogostados_c6 <- itens %in% padroniza(presentes_casavel6$naogostados)
+presentes_df$casavel6[naogostados_c6] <- "D"
+
+odiados_c6 <- itens %in% padroniza(presentes_casavel6$odiados)
+presentes_df$casavel6[odiados_c6] <- "O"
+
+#casavel 7 (abigail) ---
+amados_c7 <- itens %in% padroniza(presentes_casavel7$amados)
+presentes_df$casavel7[amados_c7] <- "A"
+
+gostados_c7 <- itens %in% padroniza(presentes_casavel7$gostados)
+presentes_df$casavel7[gostados_c7] <- "G"
+
+neutros_c7 <- itens %in% padroniza(presentes_casavel7$neutros)
+presentes_df$casavel7[neutros_c7] <- "N"
+
+naogostados_c7 <- itens %in% padroniza(presentes_casavel7$naogostados)
+presentes_df$casavel7[naogostados_c7] <- "D"
+
+odiados_c7 <- itens %in% padroniza(presentes_casavel7$odiados)
+presentes_df$casavel7[odiados_c7] <- "O"
+
+#casavel 8 (emily) ---
+amados_c8 <- itens %in% padroniza(presentes_casavel8$amados)
+presentes_df$casavel8[amados_c8] <- "A"
+
+gostados_c8 <- itens %in% padroniza(presentes_casavel8$gostados)
+presentes_df$casavel8[gostados_c8] <- "G"
+
+neutros_c8 <- itens %in% padroniza(presentes_casavel8$neutros)
+presentes_df$casavel8[neutros_c8] <- "N"
+
+naogostados_c8 <- itens %in% padroniza(presentes_casavel8$naogostados)
+presentes_df$casavel8[naogostados_c8] <- "D"
+
+odiados_c8 <- itens %in% padroniza(presentes_casavel8$odiados)
+presentes_df$casavel8[odiados_c8] <- "O"
+
+#casavel 9 (haley) ---
+amados_c9 <- itens %in% padroniza(presentes_casavel9$amados)
+presentes_df$casavel9[amados_c9] <- "A"
+
+gostados_c9 <- itens %in% padroniza(presentes_casavel9$gostados)
+presentes_df$casavel9[gostados_c9] <- "G"
+
+neutros_c9 <- itens %in% padroniza(presentes_casavel9$neutros)
+presentes_df$casavel9[neutros_c9] <- "N"
+
+naogostados_c9 <- itens %in% padroniza(presentes_casavel9$naogostados)
+presentes_df$casavel9[naogostados_c9] <- "D"
+
+odiados_c9 <- itens %in% padroniza(presentes_casavel9$odiados)
+presentes_df$casavel9[odiados_c9] <- "O"
+
+#casavel 10 (leah) ---
+amados_c10 <- itens %in% padroniza(presentes_casavel10$amados)
+presentes_df$casavel10[amados_c10] <- "A"
+
+gostados_c10 <- itens %in% padroniza(presentes_casavel10$gostados)
+presentes_df$casavel10[gostados_c10] <- "G"
+
+neutros_c10 <- itens %in% padroniza(presentes_casavel10$neutros)
+presentes_df$casavel10[neutros_c10] <- "N"
+
+naogostados_c10 <- itens %in% padroniza(presentes_casavel10$naogostados)
+presentes_df$casavel10[naogostados_c10] <- "D"
+
+odiados_c10 <- itens %in% padroniza(presentes_casavel10$odiados)
+presentes_df$casavel10[odiados_c10] <- "O"
+
+#casavel 11 (maru) ---
+amados_c11 <- itens %in% padroniza(presentes_casavel11$amados)
+presentes_df$casavel11[amados_c11] <- "A"
+
+gostados_c11 <- itens %in% padroniza(presentes_casavel11$gostados)
+presentes_df$casavel11[gostados_c11] <- "G"
+
+neutros_c11 <- itens %in% padroniza(presentes_casavel11$neutros)
+presentes_df$casavel11[neutros_c11] <- "N"
+
+naogostados_c11 <- itens %in% padroniza(presentes_casavel11$naogostados)
+presentes_df$casavel11[naogostados_c11] <- "D"
+
+odiados_c11 <- itens %in% padroniza(presentes_casavel11$odiados)
+presentes_df$casavel11[odiados_c11] <- "O"
+
+#casavel 12 (penny) ---
+amados_c12 <- itens %in% padroniza(presentes_casavel12$amados)
+presentes_df$casavel12[amados_c12] <- "A"
+
+gostados_c12 <- itens %in% padroniza(presentes_casavel12$gostados)
+presentes_df$casavel12[gostados_c12] <- "G"
+
+neutros_c12 <- itens %in% padroniza(presentes_casavel12$neutros)
+presentes_df$casavel12[neutros_c12] <- "N"
+
+naogostados_c12 <- itens %in% padroniza(presentes_casavel12$naogostados)
+presentes_df$casavel12[naogostados_c12] <- "D"
+
+odiados_c12 <- itens %in% padroniza(presentes_casavel12$odiados)
+presentes_df$casavel12[odiados_c12] <- "O"
+
+```
+
+Nosso data frame está praticamente pronto, faltam apenas alguns toques finais. 
+
+Como tinha falado anteriormente, optei por omitir informações que apareciam no formato *"Todos os itens do tipo X (exceto Y)"*, pois futuramente pretendo fazer uma raspagem complementar para obter uma tabela de *Todas as frutas*, por exemplo, e remover essas excessões. Por isso, retirei todas as linhas que sejam desse tipo (*"Todos os itens do tipo X"*). 
+
+Além disso, fiz mais três alterações na estruturação feita no data frame: nomeei as linhas com os nomes dos itens presenteáveis, consequentemente retirei a coluna `itens`, também nomeei as colunas com os nomes dos personagens casáveis, e por fim, para ficar esteticamente mais agradável, retirei onde estava escrito `NA`. Você pode acompanhar como fiz essas mudanças no código comentado abaixo.
+
+```{r}
+#| label: data_frame-toques_finais
+
+#retirando linhas "desnecessárias"
+presentes_df <- presentes_df[-(139:154),] 
+
+#nomeando linhas com os itens e excluindo a coluna "itens"
+rownames(presentes_df) <- presentes_df$itens 
+presentes_df <- presentes_df[,-1]
+
+#renomeando colunas com os nomes dos personagens casáveis
+colnames(presentes_df) <- aldeoes_casaveis
+
+#substituindo os NA's por "-", para ficar mais bonitinho
+for(i in 1:nrow(presentes_df)){
+  for(j in 1:ncol(presentes_df)){
+    if(is.na(presentes_df[i,j])){
+      presentes_df[i,j] <- "-"
+    }
+  }
+}
+
+```
+
+# Resultado
+
+Finalmente, posso falar que o data frame está pronto! 
+
+```{r}
+#| label: data_frame-final
+#| echo: false
+
+kable(presentes_df)
+```
+
+Caso vc queira baixar o data frame *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)*  vc encontra dois aquivos `.csv`: um sem a retirada dos `NA`'s e outra com a versão que apresentei acima. 
+
+# Considerações Finais e Próximos Passos
+
+Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas abordagens que posso trabalhar em um futuro próximo.
+
+Tenho vários projetos futuros para realizar com o conjunto de dados que obti, como a visualização deles e também a sua expansão. Logo, trarei esses projetos para o meu portifólio.
+
+Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)* e fique ligado para projetos futuros de Stardew Valley e muitos outros. 
