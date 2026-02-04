@@ -34,11 +34,11 @@ participei de todas as oito edições do Programanas, sendo a primeira como alun
 
 # semana da estatística - UFU
 
-desde de o início de minha graduação, participei de quatro Semanas da Estátistica. na primeira fui apenas ouvinte, porém nos anos seguintes apresentei trabalhos orais e na XV Semana da Estatística ministrei, juntamente com dois colegas, o minicurso do evento.
+desde de o início de minha graduação, participei de quatro Semanas da Estatística. na primeira fui apenas ouvinte, porém nos anos seguintes apresentei trabalhos orais e na XV Semana da Estatística ministrei, juntamente com dois colegas, o minicurso do evento.
 
 ## apresentações orais
 
-os dois trabalhos que apresentei na semana da estatística foram colaborações entre elisa e eu. a primeira estudamos as canções da cantora Phoebe Bridgers e análisamos seus sentimentos. é possível ler esse trabalho [aqui](posts/phoebe/phoebe.qmd).
+os dois trabalhos que apresentei na semana da estatística foram colaborações entre Elisa e eu. a primeira estudamos as canções da cantora Phoebe Bridgers e analisamos seus sentimentos. é possível ler esse trabalho [aqui](posts/phoebe/phoebe.qmd).
 
 ::: {.grid}
 ::: {.g-col-6}
@@ -51,7 +51,7 @@ os dois trabalhos que apresentei na semana da estatística foram colaborações 
 :::
 
 
-## era uma vez um algoritimo
+## era uma vez um algoritmo
 
 o minicurso *Era uma vez um algoritmo: uma introdução ao Processamento de Linguagem Natural* integrou a programação da XV Semana da Estatística. nele trabalhamos com as falas dos filmes de Toy Story e comparamos o arco emocional dos quatro longas da franquia.
 
@@ -67,6 +67,6 @@ o minicurso *Era uma vez um algoritmo: uma introdução ao Processamento de Ling
 
 # II reunião mineira de matemática - UFMG
 
-fui para Belo Horizonte em 2023 apresentar o pôster *Construindo o modelo hipergeométrico negativo através de urnas*, fruto da minha primeira Iniciação Científica, na *II Reunião Mineira de Matemática* da Universidade Federal de Minas Gerais.
+fui para Belo Horizonte em 2023 apresentar o pôster *"Construindo o modelo hipergeométrico negativo através de urnas"*, fruto da minha primeira Iniciação Científica, na *II Reunião Mineira de Matemática* da Universidade Federal de Minas Gerais.
 
 ![](fotos_atvs/rmm_bh.jpg){width=40% fig-align="center"}

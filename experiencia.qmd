@@ -16,13 +16,13 @@ toc-title: "nesta página"
 #### PET Estatística
 *outubro 2022 - presente*
 
-No Programa de Educação Tutorial (PET), realizo atividades de ensino, pesquisa e extenção, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
+No Programa de Educação Tutorial (PET), realizo atividades de ensino, pesquisa e extensão, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
 
-O PET contribui fortemente no meu desenvolvimento pessoal e profissional. Por isso, destaco algumas atividades que participei e que contribuiram muito no meu aprendizadoa a seguir. 
+O PET contribui fortemente no meu desenvolvimento pessoal e profissional. Por isso, destaco algumas atividades que participei e que contribuíram muito no meu aprendizado a seguir. 
 
 * ***Minicursos*** - ministrei e participei da criação e estruturação de vários minicursos. Destaco aqui o *Programanas* que introduz conceitos de Ciência de Dados ao público feminino e o *Era uma vez um algoritmo*, minicurso de PLN que ocorreu durante a XV Semana da Estatística na UFU. 
 
-* ***Grupos de estudo*** - nele estudei  modelos de aprendizado de máquina, como *KNN*. Aprendi várias técnicas como *webscraping*, manipulaçao e análise descritiva de dados, e também foi onde tive meu primeiro contato com PNL. 
+* ***Grupos de estudo*** - nele estudei  modelos de aprendizado de máquina, como *KNN*. Aprendi várias técnicas como *webscraping*, manipulação e análise descritiva de dados, e também foi onde tive meu primeiro contato com PNL. 
 
 #### Iniciação Científica 
 
