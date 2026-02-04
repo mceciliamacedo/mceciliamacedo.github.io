@@ -1,7 +1,7 @@
 ---
 title: "stardew valley"
 image: stardewvalley_logo.jpg
-categories: ["r", "web scraping", "stardew valley"]
+categories: ["r", "web scraping"]
 description: web scraping da wiki de stardew valley com intuito de criar um arquivo contendo quais itens cada aldeão candidato a casamento gosta, ou não, de ser presenteado.
 author: "Maria Cecília Macedo"
 date: "2024-05-30"
@@ -1246,21 +1246,13 @@ for(i in 1:nrow(presentes_df)){
 
 # Resultado
 
-Finalmente, posso falar que o data frame está pronto! 
+Finalmente, posso falar que o data frame está pronto! Aqui está ele.
 
 ```{r}
-#| label: data_frame-final
+#| label: data_frame_final
 #| echo: false
 
 kable(presentes_df)
 ```
 
 Caso vc queira baixar o data frame *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)*  vc encontra dois aquivos `.csv`: um sem a retirada dos `NA`'s e outra com a versão que apresentei acima. 
-
-# Considerações Finais e Próximos Passos
-
-Esse foi um projeto desafiador e trabalhoso, mas aprendi muito com ele. Enquanto realizava ele me deparei com diversos problemas que não consegui resolver aqui, mas me fizeram pensam em diversas abordagens que posso trabalhar em um futuro próximo.
-
-Tenho vários projetos futuros para realizar com o conjunto de dados que obti, como a visualização deles e também a sua expansão. Logo, trarei esses projetos para o meu portifólio.
-
-Espero que tenha gostado desse projeto e que ele possa ser útil para você. Fique a vontade em baixar os dados que obtive *[neste link](https://drive.google.com/drive/folders/1kD0lSd3h0f1HltV5S-t3rt-rGqgt1pbn?usp=sharing)* e fique ligado para projetos futuros de Stardew Valley e muitos outros. 

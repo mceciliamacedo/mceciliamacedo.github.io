@@ -26,13 +26,15 @@ O PET contribui fortemente no meu desenvolvimento pessoal e profissional. Por is
 
 #### Iniciação Científica 
 
-*Urnas de Pólya: uma visão introdutória*
+##### Urnas de Pólya: uma visão introdutória
 
 *Concluída*
 
 Participei de iniciação científica na área de probabilidade, onde desenvolvi um projeto de pesquisa com o tema: *"Urnas de Pólya - uma visão introdutória"*. E apresentei o projeto na *II Reunião Mineira de Matemática* da UFMG.
 
-#### Iniciação Científica - Império em dados: revisitando a história brasileira através de técnicas modernas
+#### Iniciação Científica 
+
+##### Império em dados: revisitando a história brasileira através de técnicas modernas
 
 *Em andamento*
 
@@ -40,7 +42,7 @@ O objetivo dessa IC é utilizar técnicas computacionais para extrair os dados d
 
 # experiência profissional
 
-### Estágio
+### estágio
 
 #### Tribanco - Tesouraria/Renda Fixa
 *julho 2024 - presente*

@@ -225,7 +225,7 @@ stranger_alps[6,]|>
 
 Com o uso desse dicionário, é possível observar de forma mais completa a gama de sentimentos presente em cada música, auxiliando na compreensão do álbum por inteiro. Na música *‘Killer’*, nota-se a presença de todos os sentimentos listados no dicionário usado (NRC), o que traz para a análise uma maior subjetividade, uma vez que é notável na música a presença de sentimentos opostos. Apesar disso, ainda pode-se notar a prevalência dos sentimentos negativos sobre os positivos.
 
-### Conclusão
+## Conclusão
 
 Com o auxílio de ferramentas computacionais de *Processamento de Linguagem Natural*, foi possível fazer uma análise mais aprofundada sobre o teor emocional das letras das músicas. Os gráficos gerados a partir dos dicionários Bing e Afinn mostraram que o álbum se mantém completamente negativo, com exceção de uma única música pelo Afinn. Com o dicionário NRC, por sua vez, foi possível detectar não somente a polaridade das emoções, mas rotular emoções mais específicas como medo e tristeza, complementando o que foi observado nos dicionários anteriores.
 

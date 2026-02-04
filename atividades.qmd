@@ -1,0 +1,72 @@
+---
+title: "atividades"
+toc-title: "nesta página"
+---
+
+aqui você encontra registros fotográficos de algumas atividades que participei ao longo da minha jornada.
+
+# programanas
+
+o Programanas é um minicurso de programação para mulheres, que busca promover a inclusão e diminuir a disparidade de gênero na área de tecnologia. inicialmente era um curso de introdução a programação em python, porém foi reformulado e atualmente é de introdução a ciência de dados em R.
+
+participei de todas as oito edições do Programanas, sendo a primeira como aluna e as seguintes ministrando e ajudando a elaborar as aulas desse projeto tão especial.
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/programanas2.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/programanas.jpg)
+:::
+:::
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/programanas4.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/programanas3.jpg)
+:::
+:::
+
+
+# semana da estatística - UFU
+
+desde de o início de minha graduação, participei de quatro Semanas da Estátistica. na primeira fui apenas ouvinte, porém nos anos seguintes apresentei trabalhos orais e na XV Semana da Estatística ministrei, juntamente com dois colegas, o minicurso do evento.
+
+## apresentações orais
+
+os dois trabalhos que apresentei na semana da estatística foram colaborações entre elisa e eu. a primeira estudamos as canções da cantora Phoebe Bridgers e análisamos seus sentimentos. é possível ler esse trabalho [aqui](posts/phoebe/phoebe.qmd).
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/semest1.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/semest2.jpg)
+:::
+:::
+
+
+## era uma vez um algoritimo
+
+o minicurso *Era uma vez um algoritmo: uma introdução ao Processamento de Linguagem Natural* integrou a programação da XV Semana da Estatística. nele trabalhamos com as falas dos filmes de Toy Story e comparamos o arco emocional dos quatro longas da franquia.
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/semest3.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/semest4.jpg)
+:::
+:::
+
+# II reunião mineira de matemática - UFMG
+
+fui para Belo Horizonte em 2023 apresentar o pôster *Construindo o modelo hipergeométrico negativo através de urnas*, fruto da minha primeira Iniciação Científica, na *II Reunião Mineira de Matemática* da Universidade Federal de Minas Gerais.
+
+![](fotos_atvs/rmm_bh.jpg){width=40% fig-align="center"}

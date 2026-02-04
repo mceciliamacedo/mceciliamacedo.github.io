@@ -10,6 +10,8 @@ website:
         text: experiência
       - href: projetos.qmd
         text: projetos
+      - href: atividades.qmd
+        text: atividades
       
   
   favicon: tubarao_dentuco.jpg

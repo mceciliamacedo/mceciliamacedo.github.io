@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Maria Cecília Macedo">
+<meta name="description" content="trabalho final da matéria optativa de geoestatística">
+
+<title>Analfabetismo em Minas Gerais – maria cecília macedo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../tubarao_dentuco.jpg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">maria cecília macedo</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../experiencia.html"> 
+<span class="menu-text">experiência</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projetos.html"> 
+<span class="menu-text">projetos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../atividades.html"> 
+<span class="menu-text">atividades</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">1. Introdução</a></li>
+  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">2. Metodologia</a>
+  <ul class="collapse">
+  <li><a href="#material-do-estudo" id="toc-material-do-estudo" class="nav-link" data-scroll-target="#material-do-estudo">2.1. Material do estudo</a></li>
+  <li><a href="#métodos-utilizados" id="toc-métodos-utilizados" class="nav-link" data-scroll-target="#métodos-utilizados">2.2. Métodos utilizados</a></li>
+  <li><a href="#resultados" id="toc-resultados" class="nav-link" data-scroll-target="#resultados">3. Resultados</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">4. Conclusão</a></li>
+  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analfabetismo em Minas Gerais</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">r</div>
+    <div class="quarto-category">geoestatística</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    trabalho final da matéria optativa de geoestatística
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Maria Cecília Macedo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">11 de set. de 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level1">
+<h1>1. Introdução</h1>
+<p>O analfabetismo no Brasil é um desafio histórico e persistente. Apesar de avanços significativos nos últimos anos, o país ainda enfrenta altas taxas de pessoas não alfabetizadas, isso reflete a má formação educacional e as desigualdades sociais.</p>
+<p>A desigualdade de oportunidades educacional durante a infância do indivíduo é refletida na vida adulta quando enfrenta-se diferenças de produtividade e acarreta em salários baixos no mercado de trabalho. A literatura educacional tem enfatizado a importância de ambientes escolares que promovam tanto a alfabetização quanto o letramento, incentivando o uso da leitura e da escrita para além da simples decodificação de textos.</p>
+<p>Em Minas Gerais, a Secretaria de Estado de Educação (SEE/MG) implementa políticas públicas para enfrentar o analfabetismo, como a criação do Programa de Avaliação da Alfabetização (Proalfa) em 2005 e, em 2008, o Programa de Intervenção Pedagógica (PIP). O objetivo do PIP é melhorar a aprendizagem dos alunos e reduzir a repetência, com a meta de que toda criança saiba ler e escrever até os oito anos de idade. Um estudo de Faria e Chein (2016) avaliou o efeito do PIP e de outras intervenções educacionais em Minas Gerais, utilizando dados do Prova Brasil e do Censo Escolar. Os resultados desse estudo indicam que o programa conseguiu elevar a proficiência dos alunos em matemática e língua portuguesa, principalmente entre 2007 e 2009. A pesquisa aponta que políticas de avaliação externa podem ser usadas para incentivar a melhoria do desempenho dos alunos.</p>
+<p>O presente trabalho visa analisar a taxa analfabetismo em 2012 da população mineira com idade superior a 25 anos utilizando técnicas geoestatísticas a fim de contribuir para a compreensão da distribuição espacial desta problemática no estado de Minas Gerais.</p>
+</section>
+<section id="metodologia" class="level1">
+<h1>2. Metodologia</h1>
+<section id="material-do-estudo" class="level2">
+<h2 class="anchored" data-anchor-id="material-do-estudo">2.1. Material do estudo</h2>
+<p>Os dados sobre utilizados para realizar este estudo foram extraídos do Índice Mineiro de Responsabilidade Social (IMRS) e abrangem todos os 853 municípios mineiros. O conjunto apresenta informações sobre a taxa de analfabetismo da população com 25 anos ou mais nos municípios do estado de Minas Gerais, nos anos de 2000 e 2010.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">municipio</th>
+<th style="text-align: right;">X2000</th>
+<th style="text-align: right;">X2010</th>
+<th style="text-align: right;">long</th>
+<th style="text-align: right;">latit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Uberlândia</td>
+<td style="text-align: right;">7.04</td>
+<td style="text-align: right;">4.65</td>
+<td style="text-align: right;">-48.1638</td>
+<td style="text-align: right;">-18.5507</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Umburatiba</td>
+<td style="text-align: right;">39.01</td>
+<td style="text-align: right;">33.18</td>
+<td style="text-align: right;">-40.3422</td>
+<td style="text-align: right;">-17.1521</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unaí</td>
+<td style="text-align: right;">16.94</td>
+<td style="text-align: right;">10.92</td>
+<td style="text-align: right;">-46.5422</td>
+<td style="text-align: right;">-16.2127</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">União de Minas</td>
+<td style="text-align: right;">22.49</td>
+<td style="text-align: right;">17.19</td>
+<td style="text-align: right;">-50.2009</td>
+<td style="text-align: right;">-19.3149</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Uruana de Minas</td>
+<td style="text-align: right;">25.86</td>
+<td style="text-align: right;">22.85</td>
+<td style="text-align: right;">-46.1515</td>
+<td style="text-align: right;">-16.0351</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>O intuito deste trabalho é realizar um estudo sobre as taxas de analfabetismo entre pessoas com mais de 25 anos no estado de Minas Gerais mais recentes obtidas pelo IMRS. Portanto, será utlizado somente a variável referente ao ano de 2010.</p>
+</section>
+<section id="métodos-utilizados" class="level2">
+<h2 class="anchored" data-anchor-id="métodos-utilizados">2.2. Métodos utilizados</h2>
+<p>Inicialmente, as análises feitas foram utilizadas as taxas de analfabetismo de todos os 853 municípios do estado de Minas Gerais. Nessa análise inicial, foi notável a grande variabilidade dos dados e a presença de altos valores discrepantes. A dispersão dos dados varia de taxas entre algo próximo a 0% à taxas superiores a 40%, a maioria das cidades mineiras apresentam uma taxa entre 10% à 20% de adultos analfabetos.</p>
+<p>Os dados também não apresentaram uma distribuição normal aparente, o que é um pressuposto importante para a aplicação de técnicas geoestatísticas. Portanto, foi necessário realizar uma transformação logarítmica nos dados para tentar normalizá-los.</p>
+<p>Após a realização dessas primeiras análises exploratórias deu-se início a análise exploratória geoespacial. Nela notou-se a existência de duas populações distitas as regiões do Norte de Minas, Vale do Jequitinhonha, Vale do Mucuri e Vale do Rio doce apresentaram taxas altíssimas em relação ao restante do estado, isso culminou em uma tendência espacial muito forte, o que atrapalhou o estudo. Por esse motivo, optou-se por realizar a análise apenas para as cidades do Triângulo Mineiro e do Alto Paranaíba. Mas analisar os dados dessas regiões que mostraram altas taxas é de extrema importância para entender por que elas diferem do restante do estado.</p>
+<p>Com as observações reduzidas, realizou-se novamente a análise exploratória dos dados. A região do Triângulo Mineiro e Alto Paranaíba apresentou variabilidade moderada dos dados e mostrou ter uma distribuição mais próxima da normal, isso comprovou-se ao testar a normalidade dos dados através do teste de Shapiro-Wilk.</p>
+<p>Quando realizada a análise exploratória geoespacial, apesar de mais fraca do que anteriormente ainda foi possível notar a presença de uma tendência espacial, onde as cidades mais ao oeste apresentavam maiores taxas de analfabetismo. O semivariograma experimental também indicou a presença de dependência espacial.</p>
+<p>Vários modelos foram ajustados ao semivariograma experimental, entre eles o modelo exponencial, modelo esférico e gaussiano. O modelo que melhor se ajustou aos dados foi o modelo gaussiano, com alcance de 0.55 e patamar de 6.28.</p>
+<p>Na krigagem, o modelo gaussiano foi utilizado para prever as taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba. O mapa de previsão resultante mostrou a distribuição espacial das taxas de analfabetismo na região, com áreas de maior e menor prevalência claramente delineadas.</p>
+</section>
+<section id="resultados" class="level2">
+<h2 class="anchored" data-anchor-id="resultados">3. Resultados</h2>
+<p>O conjunto contendo apenas as cidades do Triângulo Mineiro e Alto Paranaíba totaliza 66 observações que apresentaram as seguintes medidas descritivas:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">X2010</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">nobs</td>
+<td style="text-align: right;">66.000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NAs</td>
+<td style="text-align: right;">0.000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Minimum</td>
+<td style="text-align: right;">4.650000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maximum</td>
+<td style="text-align: right;">19.520000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1. Quartile</td>
+<td style="text-align: right;">9.580000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3. Quartile</td>
+<td style="text-align: right;">13.857500</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean</td>
+<td style="text-align: right;">11.480152</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Median</td>
+<td style="text-align: right;">10.945000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sum</td>
+<td style="text-align: right;">757.690000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SE Mean</td>
+<td style="text-align: right;">0.399960</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LCL Mean</td>
+<td style="text-align: right;">10.681377</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UCL Mean</td>
+<td style="text-align: right;">12.278926</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance</td>
+<td style="text-align: right;">10.557866</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stdev</td>
+<td style="text-align: right;">3.249287</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Skewness</td>
+<td style="text-align: right;">0.178172</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kurtosis</td>
+<td style="text-align: right;">-0.328613</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A menor taxa de analfabetismo registrada na região foi de 4.65%, enquanto a maior taxa foi de 19.52%. A média das taxas de analfabetismo na região é de aproximadamente 11,48%, com uma mediana de 10,945%. O desvio padrão de 3.24 indica uma há dispersão moderada dos dados em torno da média. Também é possível observar que existe uma leve assimetria.</p>
+<p><br></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="geoest_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Distribuição das taxas de analfabetismo em 2010 para as cidades do Triângulo Mineiro e Alto Paranaíba</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Analisando o histograma e o boxplot, é possível observar que os dados apresentam uma distribuição aproximadamente normal, com uma leve assimetria positiva. Isso se comprova ao utilizar o teste de Shapiro-Wilk, que não rejeita a hipótese nula de normalidade dos dados (p-valor = <code></code> <code>0.6471546</code> <code></code>). Também não há presença de valores extremos ou outliers significativos, o que sugere que os dados são relativamente homogêneos. Portanto, não há necessidade de realizar transformações nos dados.</p>
+<p>Uma última análise exploratória foi realizada, com os dados em forma geoespacial é possível entender melhor a distribuição espacial das taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="geoest_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Análise exploratória dos dados geoespaciais</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="geoest_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Distribuição espacial das taxas de analfabetismo em 2010 para as cidades do Triângulo Mineiro e Alto Paranaíba</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>É possível observar que as cidades localizadas mais ao oeste da região do Triângulo Mineiro e Alto Paranaíba apresentam taxas de analfabetismo mais elevadas, enquanto as cidades situadas mais ao leste apresentam taxas mais baixas. Essa tendência espacial sugere que fatores geográficos, socioeconômicos ou culturais podem estar influenciando a distribuição das taxas de analfabetismo na região.</p>
+<p>Com as análises devidamente concluídas, o próximo passo foi identificar a presença de dependência espacial nas taxas de analfabetismo. Para isso, foi calculado o semivariograma experimental e ajustado o envelope de Monte Carlo.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="semivariograma.png" class="img-fluid figure-img"></p>
+<figcaption>Semivariograma experimental</figcaption>
+</figure>
+</div>
+<p>O semivariograma experimental obtido, juntamente com o envelope, mostra que há fraca dependência espacial nas taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba. Isso indica que as taxas de uma cidade podem estar relacionadas às taxas em cidades vizinhas, o que é um aspecto importante a ser considerado em estudos futuros sobre o tema.</p>
+<p>Para modelar a dependência espacial observada no semivariograma experimental, foram ajustados vários modelos teóricos, incluindo o modelo exponencial, esférico e gaussiano. O modelo que melhor se ajustou aos dados foi o modelo gaussiano, com alcance de 0.55 e patamar de 6.28.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="modelo_gauss.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Modelo gaussiano</figcaption>
+</figure>
+</div>
+<p>Após a realização do ajuste do modelo, foi feita a validação cruzada para avaliar o desempenho de cada um. O modelo gaussiano apresentou o melhor desempenho, com menor erro padrão médio e variância do erro padrão e bem ajustado ao envelope (Figura 6). Portanto, foi escolhido para ser utilizado na krigagem.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="modelo_ajustado.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>Modelo ajustado ao envelope</figcaption>
+</figure>
+</div>
+<p>O mapa de previsão resultante mostrou a distribuição espacial das taxas de analfabetismo na região, com áreas de maior e menor prevalência claramente delineadas. Ao observá-lo, é possível identificar que as taxas de analfabetismo são mais elevadas nas áreas mais ao oeste da região do Triângulo Mineiro e Alto Paranaíba.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="geoest_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Krigagem</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusão" class="level1">
+<h1>4. Conclusão</h1>
+<p>A análise geoestatística das taxas de analfabetismo no Triângulo Mineiro e Alto Paranaíba revelou padrões espaciais significativos e dependência entre as cidades vizinhas. Utilizando o semivariograma, foi possível identificar essa dependência, com o modelo gaussiano sendo o mais adequado para o ajuste dos dados. A krigagem, que se baseou nesse modelo, produziu um mapa de previsão que delineou claramente as áreas de maior e menor prevalência de analfabetismo na região.</p>
+<p>Esses resultados demonstram que as taxas de analfabetismo não estão distribuídas aleatoriamente e que fatores geográficos, socioeconômicos ou culturais locais podem estar influenciando sua distribuição. A abordagem geoestatística mostrou-se uma ferramenta eficaz para compreender essa problemática, sugerindo que políticas públicas de combate ao analfabetismo devem ser regionalizadas e direcionadas às áreas com maior necessidade. Pesquisas futuras podem aprofundar essa análise, expandindo o estudo para outras regiões do estado e incorporando mais variáveis para uma compreensão mais completa dos fatores que contribuem para o problema.</p>
+</section>
+<section id="referências" class="level1">
+<h1>Referências</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-faria2016alfabetizacao" class="csl-entry" role="listitem">
+Faria, Victor Nascimento, e Flávia Chein. 2016. <span>«Alfabetiza<span>ç</span><span>ã</span>o e desempenho escolar: uma an<span>á</span>lise de interven<span>ç</span><span>õ</span>es recentes em Minas Gerais»</span>. <em>Planejamento e Pol<span>ı́</span>ticas P<span>ú</span>blicas</em> 46: 295–332.
+</div>
+<div id="ref-paini2005retrato" class="csl-entry" role="listitem">
+Paini, Leonor Dias, Eliana Alves Greco, Ana Laura Azevedo, Maria de Lurdes Valino, e Sebastião Gazola. 2005. <span>«Retrato do analfabetismo: algumas considera<span>ç</span><span>õ</span>es sobre a educa<span>ç</span><span>ã</span>o no Brasil»</span>. <em>Acta Scientiarum. Human and Social Sciences</em> 27 (2): 223–30.
+</div>
+<div id="ref-simoes2012programa" class="csl-entry" role="listitem">
+Simões, Maria Inez Barroso. 2012. <span>«O Programa de Interven<span>ç</span><span>ã</span>o Pedag<span>ó</span>gica do Estado de Minas Gerais - PIP»</span>. Disserta{\c{c}}{\~a}o de Mestrado, Juiz de Fora: Universidade Federal de Juiz de Fora.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

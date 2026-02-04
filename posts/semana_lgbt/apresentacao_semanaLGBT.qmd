@@ -1,0 +1,1291 @@
+---
+title: "Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas"
+image: love.jpeg
+categories: ["apresentação", "pesquisa"]
+description: pesquisa desenvolvida dentro do PET Estatística e apresentada na 1ª Semana Científica LGBTQIAPN+ da UFU
+date: "2025-08-22"
+date-format: medium
+format: 
+  revealjs:
+    footer: "1ª semana científica LGBTQIAPN+ 🏳‍🌈"
+    theme: [moon, custom.scss]
+---
+
+```{r, dev = "png", dev.args=list(bg="transparent")}
+#| label: config
+#| echo: false
+#| output: false
+#| warning: false
+
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(geobr)
+library(tidyr)
+library(readxl)
+library(rvest)
+library(sf)
+library(openxlsx)
+library(tidyverse)
+library(knitr)
+
+#REGISTRO CIVIL
+{
+  caminho <- "C:/Users/maria/OneDrive - Universidade Federal de Uberlândia/Documentos/GitHub/mceciliamacedo.github.io/posts/semana_lgbt/casamentos"
+  arquivos_casamentos <- list.files(path = caminho, pattern = "\\.csv$", full.names = TRUE)
+  
+  casamentos2013 <- read.csv(arquivos_casamentos[1])
+  casamentos2013_homens <- read.csv(arquivos_casamentos[2])
+  casamentos2013_mulheres <- read.csv(arquivos_casamentos[3])
+  casamentos2013$categoria <- "geral"
+  casamentos2013_homens$categoria <- "entre homens"
+  casamentos2013_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2014 <- read.csv(arquivos_casamentos[4])
+  casamentos2014_homens <- read.csv(arquivos_casamentos[5])
+  casamentos2014_mulheres <- read.csv(arquivos_casamentos[6])
+  casamentos2014$categoria <- "geral"
+  casamentos2014_homens$categoria <- "entre homens"
+  casamentos2014_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2015 <- read.csv(arquivos_casamentos[7])
+  casamentos2015_homens <- read.csv(arquivos_casamentos[8])
+  casamentos2015_mulheres <- read.csv(arquivos_casamentos[9])
+  casamentos2015$categoria <- "geral"
+  casamentos2015_homens$categoria <- "entre homens"
+  casamentos2015_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2016 <- read.csv(arquivos_casamentos[10])
+  casamentos2016_homens <- read.csv(arquivos_casamentos[11])
+  casamentos2016_mulheres <- read.csv(arquivos_casamentos[12])
+  casamentos2016$categoria <- "geral"
+  casamentos2016_homens$categoria <- "entre homens"
+  casamentos2016_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2017 <- read.csv(arquivos_casamentos[13])
+  casamentos2017_homens <- read.csv(arquivos_casamentos[14])
+  casamentos2017_mulheres <- read.csv(arquivos_casamentos[15])
+  casamentos2017$categoria <- "geral"
+  casamentos2017_homens$categoria <- "entre homens"
+  casamentos2017_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2018 <- read.csv(arquivos_casamentos[16])
+  casamentos2018_homens <- read.csv(arquivos_casamentos[17])
+  casamentos2018_mulheres <- read.csv(arquivos_casamentos[18])
+  casamentos2018$categoria <- "geral"
+  casamentos2018_homens$categoria <- "entre homens"
+  casamentos2018_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2019 <- read.csv(arquivos_casamentos[19])
+  casamentos2019_homens <- read.csv(arquivos_casamentos[20])
+  casamentos2019_mulheres <- read.csv(arquivos_casamentos[21])
+  casamentos2019$categoria <- "geral"
+  casamentos2019_homens$categoria <- "entre homens"
+  casamentos2019_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2020 <- read.csv(arquivos_casamentos[22])
+  casamentos2020_homens <- read.csv(arquivos_casamentos[23])
+  casamentos2020_mulheres <- read.csv(arquivos_casamentos[24])
+  casamentos2020$categoria <- "geral"
+  casamentos2020_homens$categoria <- "entre homens"
+  casamentos2020_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2021 <- read.csv(arquivos_casamentos[25])
+  casamentos2021_homens <- read.csv(arquivos_casamentos[26])
+  casamentos2021_mulheres <- read.csv(arquivos_casamentos[27])
+  casamentos2021$categoria <- "geral"
+  casamentos2021_homens$categoria <- "entre homens"
+  casamentos2021_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2022 <- read.csv(arquivos_casamentos[28])
+  casamentos2022_homens <- read.csv(arquivos_casamentos[29])
+  casamentos2022_mulheres <- read.csv(arquivos_casamentos[30])
+  casamentos2022$categoria <- "geral"
+  casamentos2022_homens$categoria <- "entre homens"
+  casamentos2022_mulheres$categoria <- "entre mulheres"
+  
+  casamentos2023 <- read.csv(arquivos_casamentos[31])
+  casamentos2023_homens <- read.csv(arquivos_casamentos[32])
+  casamentos2023_mulheres <- read.csv(arquivos_casamentos[33])
+  casamentos2023$categoria <- "geral"
+  casamentos2023_homens$categoria <- "entre homens"
+  casamentos2023_mulheres$categoria <- "entre mulheres"
+} #carregando dados
+
+casamentos <- rbind(casamentos2013, casamentos2013_homens, 
+                    casamentos2013_mulheres, casamentos2014,
+                    casamentos2014_homens, casamentos2014_mulheres,
+                    casamentos2015, casamentos2015_homens,
+                    casamentos2015_mulheres,casamentos2016,
+                    casamentos2016_homens, casamentos2016_mulheres,
+                    casamentos2017, casamentos2017_homens,
+                    casamentos2017_mulheres, casamentos2018,
+                    casamentos2018_homens, casamentos2018_mulheres,
+                    casamentos2019, casamentos2019_homens,
+                    casamentos2019_mulheres,casamentos2020,
+                    casamentos2020_homens, casamentos2020_mulheres,
+                    casamentos2021, casamentos2021_homens,
+                    casamentos2021_mulheres,casamentos2022,
+                    casamentos2022_homens, casamentos2022_mulheres,
+                    casamentos2023, casamentos2023_homens, 
+                    casamentos2023_mulheres)
+
+#séries temporais brasil
+casamentos_brasil <- casamentos[casamentos$local == "Brasil" & casamentos$categoria != "geral",]
+
+casamentos_brasil$total_ano <- as.numeric(casamentos_brasil$total_ano)
+casamentos_brasil$ano <- as.numeric(as.character(casamentos_brasil$ano))
+casamentos_brasil$categoria <- as.factor(casamentos_brasil$categoria)
+
+casamentos_discriminado <- ggplot(casamentos_brasil, aes(x = ano, y = total_ano, group = categoria, color = categoria)) +
+  geom_line(size = 1.25) +
+  labs(title = "Casamentos homoafetivos no Brasil", subtitle = "ao longo dos anos",
+       x = "", y = "", color = "")+
+  scale_color_manual(values = c("entre mulheres" = "darkorange2", "entre homens" = "hotpink2"))+
+  annotate(geom = "text", x = 2023, y = 7200, label = "entre mulheres", color = "darkorange2",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  annotate(geom = "text", x = 2023, y = 4050, label = "entre homens", color = "hotpink2",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  scale_x_continuous(breaks = seq(min(casamentos_brasil$ano), max(casamentos_brasil$ano), by = 1),
+                     limits = c(min(casamentos_brasil$ano), max(casamentos_brasil$ano) + 1.5))+
+  coord_cartesian(clip = "off")+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+casamentos_homoafetivos_serie <- casamentos_brasil|>
+  group_by(ano)|>
+  summarise(total_ano = sum(total_ano))|>
+  ggplot(aes(x = ano, y = total_ano, group = 1)) +
+  geom_line(size = 1.25, color = "steelblue") +
+  labs(title = "Casamentos homoafetivos no brasil", 
+       subtitle = "ao longo dos anos", x = "", y = "")+
+  scale_x_continuous(breaks = seq(min(casamentos_brasil$ano), max(casamentos_brasil$ano), by = 1))+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+#mapas
+{tira_acento <- function(texto) {
+  # Converte os caracteres para ASCII, substituindo os acentuados
+  texto_sem_acento <- iconv(texto, from = "UTF-8", to = "ASCII//TRANSLIT")
+  # Remove quaisquer caracteres que não foram convertidos corretamente
+  texto_sem_acento <- gsub("[^[:alnum:] ]", "", texto_sem_acento)
+  return(texto_sem_acento)
+}}
+
+populacao2010 <- read_excel("populacao2010.xlsx", 
+                            col_names = FALSE, skip = 6, n_max = 27)
+colnames(populacao2010) <- c("local", "populacao") 
+
+populacao2010$local <- populacao2010$local|>
+  tira_acento()|>
+  tolower()
+
+populacao2022 <- read_excel("populacao2022.xlsx", 
+                            col_names = FALSE, skip = 4, n_max = 27)
+colnames(populacao2022) <- c("local", "populacao") 
+
+populacao2022$local <- populacao2022$local|>
+  tira_acento()|>
+  tolower()
+
+estados <- geobr::read_state(code_state = "all", year = "2020", cache = FALSE)
+
+colnames(estados) <- c("id_estado", "abrev", "local", "id_regiao", "regiao", "geom")
+
+estados$local <- estados$local|>
+  tira_acento()|>
+  tolower()
+
+
+casamentos_homoafetivos <- casamentos|>
+  mutate(total_ano = as.numeric(total_ano))|>
+  mutate(ano = as.factor(ano))|>
+  mutate(local = tolower(tira_acento(local)))|>
+  filter(categoria != "geral")|>
+  pivot_wider(names_from = categoria, values_from = "total_ano")|>
+  mutate(`entre mulheres` = ifelse(is.na(`entre mulheres`), 0, `entre mulheres`))|>
+  mutate(`entre homens` = ifelse(is.na(`entre homens`), 0, `entre homens`))|>
+  mutate(total_ano = `entre homens` + `entre mulheres`)
+
+casamentos_pivotado <- casamentos|>
+  pivot_wider(names_from = categoria, values_from = total_ano)
+
+casamentos_pivotado$geral <- as.numeric(casamentos_pivotado$geral)
+casamentos_pivotado$`entre homens` <- as.numeric(casamentos_pivotado$`entre homens`)
+casamentos_pivotado$`entre mulheres` <- as.numeric(casamentos_pivotado$`entre mulheres`)
+
+casamentoshomo_completo <- casamentos_pivotado|>
+  mutate(`entre homens` = ifelse(is.na(`entre homens`), 0, `entre homens`))|>
+  mutate(`entre mulheres` = ifelse(is.na(`entre mulheres`), 0, `entre mulheres`))|>
+  mutate(local = tolower(tira_acento(local)))|>
+  mutate(casamentos_homo = `entre mulheres` + `entre homens`)|>
+  select(local, ano, geral, casamentos_homo)
+
+mapa_casamentos2013 <- estados|>
+  left_join(casamentoshomo_completo)|>
+  filter(ano == 2013)|>
+  mutate(taxa = (casamentos_homo / geral)*100, .before = geom)|>
+  ggplot(aes(geometry = geom, fill = taxa))+
+  geom_sf(color = "whitesmoke")+
+  labs(title = "Casamentos homoafetivos no Brasil", 
+       subtitle = "proporção em 2013", fill = "%")+
+  scale_fill_gradient(low = "#fadde1", high = "#DB3069", na.value = "grey90")+
+  theme_void()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+ggsave("mapa_casamentos2013.png", plot = mapa_casamentos2013, bg = "transparent")
+
+mapa_casamentos2023 <- estados|>
+  left_join(casamentoshomo_completo)|>
+  filter(ano == 2023)|>
+  mutate(taxa = (casamentos_homo / geral)*100, .before = geom)|>
+  ggplot(aes(geometry = geom, fill = taxa))+
+  geom_sf(color = "whitesmoke")+
+  labs(title = "Casamentos homoafetivos no Brasil", 
+       subtitle = "proporção em 2023", fill = "%")+
+  scale_fill_gradient(low = "#fadde1", high = "#DB3069", na.value = "grey90")+
+  theme_void()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+ggsave("mapa_casamentos2023.png", plot = mapa_casamentos2023, bg = "transparent")
+
+#CRIMINALIDADE MG
+lgbtfobia <- read.csv("registros_lgbtfobia.csv", header = TRUE, sep = ";", encoding = "latin1")
+lgbtfobia_udi <- lgbtfobia[lgbtfobia$Município..Fato. == "UBERLANDIA",]
+
+lgbtfobia_udi$Bairro <- lgbtfobia_udi$Bairro|>
+  tira_acento()|>
+  tolower()
+
+lgbtfobia_udi$Bairro <- gsub("osvaldo resende", "osvaldo rezende", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("nossa senhora da aparecida", "nossa senhora aparecida", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("gavea paradiso", "gavea", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("jardim california", "aclimacao", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("lago azul", "pequis", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("monte hebron", "pequis", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("sao francisco", "residencial integracao", lgbtfobia_udi$Bairro)
+
+natureza_principal <- c("Outras infrações contra a dignidade sexual e a família",
+                        "Atrito verbal", "Injuria racial", "Agressão", "Outras infrações com a pessoa",
+                        "Outras ações de defesa pessoal", "Difamação", "Lesão corporal", "Ameaça", "Injúria")
+
+natureza <- lgbtfobia_udi|>
+  count(Natureza.Principal, sort = TRUE)|>
+  head(10)|>
+  ggplot(aes(y = reorder(Natureza.Principal, n), x = n))+
+  geom_col(fill = "#9bc7eb")+
+  labs(title = "Registros de LGBTfobia em Uberlândia",
+       subtitle = "natureza principal do crime",
+       x = "", y = "")+
+  scale_y_discrete(labels = natureza_principal)+
+  theme_minimal()+
+  theme(plot.title = element_text(color = "grey40", size = 18),
+        plot.subtitle = element_text(colour = "grey40", size = 15),
+        axis.text = element_text(color = "grey50", size = 12),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+ocorrencias_ano <- lgbtfobia|>
+  select(Ano)|>
+  count(Ano)
+ocorrencias_ano <- ocorrencias_ano[-10,]
+
+registros_ano <- ggplot(ocorrencias_ano, aes(x = Ano, y = n))+
+  geom_line(size = 1.25, color = "#078d70")+
+  labs(title = "Registros de LGBTfobia em Minas Gerais",
+       subtitle = "ao longo dos anos",
+       x = "", y = "")+
+  ylim(c(0, 650))+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+
+lgbtfobia$Município..Fato. <- lgbtfobia$Município..Fato.|>
+  tira_acento()|>
+  tolower()
+
+pop_cidades <- read.csv("populacao_cidades.csv", sep = ";", header = FALSE)
+
+pop_cidades <- pop_cidades[-(1:4),]
+colnames(pop_cidades) <- c("municipio", "populacao")
+
+pop_minas <- pop_cidades[str_detect(pop_cidades$municipio,"\\(MG\\)$"),]
+pop_minas$municipio <- pop_minas$municipio|>
+  str_remove_all(" \\(MG\\)$")|>
+  tira_acento()|>
+  tolower()
+
+lgbtfobia$Município..Fato. <- lgbtfobia$Município..Fato.|>
+  str_replace_all("abrecampo", "abre campo")|>
+  str_replace_all("amparo da serra", "amparo do serra")|>
+  str_replace_all("brasopolis", "brazopolis")|>
+  str_replace_all("capitao eneias", "	capitao eneas")|>
+  str_replace_all("entrefolhas", "entre folhas")|>
+  str_replace_all("estreladalva", "estrela dalva")|>
+  str_replace_all("graomogol", "grao mogol")|>
+  str_replace_all("onca do pitangui", "onca de pitangui")|>
+  str_replace_all("pingo dagua", "pingodagua")|>
+  str_replace_all("santo ant do amparo", "santo antonio do amparo")|>
+  str_replace_all("sao sebastiao paraiso", "sao sebastiao do paraiso")|>
+  str_replace_all("sao sebdo rio preto", "sao sebastiao do rio preto")|>
+  str_replace_all("entrerios de minas", "entre rios de minas")|>
+  str_replace_all("\tcapitao eneas", "capitao eneas")
+	
+minas <- read_municipality(code_muni = "MG", year = 2020)
+minas$name_muni <- minas$name_muni|>
+  tira_acento()|>
+  tolower()
+
+minas <- minas|>
+  rename(municipio = name_muni)
+
+lgbtfobia_minas2022 <- lgbtfobia|>
+  filter(Ano == 2022)|>
+  select(Município..Fato.)|>
+  rename(municipio = Município..Fato.)|>
+  count(municipio)
+
+mapa_minas <- minas|>
+  left_join(pop_minas)|>
+  left_join(lgbtfobia_minas2022)|> 
+  mutate(populacao = as.numeric(populacao))|>
+  mutate(taxa = (n / populacao) * 10000, .before = code_muni)|>
+  ggplot(aes(geometry = geom, fill = taxa))+
+  geom_sf(color = "whitesmoke", size = 0.1)+
+  labs(title = "Registro de LGBTfobia no estado de Minas Gerais em 2022",
+       subtitle = "taxa a cada dez mil habitantes", fill = "")+
+  scale_fill_gradient(low = "#9bafd9", high = "#103783", na.value = "grey90")+
+  theme_void()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+ggsave("mapa_minas.png", plot = mapa_minas, bg = "transparent")
+
+lgbtfobia <- read.csv("registros_lgbtfobia.csv", header = TRUE, sep = ";", encoding = "latin1")
+bairros_br <- st_read("C:/Users/maria/OneDrive - Universidade Federal de Uberlândia/Documentos/GitHub/mceciliamacedo.github.io/posts/semana_lgbt/bairros_ibge/BR_bairros_CD2022.shp")
+
+bairros_udi <- bairros_br[bairros_br$NM_MUN == "Uberlândia",]
+lgbtfobia_udi <- lgbtfobia[lgbtfobia$Município..Fato. == "UBERLANDIA",]
+
+lgbtfobia_udi$Bairro <- lgbtfobia_udi$Bairro|>
+  tira_acento()|>
+  tolower()
+
+lgbtfobia_udi$Bairro <- gsub("osvaldo resende", "osvaldo rezende", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("nossa senhora da aparecida", "nossa senhora aparecida", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("gavea paradiso", "gavea", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("jardim california", "aclimacao", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("lago azul", "pequis", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("monte hebron", "pequis", lgbtfobia_udi$Bairro)
+lgbtfobia_udi$Bairro <- gsub("sao francisco", "residencial integracao", lgbtfobia_udi$Bairro)
+
+bairros_udi$NM_BAIRRO <- bairros_udi$NM_BAIRRO|>
+  tira_acento()|>
+  tolower()
+
+bairros_udi$NM_BAIRRO <- gsub("chacaras tubalina e quartel", "chacaras tubalina", bairros_udi$NM_BAIRRO)
+
+bairro_mapa <- bairros_udi|>
+  select(NM_BAIRRO, geometry)
+colnames(bairro_mapa)[1] <- "Bairro"
+
+contagem_bairro <- lgbtfobia_udi|>
+  filter(Ano == 2022)|>
+  count(Bairro)
+
+mapa_udi <- lgbtfobia_udi|>
+  filter(Ano != 2025)|>
+  select(Bairro)|>
+  count(Bairro)|>
+  right_join(bairros_udi, by = join_by(Bairro == NM_BAIRRO))|>
+  ggplot(aes(geometry = geometry, fill = n))+
+  geom_sf(color = "whitesmoke")+
+  labs(title = "Registros em Uberlândia entre 2016 e 2024", 
+       subtitle = "em números absolutos", fill = "")+
+  scale_fill_gradient(low = "#83c5be", high = "#006d77", na.value = "grey90")+
+  theme_void()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+ggsave("mapa_udi.png", plot = mapa_udi, bg = "transparent")
+
+#código elisa
+dados <- read.xlsx("dados.xlsx", sheet = 1)
+dados_pop_trans <- read.xlsx("dados.xlsx", sheet = 2)
+criminalizacao <- read.csv("descriminalizacao.csv")
+
+violencia_homossexuais <- ggplot(dados, aes(x = ano, y = quantidade, col = tipo))+
+  geom_line(size = 1.25)+
+  scale_color_manual(values = c("Bissexuais" = "plum", "Homossexuais" = "steelblue"))+
+  labs(title = "Número total de casos de violência contra homossexuais e bissexuais no Brasil",
+       subtitle = "ao longo dos anos",
+       x = "", y = "")+
+  ylim(c(0, 7500))+
+  annotate(geom = "text", x = 2023.1, y = 7300, label = "homossexuais", color = "steelblue",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  annotate(geom = "text", x = 2023.1, y = 2900, label = "bissexuais", color = "plum",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  scale_x_continuous(breaks = seq(min(dados$ano), max(dados$ano), by = 1),
+                     limits = c(min(dados$ano), max(dados$ano) + 1.5))+
+  coord_cartesian(clip = "off")+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+violencia_trans <- ggplot(dados_pop_trans, aes(x = ano, y = `número`, col = tipo))+
+  geom_line(size = 1.25)+
+  scale_color_manual(values = c("Homem trans" = "darkorange2", "Mulher trans" = "steelblue", "Travesti" = "plum"))+
+  labs(title = "Número de pessoas trans e travestis vítimas de violência por identidade de gênero",
+       subtitle = "ao longo dos anos",
+       x = "", y = "")+
+  ylim(c(0, 3700))+
+  annotate(geom = "text", x = 2023.1, y = 3592, label = "mulheres trans", color = "steelblue",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  annotate(geom = "text", x = 2023.1, y = 1400, label = "homens trans", color = "darkorange2",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  annotate(geom = "text", x = 2023.1, y = 727, label = "travestis", color = "plum",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  scale_x_continuous(breaks = seq(min(dados$ano), max(dados$ano), by = 1),
+                     limits = c(min(dados$ano), max(dados$ano) + 1.5))+
+  coord_cartesian(clip = "off")+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+descriminalizacao <- ggplot(criminalizacao, aes(x = ano, y = valor, col = tipo))+
+  geom_line(size = 1.25, color = "steelblue")+
+  labs(title = "Número de países com leis que criminalizam relações homoafetivas consensuais",
+       subtitle = "ao longo dos anos",
+       x = "", y = "")+
+  scale_x_continuous(breaks = seq(min(criminalizacao$ano), max(criminalizacao$ano), by = 5),
+                     limits = c(min(criminalizacao$ano)-2, max(criminalizacao$ano) + 1.5))+
+  ylim(c(60, 120))+
+  annotate(geom = "text", x = 2025.4, y = 64.4, label = "64", color = "steelblue",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  annotate(geom = "text", x = 1989.3, y = 116.5, label = "114", color = "steelblue",
+           fontface = "bold", hjust = 0, size = 4.5)+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+#grafico isabella
+filmeslgbt <- read_excel(path = "representatividade_filmes.xlsx")
+
+colunas <- c("Ano", "Total_Filmes", "Filmes_LGBT", "Pct_LGBT")
+colnames(filmeslgbt) <- colunas
+
+filmeslgbt$Pct_LGBT <- as.numeric(filmeslgbt$Pct_LGBT)
+filmeslgbt$Ano <- as.numeric(filmeslgbt$Ano)
+
+filmes <- filmeslgbt |>
+  ggplot(aes(x = Ano, y = Filmes_LGBT, group = 1))+
+  geom_line(size = 1, color = '#810081')+
+  labs(title = "Filmes com personagens LGBTQIAPN+", subtitle = "ao longo dos anos", x = "", y = "")+
+  scale_x_continuous(breaks = seq(min(filmeslgbt$Ano), max(filmeslgbt$Ano), by = 1))+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey50", size = 18),
+        plot.subtitle = element_text(colour = "grey50", size = 15),
+        legend.position = "none",
+        axis.line = element_line(color = "grey70"),
+        axis.text = element_text(color = "grey70", size = 12),
+        axis.ticks = element_line(color = "grey70"),
+        panel.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        plot.background = element_rect(fill = "#f7f4e3", color = "NA"),
+        panel.grid = element_blank())
+
+tabela <- data.frame(Município = c("Fernander Tourinho", "Chácara", "Dom Vicoso", "Cordislândia", "Maripá de Minas"),
+                     Taxa = c(3.6, 3.2, 3.2, 3.1, 2.9))
+```
+
+# NOTAS
+
+## Notas
+
+Esta apresentação é fruto de uma pesquisa feita em grupo que conduzi dentro do PET Estatística para apresentar na *1ª Semana Científica LGBTQIAPN+*, evento idealizado pelo PET Geografia.
+
+O que verá aqui é o resultado de um trabalho árduo de levantamento, tratamento, análise e vizualização de dados. 
+
+# Introdução 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-1">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+## Motivação 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-1">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+> Imagine tentar contar a história de uma cidade sem mencionar um terço de seus moradores. Ou desenhar um mapa com buracos gigantes onde deveriam estar ruas, casas e pessoas. Isso é exatamente o que acontece quando não coletamos dados.
+
+# A importância dos dados
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-2">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+## A importância dos dados
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-2">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+- Elaboração de políticas públicas
+
+> identificam subnotificação de crimes de ódio contra a comunidade LGBTQIAPN+
+
+## A importância dos dados
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-2">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+- São documentos históricos
+
+> dados são também uma fotografia do momento atual; com eles podemos entender melhor sobre o passado, saber quem somos e para onde podemos ir
+
+## 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-2">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+<br/>
+<br/>
+
+![Censo de 1872 da cidade de N. S. da Conceição de Manáos](manaus.png)
+
+# Apagamento
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-3">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+## Apagamento
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-3">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+-  os povos indígenas só foram recenseados a partir de 1991
+
+![](manaus2.png){fig-align="center"}
+
+## Apagamento
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-3">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+- a SEJUSP possui um painel dinâmico sobre LGBTfobia, por um bom tempo ele ficou indisponível.
+
+![](painel_sejusp.jpg){fig-align="center"}
+
+## Apagamento
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-3">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+- dificuldade em se obter os dados.
+
+- o primeiro levantamento feito sobre orientação sexual feito pelo IBGE foi realizado em 2019. Nele não há registros sobre identidade de gênero.
+
+
+# Violências contra a comunidade
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+## Ao redor do mundo
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+A *International Lesbian, Gay, Bisexual, Trans and Intersex Association (ILGA)* é um conjunto de organizações que lutam pelos direitos das pessoas LGBTQIAPN+. Em sua página, divulgam diversas notícias, e dados sobre o assunto. 
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](criminalizacao.png)
+
+##
+
+<br/>
+
+```{r}
+#| label: discriminalizacao
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+descriminalizacao
+
+```
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](terapia.png)
+
+## Violência no Brasil
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+Anualmente o *Instituto de Pesquisa Econômica Aplicada (IPEA)* divulga o atlas da violência. Um relatório que aborda a violência contra diversos grupos sociais, incluindo a população LGBTQIAPN+.
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: ipea_homo
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+violencia_homossexuais
+
+```
+
+## 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: ipea_trans
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+violencia_trans
+
+```
+
+
+## LGBTfobia em Minas Gerais 
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+A Secretaria de Estado de Justiça e Segurança Pública (SEJUSP) é o órgão do estado de Minas Gerais que disponibiliza dados de crimanalidade no estado. A sua base de LGBTfobia tem dados a partir de 2016
+
+## 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: serietemporal_registros
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+registros_ano
+
+```
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](mapa_minas.png)
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+<br/>
+
+```{r}
+#| label: tabela
+#| echo: false
+#| output: true
+#| warning: false
+
+kable(tabela)
+```
+
+
+## LGBTfobia em Uberlândia
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](mapa_udi.png)
+
+## 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-4">4</span>
+  <span class="number-55">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: natureza_crime
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+
+natureza
+
+```
+
+
+# Casamentos
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+## Contextualização
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+- Primeiro reconhecimento veio por uniões civis/registradas, com direitos limitados.
+
+- Desde 1989, cresce o número de países que permitem casamento entre pessoas do mesmo sexo.
+
+- O casamento entre pessoas do mesmo sexo garante acesso igualitário aos direitos, deveres e proteções tradicionalmente reservados a casais heterossexuais.
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](casamento.png)
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](adocao.png)
+
+
+## Casamentos no Brasil
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+A união estável entre pessoas do mesmo gênero foi permitida em 2011 no Brasil. Contudo, só em 2013 ocorreu a legalização do casamento homoafetivo, só a partir desse momento a obtenção desses dados se tornou possível.
+
+## 
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: serie_casamentos
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+
+casamentos_homoafetivos_serie
+
+```
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+```{r}
+#| label: serie_discriminada
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+casamentos_discriminado
+
+```
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](mapa_casamentos2013.png)
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-5">5</span>
+  <span class="number-66">6</span>
+</div>
+:::
+
+<br/>
+
+![](mapa_casamentos2023.png)
+
+# O novo sempre vem
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+
+```{r}
+#|label: filmes_lgbt
+#|echo: false
+#|warning: false
+
+filmes
+```
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+![Luiz André e José Sergio foram o primeiro casal homossexual no Brasil a obter uma certidão de casamento](primeiro_casamento_homoafetivo.jpg){fig-align="center"}
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+![*Diferente dos outros (1919)* foi o primeiro longa-metragem LGBTQ+ da História](primeiro_filme_lgbt.jpg){fig-align="center"}
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+![A Marcha pela Cidadania de 1995, é considerada a primeira parada LGBT do Brasil](primeira_parada_lgbt.jpg){fig-align="center"}
+
+##
+
+::: {.absolute top="0" left="100%"}
+<div class="sectionhead">
+  <span class="number-11">1</span>
+  <span class="number-22">2</span>
+  <span class="number-33">3</span>
+  <span class="number-44">4</span>
+  <span class="number-55">5</span>
+  <span class="number-6">6</span>
+</div>
+:::
+
+<br/>
+
+![Parada LGBT de São Paulo - 2007](paradalgbt.jpg){fig-align="center"}
+
+## Referências
+
+1. IBGE - Instituto Brasileiro de Geografia e Estatística
+2. ILGA - International Lesbian, Gay, Bisexual, Trans and Intersex Association
+3. SEJUSP - A Secretaria de Estado de Justiça e Segurança Pública de Minas Gerais
+4. IPEA - Instituto de Pesquisa Econômica Aplicada
+
