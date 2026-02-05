@@ -6,8 +6,11 @@ description: pesquisa desenvolvida dentro do PET Estatística e apresentada na 1
 date-format: medium
 format: 
   revealjs:
+    embed-resources: true
     footer: "1ª semana científica LGBTQIAPN+ 🏳‍🌈"
     theme: [moon, custom.scss]
+website:
+  navbar: false
 ---
 
 ```{r, dev = "png", dev.args=list(bg="transparent")}
