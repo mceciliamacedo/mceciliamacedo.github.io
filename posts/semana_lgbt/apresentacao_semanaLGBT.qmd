@@ -2,7 +2,7 @@
 title: "Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas"
 image: love.jpeg
 categories: ["apresentação", "pesquisa"]
-description: pesquisa desenvolvida dentro do PET Estatística e apresentada na 1ª Semana Científica LGBTQIAPN+ da UFU
+description: pesquisa desenvolvida dentro do PET Estatística e apresentada na 1ª Semana Científica LGBTQIAPN+ da UFU.
 date-format: medium
 format: 
   revealjs:
