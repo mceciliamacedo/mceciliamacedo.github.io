@@ -1,0 +1,294 @@
+---
+title: "Mortalidade por pneumonia não especificada em Minas Gerais"
+image: pneumonia.jpeg
+categories: ["r","visualização de dados"]
+description: relatório para a matéria optativa de visualização de dados avançada. o trabalho consistia na coleta de dados provenientes do datasus, juntamente com a construções de belos visuais para análise e interpretação dos dados.
+author: "Maria Cecília Macedo"
+date: "2026-02-01"
+date-format: medium
+toc-title: "nesta página"
+---
+
+# Introdução
+
+Desenvolvido pelo Ministério da Saúde em 1975, o Sistema de Informações sobre Mortalidade (SIM) tem como finalidade registrar, processar e disponibilizar dados referentes aos óbitos ocorridos em todo território brasileiro. O sistema fornece informações abrangentes que permitem a criação de indicadores de saúde, como taxa de mortalidade geral, infantil e por causas específicas, possibilitando compreender o comportamento de doenças e padrões de mortalidade no Brasil. 
+
+Na saúde pública, o SIM desempenha um papel fundamental, uma vez que o monitoramento de seus dados auxiliam gestores governamentais na avaliação, criação, planejamento e implementação de políticas públicas e intervenções voltadas à prevenção de doenças. Além disso, possibilita identificar regiões que demandam maior atenção e alocação de recursos. Todos esses fatores evidenciam como o Sistema de Informações sobre Mortalidade é uma ferramenta crucial para a vigilância epidemiológica do Brasil.
+
+O presente trabalho busca analisar partir dos dados disponibilizados pelo SIM o comportamento da pneumonia não especificada, causa de mortalidade com maior número de óbitos em Minas Gerais no ano de 2024.
+
+# Objetivos
+
+Este relatório tem como objetivo analisar o comportamento e o perfil dos óbitos por pneumonia não especificada na região Sudeste do Brasil, evidenciando o estado de Minas Gerais, por meio da construção e análise de visualizações gráficas dos dados sobre mortalidade pela infecção pulmonar.
+
+# Metodologia
+
+Para obtenção dos dados fornecidos pelo SIM, utilizou-se o pacote `microdatasus` do R, que apresenta funções destinadas ao download e ao pré-processamento dos arquivos disponibilizados pelo DataSUS. Os dados extraídos, inicialmente, foram apenas sobre óbitos no estado de Minas Gerais no ano de 2024, porém com o aprofundamento da análise, passaram a ser incorporados também dados dos demais estados da região sudeste a partir de 2014
+
+Além das informações sobre mortalidade, também foi necessária a utilização de dados populacionais e geoespaciais. Os dados populacionais brasileiros, referentes aos Censos Demográficos de 2010 e 2022, foram coletados atráves do portal SIDRA, do Instituto Brasileiro de Geografia e Estatística (IBGE). Já os dados geoespaciais foram adquiridos com o auxílio do pacote `geobr`, desenvolvido pelo Instituto de Pesquisa Econômica Aplicada (IPEA).
+
+Com todos os dados necessários reunidos, iniciou-se o processo investigativo com intuito de identificar a causa que obteve o maior número de óbitos no estado de Minas Gerais no ano de 2024. A partir de uma filtragem simples dos registros, descobriu-se que foi `J189`, código CID-10 que refere-se a *pneumonia não especificada*. A pneumonia não especificada caracteriza-se pela infecção nos alvéolos pulmonares cujo agente causador (vírus, bactéria ou fungo) da  não é identificado nos registros clínicos. 
+
+Foram elaboradas três visualizações principais para a análise dos dados. A primeira apresenta a evolução temporal da taxa de óbitos por estado da região Sudeste desde 2014. Para suua construção, foi calculada a taxa anual de mortalidade por 100.000 habitantes, utilizando os dados populacionais dos Censos Demográficos como base. A partir dessa análise temporal, foi criado um segundo gráfico que trás a periodicidade mensal desde 2014 com objetivo de identificar possíveis padrões sazonaisna ocorrência dos óbitos.
+
+A segunda visualização sai do âmbito das grandes regiões do país e passa a analisar as mesorregiões de Minas Gerais através de um mapa de calor. Assim como na análise temporal, utilizou-se novamente a taxa de mortalidade a cada 100.000 habitantes. Além da utilização dos dados populacionais, a construção desse mapa coroplético exigiu também a integração com a base de dados geoespaciais.
+
+Por fim, com o intuito de entender o perfil demográfico das vítimas de pneumonia não especificada, foi construída uma pirâmide etária para entender quais faixas etárias se concentram a maior quantidade de óbitos. 
+
+```{r}
+#| label: metodologia
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(ggtext)
+library(microdatasus)
+library(geobr)
+library(sf)
+library(readxl)
+library(lubridate)
+
+dados <- read.csv("dados_sim.csv")
+populacao_br <- read_excel("populacao_MG_2022.xlsx", skip = 3)
+municipios_mg <- read_municipality(code_muni = "MG", year = 2020)
+regioes_mg <- read_meso_region(code_meso = "MG", year = 2020)
+
+colnames(populacao_br) <- c("code_muni", "name_muni", "populacao_muni")
+
+pneumonia <- dados|>
+  mutate(CODMUNRES = as.character(CODMUNRES))|>
+  filter(CAUSABAS == "J189")
+
+geom_regioes <- regioes_mg|>
+  select(code_meso, geom)
+
+minas_gerais <- municipios_mg|>
+  st_join(regioes_mg, join = st_intersects)|>
+  distinct(code_muni, .keep_all = TRUE)|> 
+  select(code_muni, name_muni, code_meso, name_meso)|> 
+  st_drop_geometry()|>
+  inner_join(geom_regioes, by = "code_meso")|>
+  st_as_sf()|>
+  mutate(code_muni = code_muni %/% 10,
+         code_muni = as.character(code_muni))
+
+populacao_mg <- populacao_br|>
+  filter(startsWith(code_muni, "31"))|>
+  mutate(code_muni = as.numeric(code_muni))|>
+  select(code_muni, populacao_muni)|>
+  mutate(code_muni = code_muni %/% 10,
+         code_muni = as.character(code_muni))
+
+######
+dados_MG <- read.csv("dados_sim_MG.csv")
+dados_SP <- read.csv("dados_sim_SP.csv")
+dados_RJ <- read.csv("dados_sim_RJ.csv")
+dados_ES <- read.csv("dados_sim_ES.csv")
+
+dados_MG <- dados_MG|>
+  mutate(ESTADO = "MG", .before = contador)|>
+  select(ESTADO, DTOBITO)
+  
+dados_SP <- dados_SP|>
+  mutate(ESTADO = "SP", .before = CONTADOR)|>
+  select(ESTADO, DTOBITO)
+
+dados_RJ <- dados_RJ|>
+  mutate(ESTADO = "RJ", .before = CONTADOR)|>
+  select(ESTADO, DTOBITO)
+
+dados_ES <- dados_ES|>
+  mutate(ESTADO = "ES", .before = CONTADOR)|>
+  select(ESTADO, DTOBITO)
+
+dados_sudeste <- rbind(dados_MG, dados_SP, dados_RJ, dados_ES)
+
+dados_sudeste2 <- rbind(dados_SP, dados_RJ, dados_ES)
+dados_sudeste2 <- dados_sudeste2|>
+  mutate(DTOBITO = as.Date(DTOBITO))|>
+  mutate(MESOBITO = month(DTOBITO),
+         ANOBITO = year(DTOBITO))|> 
+  group_by(ANOBITO, MESOBITO, ESTADO)|>
+  count()|>
+  mutate(POP_CENSO = case_when(
+    ANOBITO < 2022 & ESTADO == "SP" ~ 41262199,
+    ANOBITO < 2022 & ESTADO == "RJ" ~ 15989929,
+    ANOBITO < 2022 & ESTADO == "ES" ~ 3514952,
+    ANOBITO >= 2022 & ESTADO == "SP" ~ 44411238,
+    ANOBITO >= 2022 & ESTADO == "RJ" ~ 16055174,
+    ANOBITO >= 2022 & ESTADO == "ES" ~ 3833712))|> 
+  mutate(TAXA = (n / POP_CENSO) * 100000,
+         DTOBITO = as.Date(paste(ANOBITO, MESOBITO, "01", sep = "-")))
+
+dados_MG2 <- dados_MG|>
+  mutate(DTOBITO = as.Date(DTOBITO))|>
+  mutate(MESOBITO = month(DTOBITO),
+         ANOBITO = year(DTOBITO))|> 
+  group_by(ANOBITO, MESOBITO, ESTADO)|>
+  count()|>
+  mutate(POP_CENSO = ifelse(ANOBITO < 2022, 19597330, 20539989))|>
+  mutate(TAXA = (n / POP_CENSO) * 100000,
+         DTOBITO = as.Date(paste(ANOBITO, MESOBITO, "01", sep = "-")))
+
+piramide <- pneumonia|>
+  mutate(IDADEanos = ifelse(is.na(IDADEanos), 0, IDADEanos))|>
+  filter(!is.na(SEXO))|> 
+  count(IDADEanos, SEXO)
+
+piramide_homens <- piramide|>
+  filter(SEXO == "Masculino")
+
+piramide_mulheres <- piramide|>
+  filter(SEXO == "Feminino")
+```
+
+
+# Resultados
+
+Na região Sudeste, apesar de São Paulo ser o estado com maior número absoluto de óbitos por pneumonia não especificada, o estado do Rio de Janeiro é o que apresenta maior taxa de mortalidade pela infecção pulmonar. Dentre os quatro estados da região, o único que apresenta comportamento de queda é o Espírito Santo, além de ser o com menor taxa de mortes. É importante destacar os anos de 2020 e 2021, durante esse período houve queda geral na região, isso pode estar relacionado à pandemia de COVID-19 que o mundo enfrentava na época.
+
+```{r}
+#| label: gráficos1e2
+#| echo: false
+#| warning: false
+#| layout: [[1,1]]
+
+dados_sudeste|>
+  mutate(DTOBITO = as.Date(DTOBITO))|>
+  mutate(MESOBITO = month(DTOBITO), .after = DTOBITO)|>
+  mutate(ANOBITO = year(DTOBITO), .after = MESOBITO)|>
+  group_by(ANOBITO, ESTADO)|>
+  count()|>
+  mutate(POP_CENSO = case_when(
+    ANOBITO < 2022 & ESTADO == "MG" ~ 19597330,
+    ANOBITO < 2022 & ESTADO == "SP" ~ 41262199,
+    ANOBITO < 2022 & ESTADO == "RJ" ~ 15989929,
+    ANOBITO < 2022 & ESTADO == "ES" ~ 3514952,
+    ANOBITO >= 2022 & ESTADO == "MG" ~ 20539989,
+    ANOBITO >= 2022 & ESTADO == "SP" ~ 44411238,
+    ANOBITO >= 2022 & ESTADO == "RJ" ~ 16055174,
+    ANOBITO >= 2022 & ESTADO == "ES" ~ 3833712))|> 
+  mutate(TAXA = (n / POP_CENSO) * 100000)|> 
+  mutate(ISMG = ifelse(ESTADO == "MG", 1, 0), .after = ESTADO)|>
+  mutate(ANOBITO = as.factor(ANOBITO),
+         ISMG = as.factor(ISMG))|>
+  ungroup()|>
+  ggplot(mapping = aes(x = ANOBITO, y = TAXA, group = ESTADO, color = ISMG))+
+  geom_line(linewidth = 1)+
+  labs(title = "Desde 2014, <span style='color:#368F8B'><b>Minas Gerais</b></span> tem a segunda maior taxa anual <br>de mortalidade por pnemonia não especificada",
+       x = "", y = "")+
+  scale_color_manual(values = c("grey60", "#368F8B"))+
+  scale_x_discrete(expand = expansion(mult = c(0.03, 0.1)))+
+  annotate(geom = "text", x = 11.3, y = 32.4, label = "SP", color = "grey60")+
+  annotate(geom = "text", x = 11.3, y = 52.9, label = "RJ", color = "grey60")+
+  annotate(geom = "text", x = 11.3, y = 40.1, label = "MG", 
+           color = "#368F8B", fontface = "bold")+
+  annotate(geom = "text", x = 11.3, y = 7.5, label = "ES", color = "grey60")+
+  theme_classic()+
+  theme(plot.title = element_markdown(color = "grey40"),
+        plot.subtitle = element_text(colour = "grey40"),
+        axis.line = element_line(color = "grey60"),
+        axis.text = element_text(color = "grey60"),
+        axis.ticks = element_line(color = "grey60"),
+        legend.position = "none")
+
+ggplot()+
+  geom_line(data = dados_sudeste2, 
+            mapping = aes(x = DTOBITO, y = TAXA, group = ESTADO),
+            color = "grey60", 
+            linewidth = 0.5, alpha = 0.5)+
+  geom_line(data = dados_MG2, 
+            mapping = aes(x = DTOBITO, y = TAXA, group = ESTADO),
+            color = "#368F8B",
+            linewidth = 0.8)+
+  labs(title = "Óbitos por pneumonia não especificada têm picos nos meses \nmais frios do ano",
+       x = "", y = "")+
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y",
+               expand = expansion(mult = c(0.03, 0.1)))+
+  annotate(geom = "text", x = as.Date("2025-04-22"), y = 2.6, 
+           label = "SP", color = "grey60")+
+  annotate(geom = "text", x = as.Date("2025-04-22"), y = 4.4, 
+           label = "RJ", color = "grey60")+
+  annotate(geom = "text", as.Date("2025-04-22"), y = 2.9, 
+           label = "MG", color = "#368F8B", fontface = "bold")+
+  annotate(geom = "text", x = as.Date("2025-04-22"), y = 1, 
+           label = "ES", color = "grey60")+
+  theme_classic()+
+  theme(plot.title = element_text(color = "grey40"),
+        plot.subtitle = element_text(colour = "grey40"),
+        axis.line = element_line(color = "grey60"),
+        axis.text = element_text(color = "grey60"),
+        axis.ticks = element_line(color = "grey60"),
+        legend.position = "none")
+```
+
+Na figura à direita, temos novamente a taxa de mortalidade por pneumonia não especificada nos estados da região Sudeste, porém sob uma perspectiva mensal. É possível notar que os óbitos pela infecção apresentam um comportamento sazonal bem definido ao longo da série histórica, em que os picos de mortes ocorrem no meio do ano, período que coincide com os meses mais frios. 
+
+Passando a analisar apenas o estado de Minas Gerais em 2024, quando dividido em mesorregiões, as taxas mais elevadas estão nas regiões Central Mineira, Jequitinhonha e Vale do Mucuri, esse último se destaca quando comparado ao restante do estado, pois apresenta uma taxa que supera seis óbitos por 100 mil habitantes, o dobro quando contraposto a qualquer outra região do estado. Essa disparidade levanta questões sobre o possível acesso limitado à saúde e as questões socioeconômicas da mesorregião. 
+
+```{r}
+#| label: grafico3
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+dados_mapa <- pneumonia|>
+  rename(code_muni = CODMUNRES)|>
+  select(code_muni)|>
+  left_join(populacao_mg)|>
+  left_join(minas_gerais)|> 
+  group_by(code_meso)|>
+  summarise(mortes_regiao = n(),
+            pop_regiao = sum(populacao_muni))|>
+  left_join(regioes_mg)|> 
+  mutate(taxa_100mil = (mortes_regiao/pop_regiao) * 100000)
+ 
+ggplot(dados_mapa, aes(fill = taxa_100mil, geometry = geom))+
+  geom_sf(color = "whitesmoke")+
+  labs(title = "Pneumonia não especificada superou seis óbitos a cada <br>100 mil habitantes no <span style='color:#542344'><b>Vale do Mucuri</b></span> em 2024",
+       fill = "")+
+  scale_fill_gradient(low = "whitesmoke", high = "#542344")+
+  theme_void()+
+  theme(plot.title = element_markdown(color = "grey40"),
+        plot.subtitle = element_text(color = "grey40"),
+        legend.text = element_text(color = "grey40"))
+```
+
+A mortalidade por pneumonia não especificada em Minas Gerais no ano de 2024 afeta principalmente a população idosa do estado, pessoas com mais de 75 anos compõem aproximadamente 34% dos óbitos pela infecção. Entre os homens, óbitos se distribuem de maneira expressiva a partir dos 70 anos, já para as mulheres a concentração é mais elevada em na faixa acima dos 80, isso condiz com a maior expectativa de vida das mulheres. 
+
+```{r}
+#| label: grafico4
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+ggplot(data = piramide, mapping = aes(y = IDADEanos))+
+  geom_ribbon(data = piramide_homens, aes(xmin = -9, xmax = -9 - n, fill = SEXO))+
+  geom_ribbon(data = piramide_mulheres, aes(xmin = 9, xmax = 9 + n, fill = SEXO))+
+  geom_text(data = data.frame(idade = seq(0, 120, 10)),
+            aes(x = 0, y = idade, label = idade), size = 3, color = "grey40")+
+  labs(title = "Idosos acima de 75 anos compõem expressivamente os óbitos \npor pneumonia em MG (2024)",
+       x = "", y = "")+
+  scale_fill_manual(values = c("#98C1D9", "#294C60"))+
+  scale_x_continuous(breaks = c(-159, -109, -59, -9, 9, 59, 109, 159),
+                     labels = c("150", "100", "50", "0", "0", "50", "100", "150"))+
+  annotate("text", x = -80, y = 30, label = "Homens", 
+           fontface = "bold", size = 5, color = "#294C60", alpha = 0.7)+
+  annotate("text", x = 80, y = 30, label = "Mulheres", 
+           fontface = "bold", size = 5, color = "#98C1D9", alpha = 0.8) +
+  annotate("segment", x = -9, xend = -200, y = -5, yend = -5, color = "grey60")+
+  annotate("segment", x = 9, xend = 200, y = -5, yend = -5, color = "grey60")+
+  annotate("segment", x = -9, xend = -9, y = -5, yend = -3, color = "grey60")+
+  annotate("segment", x = 9, xend = 9, y = -5, yend = -3, color = "grey60")+
+  theme_minimal()+
+  theme(plot.title = element_text(color = "grey40"),
+        plot.subtitle = element_text(color = "grey40"),
+        axis.text.x = element_text(color = "grey40",vjust = 8),
+        axis.text.y = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none")
+```
+
+# Conclusões
+
+Os dados analisados revelam que a mortalidade por pneumonia não especificada apresenta no Sudeste, com ênfase em Minas Gerais, certos padrões como a maior incidência em meses frios e a ocorrência expressiva em idosos acima de 80 anos. Além disso, dentro do estado há disparidades regionais que torna nítido a discrepância de políticas de saúde no estado.
