@@ -19,7 +19,7 @@ Essa apresentação é fruto de uma pesquisa realizada no PET Estatística a qua
 
 Os slides da palestra com os dados levantados está disponivel no link a seguir:
 
-[PALESTRA - Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas](http://rpubs.com/mariacecilia_macedo/1416550)
+[PALESTRA - Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas](http://rpubs.com/mariacecilia_macedo/1416550){target="_blank"}
 
 # Desenvolvimento
 
