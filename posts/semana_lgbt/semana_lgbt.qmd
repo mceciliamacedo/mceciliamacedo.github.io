@@ -1,0 +1,28 @@
+---
+title: "Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas"
+image: love.jpeg
+categories: ["apresentação", "pesquisa"]
+description: pesquisa desenvolvida dentro do PET Estatística e apresentada na 1ª Semana Científica LGBTQIAPN+ da UFU.
+author: 
+  - "PET Estatística UFU"
+  - "Maria Cecília Macedo"
+date: "2025-08-22"
+date-format: medium
+toc-title: "nesta página"
+---
+
+# Sobre a atividade
+
+Essa apresentação é fruto de uma pesquisa realizada no PET Estatística a qual tomei frente. Ela foi elaborada para servir como palestra na 1ª Semana Científica LGBTQIAPN+ da UFU, evento idealizado pelo PET Geografia.  
+
+# Apresentação
+
+Os slides da palestra com os dados levantados está disponivel no link a seguir:
+
+[PALESTRA - Contar para existir: a comunidade LGBTQIAPN+ nas estatísticas](http://rpubs.com/mariacecilia_macedo/1416550)
+
+# Desenvolvimento
+
+A 1ª Semana Científica LGBTQIAPN+ foi idealizada pelo PET Geografia, que convidou os grupos PET Estatística e PET Contábeis para colaborarem na realização do evento. Estabeleceu-se que o meu grupo realizaria um levantamento de dados sobre a população LGBTQIAPN+ e, a partir das informações coletadas, uma palestra seria estruturada e apresentada no evento. Tive a honra de representar meu grupo nas reuniões com os demais grupos, tomar frente na elaboração da apresentação e palestrar no evento.
+
+O levantamento de dados foi um trabalho coletivo e complexo. Os petianos foram encarregados de buscar informações, notícias, sugestões de bases de dados e quaisquer materiais que pudessem servir como fonte para a pesquisa. Nessa etapa inicial, ficou claro que a obtenção dessas informações seria um processo desafiador, devido principalmente ao apagamento deste grupo marginalizado e a subnotificação de registros. O grupo optou por utilizar apenas dados de fontes oficiais para maior confiabilidade das informações apresentadas. 
