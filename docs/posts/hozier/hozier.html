@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Maria Cecília Macedo">
-<meta name="description" content="trabalho final da matéria optativa de geoestatística.">
+<meta name="description" content="primeira análise de sentimentos de um álbum que realizei. este projeto foi apresentado em um eustatística, atividade interna do PET Estatística.">
 
-<title>Analfabetismo em Minas Gerais – maria cecília macedo</title>
+<title>Uma análise do álbum Unreal Unearth de Hozier – maria cecília macedo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,27 +22,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,15 +123,10 @@ div.csl-indent {
     <h2 id="toc-title">nesta página</h2>
    
   <ul>
-  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">1. Introdução</a></li>
-  <li><a href="#metodologia" id="toc-metodologia" class="nav-link" data-scroll-target="#metodologia">2. Metodologia</a>
-  <ul class="collapse">
-  <li><a href="#material-do-estudo" id="toc-material-do-estudo" class="nav-link" data-scroll-target="#material-do-estudo">2.1. Material do estudo</a></li>
-  <li><a href="#métodos-utilizados" id="toc-métodos-utilizados" class="nav-link" data-scroll-target="#métodos-utilizados">2.2. Métodos utilizados</a></li>
-  <li><a href="#resultados" id="toc-resultados" class="nav-link" data-scroll-target="#resultados">3. Resultados</a></li>
-  </ul></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">4. Conclusão</a></li>
-  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
+  <li><a href="#contextualização" id="toc-contextualização" class="nav-link active" data-scroll-target="#contextualização">Contextualização</a></li>
+  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
+  <li><a href="#análise" id="toc-análise" class="nav-link" data-scroll-target="#análise">Análise</a></li>
+  <li><a href="#conclusões" id="toc-conclusões" class="nav-link" data-scroll-target="#conclusões">Conclusões</a></li>
   </ul>
 </nav>
     </div>
@@ -160,16 +135,17 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Analfabetismo em Minas Gerais</h1>
+<h1 class="title">Uma análise do álbum Unreal Unearth de Hozier</h1>
   <div class="quarto-categories">
     <div class="quarto-category">r</div>
-    <div class="quarto-category">geoestatística</div>
+    <div class="quarto-category">npl</div>
+    <div class="quarto-category">música</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    trabalho final da matéria optativa de geoestatística.
+    primeira análise de sentimentos de um álbum que realizei. este projeto foi apresentado em um eustatística, atividade interna do PET Estatística.
   </div>
 </div>
 
@@ -186,7 +162,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">11 de set. de 2025</p>
+      <p class="date">10 de jul. de 2024</p>
     </div>
   </div>
   
@@ -198,251 +174,38 @@ div.csl-indent {
 </header>
 
 
-<section id="introdução" class="level1">
-<h1>1. Introdução</h1>
-<p>O analfabetismo no Brasil é um desafio histórico e persistente. Apesar de avanços significativos nos últimos anos, o país ainda enfrenta altas taxas de pessoas não alfabetizadas, isso reflete a má formação educacional e as desigualdades sociais.</p>
-<p>A desigualdade de oportunidades educacional durante a infância do indivíduo é refletida na vida adulta quando enfrenta-se diferenças de produtividade e acarreta em salários baixos no mercado de trabalho. A literatura educacional tem enfatizado a importância de ambientes escolares que promovam tanto a alfabetização quanto o letramento, incentivando o uso da leitura e da escrita para além da simples decodificação de textos.</p>
-<p>Em Minas Gerais, a Secretaria de Estado de Educação (SEE/MG) implementa políticas públicas para enfrentar o analfabetismo, como a criação do Programa de Avaliação da Alfabetização (Proalfa) em 2005 e, em 2008, o Programa de Intervenção Pedagógica (PIP). O objetivo do PIP é melhorar a aprendizagem dos alunos e reduzir a repetência, com a meta de que toda criança saiba ler e escrever até os oito anos de idade. Um estudo de Faria e Chein (2016) avaliou o efeito do PIP e de outras intervenções educacionais em Minas Gerais, utilizando dados do Prova Brasil e do Censo Escolar. Os resultados desse estudo indicam que o programa conseguiu elevar a proficiência dos alunos em matemática e língua portuguesa, principalmente entre 2007 e 2009. A pesquisa aponta que políticas de avaliação externa podem ser usadas para incentivar a melhoria do desempenho dos alunos.</p>
-<p>O presente trabalho visa analisar a taxa analfabetismo em 2012 da população mineira com idade superior a 25 anos utilizando técnicas geoestatísticas a fim de contribuir para a compreensão da distribuição espacial desta problemática no estado de Minas Gerais.</p>
+<section id="contextualização" class="level1">
+<h1>Contextualização</h1>
+<p><em>Unreal Unearth</em> é o terceiro álbum de estúdio do artista irlandês Hozier. Lançado em agosto de 2023, o disco conta com 16 faixas, originalmente, que têm como inspiração pricipal a primeira parte do poema épico <em>A Divina Comédia</em> de Dante Alighieri.</p>
+<p>As faixas do álbum acompanham a jornada de purificação e autoconhecimento de Dante através dos nove círculos do inferno para assim então encontrar a salvação divina e reencontrar-se com sua amada Beatrice no Paraíso.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="circulos.png" class="img-fluid figure-img"></p>
+<figcaption>Músicas de Hozier e o círculo do inferno que representam</figcaption>
+</figure>
+</div>
 </section>
-<section id="metodologia" class="level1">
-<h1>2. Metodologia</h1>
-<section id="material-do-estudo" class="level2">
-<h2 class="anchored" data-anchor-id="material-do-estudo">2.1. Material do estudo</h2>
-<p>Os dados sobre utilizados para realizar este estudo foram extraídos do Índice Mineiro de Responsabilidade Social (IMRS) e abrangem todos os 853 municípios mineiros. O conjunto apresenta informações sobre a taxa de analfabetismo da população com 25 anos ou mais nos municípios do estado de Minas Gerais, nos anos de 2000 e 2010.</p>
+<section id="objetivo" class="level1">
+<h1>Objetivo</h1>
+<p>O objetivo deste projeto é utilizar técnicas de Processamento de Linguagem Natural aprendidas no grupo de estudos do PET Eststística em todas as músicas do álbum <em>Unreal Unearth</em> e analisar quais sentimentos prevalentes em cada círculo do Inferno de Dante para entender se a jornada escrita pelo ponto de vista de Hozier se torna mais negativa, devido ao seu percurso ou mais positiva, devido ao narrador estar cada vez mais próximo de sua amada, apesar da jornada.</p>
+</section>
+<section id="análise" class="level1">
+<h1>Análise</h1>
+<p>As letras das canções foram obtidas através de <em>web scraping</em>. Para entender o comportamento, optei por uma abordagem binária para resumir os sentimento de cada música. Isso é possível de ser fazer com a utilização dos dicionários léxicos Bing e Afinn, o primeiro classifica uma palavra em positivo e negativo, já o segundo atribui um valor inteiro entre -5 e 5.</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">municipio</th>
-<th style="text-align: right;">X2000</th>
-<th style="text-align: right;">X2010</th>
-<th style="text-align: right;">long</th>
-<th style="text-align: right;">latit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Uberlândia</td>
-<td style="text-align: right;">7.04</td>
-<td style="text-align: right;">4.65</td>
-<td style="text-align: right;">-48.1638</td>
-<td style="text-align: right;">-18.5507</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Umburatiba</td>
-<td style="text-align: right;">39.01</td>
-<td style="text-align: right;">33.18</td>
-<td style="text-align: right;">-40.3422</td>
-<td style="text-align: right;">-17.1521</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Unaí</td>
-<td style="text-align: right;">16.94</td>
-<td style="text-align: right;">10.92</td>
-<td style="text-align: right;">-46.5422</td>
-<td style="text-align: right;">-16.2127</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">União de Minas</td>
-<td style="text-align: right;">22.49</td>
-<td style="text-align: right;">17.19</td>
-<td style="text-align: right;">-50.2009</td>
-<td style="text-align: right;">-19.3149</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Uruana de Minas</td>
-<td style="text-align: right;">25.86</td>
-<td style="text-align: right;">22.85</td>
-<td style="text-align: right;">-46.1515</td>
-<td style="text-align: right;">-16.0351</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>O intuito deste trabalho é realizar um estudo sobre as taxas de analfabetismo entre pessoas com mais de 25 anos no estado de Minas Gerais mais recentes obtidas pelo IMRS. Portanto, será utlizado somente a variável referente ao ano de 2010.</p>
-</section>
-<section id="métodos-utilizados" class="level2">
-<h2 class="anchored" data-anchor-id="métodos-utilizados">2.2. Métodos utilizados</h2>
-<p>Inicialmente, as análises feitas foram utilizadas as taxas de analfabetismo de todos os 853 municípios do estado de Minas Gerais. Nessa análise inicial, foi notável a grande variabilidade dos dados e a presença de altos valores discrepantes. A dispersão dos dados varia de taxas entre algo próximo a 0% à taxas superiores a 40%, a maioria das cidades mineiras apresentam uma taxa entre 10% à 20% de adultos analfabetos.</p>
-<p>Os dados também não apresentaram uma distribuição normal aparente, o que é um pressuposto importante para a aplicação de técnicas geoestatísticas. Portanto, foi necessário realizar uma transformação logarítmica nos dados para tentar normalizá-los.</p>
-<p>Após a realização dessas primeiras análises exploratórias deu-se início a análise exploratória geoespacial. Nela notou-se a existência de duas populações distitas as regiões do Norte de Minas, Vale do Jequitinhonha, Vale do Mucuri e Vale do Rio doce apresentaram taxas altíssimas em relação ao restante do estado, isso culminou em uma tendência espacial muito forte, o que atrapalhou o estudo. Por esse motivo, optou-se por realizar a análise apenas para as cidades do Triângulo Mineiro e do Alto Paranaíba. Mas analisar os dados dessas regiões que mostraram altas taxas é de extrema importância para entender por que elas diferem do restante do estado.</p>
-<p>Com as observações reduzidas, realizou-se novamente a análise exploratória dos dados. A região do Triângulo Mineiro e Alto Paranaíba apresentou variabilidade moderada dos dados e mostrou ter uma distribuição mais próxima da normal, isso comprovou-se ao testar a normalidade dos dados através do teste de Shapiro-Wilk.</p>
-<p>Quando realizada a análise exploratória geoespacial, apesar de mais fraca do que anteriormente ainda foi possível notar a presença de uma tendência espacial, onde as cidades mais ao oeste apresentavam maiores taxas de analfabetismo. O semivariograma experimental também indicou a presença de dependência espacial.</p>
-<p>Vários modelos foram ajustados ao semivariograma experimental, entre eles o modelo exponencial, modelo esférico e gaussiano. O modelo que melhor se ajustou aos dados foi o modelo gaussiano, com alcance de 0.55 e patamar de 6.28.</p>
-<p>Na krigagem, o modelo gaussiano foi utilizado para prever as taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba. O mapa de previsão resultante mostrou a distribuição espacial das taxas de analfabetismo na região, com áreas de maior e menor prevalência claramente delineadas.</p>
-</section>
-<section id="resultados" class="level2">
-<h2 class="anchored" data-anchor-id="resultados">3. Resultados</h2>
-<p>O conjunto contendo apenas as cidades do Triângulo Mineiro e Alto Paranaíba totaliza 66 observações que apresentaram as seguintes medidas descritivas:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">X2010</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">nobs</td>
-<td style="text-align: right;">66.000000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NAs</td>
-<td style="text-align: right;">0.000000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Minimum</td>
-<td style="text-align: right;">4.650000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Maximum</td>
-<td style="text-align: right;">19.520000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1. Quartile</td>
-<td style="text-align: right;">9.580000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3. Quartile</td>
-<td style="text-align: right;">13.857500</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Mean</td>
-<td style="text-align: right;">11.480152</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Median</td>
-<td style="text-align: right;">10.945000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Sum</td>
-<td style="text-align: right;">757.690000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SE Mean</td>
-<td style="text-align: right;">0.399960</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LCL Mean</td>
-<td style="text-align: right;">10.681377</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">UCL Mean</td>
-<td style="text-align: right;">12.278926</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Variance</td>
-<td style="text-align: right;">10.557866</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Stdev</td>
-<td style="text-align: right;">3.249287</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Skewness</td>
-<td style="text-align: right;">0.178172</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Kurtosis</td>
-<td style="text-align: right;">-0.328613</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>A menor taxa de analfabetismo registrada na região foi de 4.65%, enquanto a maior taxa foi de 19.52%. A média das taxas de analfabetismo na região é de aproximadamente 11,48%, com uma mediana de 10,945%. O desvio padrão de 3.24 indica uma há dispersão moderada dos dados em torno da média. Também é possível observar que existe uma leve assimetria.</p>
-<p><br></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="geoest_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Distribuição das taxas de analfabetismo em 2010 para as cidades do Triângulo Mineiro e Alto Paranaíba</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Analisando o histograma e o boxplot, é possível observar que os dados apresentam uma distribuição aproximadamente normal, com uma leve assimetria positiva. Isso se comprova ao utilizar o teste de Shapiro-Wilk, que não rejeita a hipótese nula de normalidade dos dados (p-valor = <code></code> <code>0.6471546</code> <code></code>). Também não há presença de valores extremos ou outliers significativos, o que sugere que os dados são relativamente homogêneos. Portanto, não há necessidade de realizar transformações nos dados.</p>
-<p>Uma última análise exploratória foi realizada, com os dados em forma geoespacial é possível entender melhor a distribuição espacial das taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="geoest_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Análise exploratória dos dados geoespaciais</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="geoest_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Distribuição espacial das taxas de analfabetismo em 2010 para as cidades do Triângulo Mineiro e Alto Paranaíba</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>É possível observar que as cidades localizadas mais ao oeste da região do Triângulo Mineiro e Alto Paranaíba apresentam taxas de analfabetismo mais elevadas, enquanto as cidades situadas mais ao leste apresentam taxas mais baixas. Essa tendência espacial sugere que fatores geográficos, socioeconômicos ou culturais podem estar influenciando a distribuição das taxas de analfabetismo na região.</p>
-<p>Com as análises devidamente concluídas, o próximo passo foi identificar a presença de dependência espacial nas taxas de analfabetismo. Para isso, foi calculado o semivariograma experimental e ajustado o envelope de Monte Carlo.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="semivariograma.png" class="img-fluid figure-img"></p>
-<figcaption>Semivariograma experimental</figcaption>
-</figure>
-</div>
-<p>O semivariograma experimental obtido, juntamente com o envelope, mostra que há fraca dependência espacial nas taxas de analfabetismo na região do Triângulo Mineiro e Alto Paranaíba. Isso indica que as taxas de uma cidade podem estar relacionadas às taxas em cidades vizinhas, o que é um aspecto importante a ser considerado em estudos futuros sobre o tema.</p>
-<p>Para modelar a dependência espacial observada no semivariograma experimental, foram ajustados vários modelos teóricos, incluindo o modelo exponencial, esférico e gaussiano. O modelo que melhor se ajustou aos dados foi o modelo gaussiano, com alcance de 0.55 e patamar de 6.28.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="modelo_gauss.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
-<figcaption>Modelo gaussiano</figcaption>
-</figure>
-</div>
-<p>Após a realização do ajuste do modelo, foi feita a validação cruzada para avaliar o desempenho de cada um. O modelo gaussiano apresentou o melhor desempenho, com menor erro padrão médio e variância do erro padrão e bem ajustado ao envelope (Figura 6). Portanto, foi escolhido para ser utilizado na krigagem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="modelo_ajustado.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
-<figcaption>Modelo ajustado ao envelope</figcaption>
-</figure>
-</div>
-<p>O mapa de previsão resultante mostrou a distribuição espacial das taxas de analfabetismo na região, com áreas de maior e menor prevalência claramente delineadas. Ao observá-lo, é possível identificar que as taxas de analfabetismo são mais elevadas nas áreas mais ao oeste da região do Triângulo Mineiro e Alto Paranaíba.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="geoest_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Krigagem</figcaption>
+<p><img src="hozier_files/figure-html/pln-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="conclusão" class="level1">
-<h1>4. Conclusão</h1>
-<p>A análise geoestatística das taxas de analfabetismo no Triângulo Mineiro e Alto Paranaíba revelou padrões espaciais significativos e dependência entre as cidades vizinhas. Utilizando o semivariograma, foi possível identificar essa dependência, com o modelo gaussiano sendo o mais adequado para o ajuste dos dados. A krigagem, que se baseou nesse modelo, produziu um mapa de previsão que delineou claramente as áreas de maior e menor prevalência de analfabetismo na região.</p>
-<p>Esses resultados demonstram que as taxas de analfabetismo não estão distribuídas aleatoriamente e que fatores geográficos, socioeconômicos ou culturais locais podem estar influenciando sua distribuição. A abordagem geoestatística mostrou-se uma ferramenta eficaz para compreender essa problemática, sugerindo que políticas públicas de combate ao analfabetismo devem ser regionalizadas e direcionadas às áreas com maior necessidade. Pesquisas futuras podem aprofundar essa análise, expandindo o estudo para outras regiões do estado e incorporando mais variáveis para uma compreensão mais completa dos fatores que contribuem para o problema.</p>
-</section>
-<section id="referências" class="level1">
-<h1>Referências</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-faria2016alfabetizacao" class="csl-entry" role="listitem">
-Faria, Victor Nascimento, e Flávia Chein. 2016. <span>«Alfabetiza<span>ç</span><span>ã</span>o e desempenho escolar: uma an<span>á</span>lise de interven<span>ç</span><span>õ</span>es recentes em Minas Gerais»</span>. <em>Planejamento e Pol<span>ı́</span>ticas P<span>ú</span>blicas</em> 46: 295–332.
-</div>
-<div id="ref-paini2005retrato" class="csl-entry" role="listitem">
-Paini, Leonor Dias, Eliana Alves Greco, Ana Laura Azevedo, Maria de Lurdes Valino, e Sebastião Gazola. 2005. <span>«Retrato do analfabetismo: algumas considera<span>ç</span><span>õ</span>es sobre a educa<span>ç</span><span>ã</span>o no Brasil»</span>. <em>Acta Scientiarum. Human and Social Sciences</em> 27 (2): 223–30.
-</div>
-<div id="ref-simoes2012programa" class="csl-entry" role="listitem">
-Simões, Maria Inez Barroso. 2012. <span>«O Programa de Interven<span>ç</span><span>ã</span>o Pedag<span>ó</span>gica do Estado de Minas Gerais - PIP»</span>. Disserta{\c{c}}{\~a}o de Mestrado, Juiz de Fora: Universidade Federal de Juiz de Fora.
-</div>
-</div>
+<section id="conclusões" class="level1">
+<h1>Conclusões</h1>
+<p>O sentimento das músicas é variado, me parece que a jornada começa positiva, durante seu percurso se torna mais negativa devido aos percalços enfrentados, porém quando chega perto de seu fim, a esperança ressusge e torna-se positiva outra vez.</p>
+<p>Existe uma diferença nítida entre os dicionários, principalmente na escala dos sentimentos, o que era esperado uma vez que no segundo dicionário a polaridade das músicas tem uma amplitude muito maior que a do primeiro. Porém, grande parte das músicas mantiveram a mesma polaridade geral (poisitiva e negativa) entre os dois dicionários, com exeção das canções <em>I, Carrion (Icarian)</em>, <em>Damage Gets Done</em>, <em>Who We Are</em>, <em>To Someone From a Warm Climate (Uiscefhuarithe)</em> e <em>Butchered Tongue</em>, sendo a primeira e <em>Who We Are</em> as com maior diferença em proporção entre os dicionários.</p>
 
 
 </section>

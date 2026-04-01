@@ -2,7 +2,7 @@
 title: "Analfabetismo em Minas Gerais"
 image: geoest.png
 categories: ["r", "geoestatística"]
-description: trabalho final da matéria optativa de geoestatística
+description: trabalho final da matéria optativa de geoestatística.
 author: "Maria Cecília Macedo"
 date: "2025-09-11"
 date-format: medium
