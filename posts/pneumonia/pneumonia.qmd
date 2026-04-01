@@ -148,10 +148,10 @@ piramide_mulheres <- piramide|>
 Na região Sudeste, apesar de São Paulo ser o estado com maior número absoluto de óbitos por pneumonia não especificada, o estado do Rio de Janeiro é o que apresenta maior taxa de mortalidade pela infecção pulmonar. Dentre os quatro estados da região, o único que apresenta comportamento de queda é o Espírito Santo, além de ser o com menor taxa de mortes. É importante destacar os anos de 2020 e 2021, durante esse período houve queda geral na região, isso pode estar relacionado à pandemia de COVID-19 que o mundo enfrentava na época.
 
 ```{r}
-#| label: gráficos1e2
+#| label: grafico1
 #| echo: false
 #| warning: false
-#| layout: [[1,1]]
+#| fig-align: center
 
 dados_sudeste|>
   mutate(DTOBITO = as.Date(DTOBITO))|>
@@ -191,6 +191,15 @@ dados_sudeste|>
         axis.text = element_text(color = "grey60"),
         axis.ticks = element_line(color = "grey60"),
         legend.position = "none")
+```
+
+A seguir, temos novamente a taxa de mortalidade por pneumonia não especificada nos estados da região Sudeste, porém sob uma perspectiva mensal. É possível notar que os óbitos pela infecção apresentam um comportamento sazonal bem definido ao longo da série histórica, em que os picos de mortes ocorrem no meio do ano, período que coincide com os meses mais frios. 
+
+```{r}
+#| label: grafico2
+#| echo: false
+#| warning: false
+#| fig-align: center
 
 ggplot()+
   geom_line(data = dados_sudeste2, 
@@ -222,7 +231,6 @@ ggplot()+
         legend.position = "none")
 ```
 
-Na figura à direita, temos novamente a taxa de mortalidade por pneumonia não especificada nos estados da região Sudeste, porém sob uma perspectiva mensal. É possível notar que os óbitos pela infecção apresentam um comportamento sazonal bem definido ao longo da série histórica, em que os picos de mortes ocorrem no meio do ano, período que coincide com os meses mais frios. 
 
 Passando a analisar apenas o estado de Minas Gerais em 2024, quando dividido em mesorregiões, as taxas mais elevadas estão nas regiões Central Mineira, Jequitinhonha e Vale do Mucuri, esse último se destaca quando comparado ao restante do estado, pois apresenta uma taxa que supera seis óbitos por 100 mil habitantes, o dobro quando contraposto a qualquer outra região do estado. Essa disparidade levanta questões sobre o possível acesso limitado à saúde e as questões socioeconômicas da mesorregião. 
 
