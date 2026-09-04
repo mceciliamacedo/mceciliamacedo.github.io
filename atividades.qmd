@@ -5,7 +5,7 @@ toc-title: "nesta página"
 
 aqui você encontra registros fotográficos de algumas atividades que participei ao longo de minha graduação.
 
-::: {.citacao}
+::: {.minha-citacao}
 *"compreendi a fatalidade do acaso e não existe nisso contradição"*  
 *clarice lispector*.
 :::
