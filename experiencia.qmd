@@ -9,12 +9,12 @@ toc-title: "nesta página"
 
 #### Universidade Federal de Uberlândia
 
-*Bacharelado em Estatística | Novembro 2021 - presente*
+*Bacharelado em Estatística | Novembro 2021 - Agosto 2026*
 
 ### projetos e atividades
 
 #### PET Estatística
-*outubro 2022 - presente*
+*outubro 2022 - agosto 2026*
 
 No Programa de Educação Tutorial (PET), realizo atividades de ensino, pesquisa e extensão, como palestras, minicursos, grupo de estudos e eventos dentro da universidade.
 
@@ -36,8 +36,6 @@ Participei de iniciação científica na área de probabilidade, onde desenvolvi
 
 ##### Império em dados: revisitando a história brasileira através de técnicas modernas
 
-*Em andamento*
-
 O objetivo dessa IC é utilizar técnicas computacionais para extrair os dados do primeiro censo do Brasil, realizado em 1872.
 
 # experiência profissional
@@ -45,7 +43,7 @@ O objetivo dessa IC é utilizar técnicas computacionais para extrair os dados d
 ### estágio
 
 #### Tribanco - Tesouraria/Renda Fixa
-*julho 2024 - presente*
+*julho 2024 - julho 2026*
 
 Atuo na melhoria e automação de rotinas na área de Tesouraria e Renda Fixa, envolvendo coleta, tratamento e visualização de dados. Buscando sempre tornar os processos mais eficientes.
 

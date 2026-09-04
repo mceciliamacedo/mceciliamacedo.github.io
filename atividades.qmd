@@ -3,13 +3,37 @@ title: "atividades"
 toc-title: "nesta página"
 ---
 
-aqui você encontra registros fotográficos de algumas atividades que participei ao longo da minha jornada.
+aqui você encontra registros fotográficos de algumas atividades que participei ao longo de minha graduação.
+
+# *across the universe*: uma análise estatística sobre a trajetória musical dos Beatles
+
+este foi a apresentação de meu TCC. com ele concluí minha graduação da melhor maneira possível, ao lado de pessoas muito importantes para mim e unindo  estatística e música, duas coisa que sou apaixonada.
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/tcc.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/tcc2.jpg)
+:::
+:::
+
+::: {.grid}
+::: {.g-col-6}
+![](fotos_atvs/tcc3.jpg)
+:::
+
+::: {.g-col-6}
+![](fotos_atvs/tcc4.jpg)
+:::
+:::
 
 # programanas
 
-o Programanas é um minicurso de programação para mulheres, que busca promover a inclusão e diminuir a disparidade de gênero na área de tecnologia. inicialmente era um curso de introdução a programação em python, porém foi reformulado e atualmente é de introdução a ciência de dados em R.
+o Programanas é um minicurso de programação para mulheres, que busca promover a inclusão e diminuir a disparidade de gênero na área de tecnologia. inicialmente era um curso de introdução a programação em python, porém foi reformulado e passou a ensinar introdução a ciência de dados em R.
 
-participei de todas as oito edições do Programanas, sendo a primeira como aluna e as seguintes ministrando e ajudando a elaborar as aulas desse projeto tão especial.
+ao todo, participei de nove edições do Programanas, sendo a primeira como aluna e as seguintes ministrando e ajudando a elaborar as aulas desse projeto tão especial.
 
 ::: {.grid}
 ::: {.g-col-6}
@@ -17,20 +41,26 @@ participei de todas as oito edições do Programanas, sendo a primeira como alun
 :::
 
 ::: {.g-col-6}
-![](fotos_atvs/programanas.jpg)
+![](fotos_atvs/programanas3.jpg)
 :::
 :::
 
 ::: {.grid}
 ::: {.g-col-6}
-![](fotos_atvs/programanas4.jpg)
+![](fotos_atvs/programanas5.jpg)
 :::
 
 ::: {.g-col-6}
-![](fotos_atvs/programanas3.jpg)
-:::
+![](fotos_atvs/programanas.jpg)
 :::
 
+:::
+
+# XI workshop on probabilistic and statistical methods
+
+apresentei os primeiros resultados de meu trabalho de conclusão de curso (TCC) em São Carlos num evento organizado pelo PIPGEs, o Programa Interinstitucional de Pós-Graduação em Estatística da UFSCar e USP.
+
+![](fotos_atvs/ufscar.jpg){width=50% fig-align="center"}
 
 # semana da estatística - UFU
 
