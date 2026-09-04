@@ -1,6 +1,11 @@
 /* css styles */
 
 .quarto-about-jolla p {
-  text-align: justify;
+  text-align: left;
   hyphens: auto;
+}
+
+.citacao p {
+  text-align: right !important;
+  opacity: 0.7;
 }

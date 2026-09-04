@@ -5,6 +5,11 @@ toc-title: "nesta página"
 
 aqui você encontra registros fotográficos de algumas atividades que participei ao longo de minha graduação.
 
+::: {.citacao}
+*"compreendi a fatalidade do acaso e não existe nisso contradição"*  
+*clarice lispector*.
+:::
+
 # *across the universe*: uma análise estatística sobre a trajetória musical dos Beatles
 
 este foi a apresentação de meu TCC. com ele concluí minha graduação da melhor maneira possível, ao lado de pessoas muito importantes para mim e unindo  estatística e música, duas coisa que sou apaixonada.

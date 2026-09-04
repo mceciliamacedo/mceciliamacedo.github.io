@@ -4,6 +4,9 @@ about:
   template: jolla
   image-shape: rounded
   links:
+  - icon: mortarboard
+    text: lattes
+    href: http://lattes.cnpq.br/4210044279894710
   - icon: linkedin
     text: linkedin
     href: https://www.linkedin.com/in/mceciliamacedo/
